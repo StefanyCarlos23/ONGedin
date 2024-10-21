@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONGedin - Cadastre sua ONG</title>
+    <link href="cadastro-ong.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <section>
+            <div class="nav-container">
+                <nav class="nav">
+                    <a href="home.html">Início</a>
+                    <a href="discovery.html">Pesquisar</a>
+                    <a href="donations.html">Doações</a>
+                    <a href="events.html">Eventos</a>
+                    <a href="nottifications.html">Notificações</a>
+                    <a href="profile.html">Perfil</a>
+                </nav>
+            </div>
+        </section>
+
+        <dvi class="btn-login">
+            <h3> Você já tem uma conta?</h3>
+            <buttom class="login-btn" herf="login.html">Login</buttom>
+        </dvi>
+
+
+        <h1> Dados cadastrais</h1>
+
+        <form id="form" name="form" action="" method="POST">
+            <div class="inputBox-1">
+                <label for="text">Nome:</label><br>
+                <input type="text" id="name" name="name"class="inputUser" placeholder="Insira seu nome completo" required>
+
+                <label for="text">E-mail</label><br>
+                <input type="text" id="e-mail" name="e-mail" class="inputUser" placeholder="Insira seu e-mail" required>
+            </div>
+            <div class="inputBox-2">
+                <label for="text">Área de Atuação</label>
+                <input type="text" id="area-activity" name="area-activity" class="inputUser" placeholder="Insira a área de atuação da ONG" required>
+
+                <label for="text">Data de fundação</label>
+                <input type="date" id="fundation-date" name="fundation-date" class="inputUser" required>
+            </div>
+            <div class="inputBox-3">
+                <label for="telephone" class="inputUser"><b>Telefone:</b></label>
+                <input type="text" name="telephone" id="telephone" required>
+
+                <label for="web-site" class="inputUser"><b>Web site:</b></label>
+                <input type="text" name="web-site" id="web-site" required>
+            </div>
+
+            <h1>Endereço</h1>
+
+            <div class="inputBox-4">
+                <label for="CEP" class="inputUser"><b>CEP:</b></label>
+                <input type="text" name="CEP" id="CEP" required>
+
+                <label for="road" class="inputUser"><b>Rua:</b></label>
+                <input type="text" name="road" id="road" required>
+
+                <label for="num" class="inputUser"><b>Número:</b></label>
+                <input type="text" name="num" id="num" required>
+            </div>
+
+            <div class="inputBox-5">
+                <label for="neighborhood" class="inputUser"><b>Bairro:</b></label>
+                <input type="text" name="neighborhood" id="neighborhood" required>
+
+                <label for="city" class="inputUser"><b>Cidade:</b></label>
+                <input type="text" name="city" id="city" required>
+            </div>
+
+            <div class="inputBox-6">
+                <label for="state" class="inputUser"><b>Estado:</b></label>
+                <input type="text" name="state" id="state" required>
+
+                <label for="country" class="inputUser"><b>Web site:</b></label>
+                <input type="text" name="country" id="country" required>
+            </div>
+
+            <div>
+                <label for="complement" class="inputUser"><b>Complemento:</b></label>
+                <input type="text" name="complement" id="comoplement" required>
+            </div>
+        </form>
+
+</body>
+</html>
