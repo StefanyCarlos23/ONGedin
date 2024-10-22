@@ -4,88 +4,149 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ONGedin - Cadastre sua ONG</title>
-    <link href="cadastro-ong.css" rel="stylesheet">
+    <link href="ong- register.css" rel="stylesheet">
 </head>
 <body>
     <header>
         <section>
             <div class="nav-container">
                 <nav class="nav">
-                    <a href="home.html">Início</a>
-                    <a href="discovery.html">Pesquisar</a>
-                    <a href="donations.html">Doações</a>
-                    <a href="events.html">Eventos</a>
-                    <a href="nottifications.html">Notificações</a>
-                    <a href="profile.html">Perfil</a>
+                    <a href="home.html">
+                        <img src="images/ongedin-logo.png" alt="ongedin-logo">
+                    </a>
+                    <div class="nav-right">
+                        <div class="nav-text">
+                            <a href="home.html">Início</a>
+                            <a href="discovery.html">Pesquisar</a>
+                            <a href="donations.html">Doações</a>
+                            <a href="events.html">Eventos</a>
+                            <a href="home.html">Início</a>
+                        </div>
+                        <a href="notification.html">
+                            <img src="images/notificação.png" alt="ongedin-logo">
+                        </a>
+                        <a href="profile.html">
+                            <img src="images/perfil.png" alt="ongedin-logo">
+                        </a>
+                    </div>
                 </nav>
             </div>
         </section>
+        <section class="content">
+            <section class="box-content">
+                
+                <dvi class="btn-login">
+                    <h3> Você já tem uma conta?</h3>
+                    <button class="login-btn" herf="login.html">Login</button>
+                </dvi>
+        
+        
+                <h1> Dados cadastrais</h1>
+        
+                <form id="form" name="form" action="" method="POST">
+                    <div class="inputBox-1">
+                        <div>
+                            <label for="text"><b>Nome:</b></label><br>
+                            <input type="text" id="name" name="name"class="inputUser-1" placeholder="Insira seu nome completo" required>
+                        </div>
+                        <br><br>
 
-        <dvi class="btn-login">
-            <h3> Você já tem uma conta?</h3>
-            <buttom class="login-btn" herf="login.html">Login</buttom>
-        </dvi>
+                        <div>
+                            <label for="text"><b>E-mail:</b></label><br>
+                            <input type="text" id="e-mail" name="e-mail" class="inputUser-1" placeholder="Insira seu e-mail" required>
+                        </div>
+                        <br><br>
+                    </div>
 
 
-        <h1> Dados cadastrais</h1>
+                    <div class="inputBox-2">
+                        <div class="area-activity">
+                            <label for="text"><b>Área de Atuação:</b></label>
+                            <input type="text" id="area-activity" name="area-activity" class="inputUser-2" placeholder="Insira a área de atuação da ONG" required>
+                            <br><br>
+                        </div>
 
-        <form id="form" name="form" action="" method="POST">
-            <div class="inputBox-1">
-                <label for="text">Nome:</label><br>
-                <input type="text" id="name" name="name"class="inputUser" placeholder="Insira seu nome completo" required>
+                        <div class="fundation-date">
+                            <label for="text"><b>Data de fundação:</b></label>
+                            <input type="date" id="fundation-date" name="fundation-date" class="inputUser-2" required>
+                            <br><br>
+                        </div>
 
-                <label for="text">E-mail</label><br>
-                <input type="text" id="e-mail" name="e-mail" class="inputUser" placeholder="Insira seu e-mail" required>
-            </div>
-            <div class="inputBox-2">
-                <label for="text">Área de Atuação</label>
-                <input type="text" id="area-activity" name="area-activity" class="inputUser" placeholder="Insira a área de atuação da ONG" required>
+                    </div>
 
-                <label for="text">Data de fundação</label>
-                <input type="date" id="fundation-date" name="fundation-date" class="inputUser" required>
-            </div>
-            <div class="inputBox-3">
-                <label for="telephone" class="inputUser"><b>Telefone:</b></label>
-                <input type="text" name="telephone" id="telephone" required>
+                    <div class="inputBox-3">
+                        <div class="telephone">
+                            <label for="telephone"><b>Telefone:</b></label>
+                            <input type="text" name="telephone" id="telephone" class="inputUser-3" required>
+                            <br><br>
+                        </div>
 
-                <label for="web-site" class="inputUser"><b>Web site:</b></label>
-                <input type="text" name="web-site" id="web-site" required>
-            </div>
+                        <div class="web-site">
+                            <label for="web-site"><b>Web site:</b></label>
+                            <input type="text" name="web-site" id="web-site" class="inputUser-3" required>
+                            <br><br>
+                        </div>
+                    </div>
+        
+                    <h1>Endereço</h1>
+        
+                    <div class="inputBox-4">
+                        <div>
+                            <label for="CEP"><b>CEP:</b></label>
+                            <input type="text" name="CEP" id="CEP" class="inputUser-4" required>
+                        </div>
 
-            <h1>Endereço</h1>
+                        <div>
+                            <label for="road"><b>Rua:</b></label>
+                            <input type="text" name="road" id="road" class="inputUser-4" required>
+                        </div>
 
-            <div class="inputBox-4">
-                <label for="CEP" class="inputUser"><b>CEP:</b></label>
-                <input type="text" name="CEP" id="CEP" required>
+                        <div>
+                            <label for="num"><b>Número:</b></label>
+                            <input type="text" name="num" id="num" class="inputUser-4" required>
 
-                <label for="road" class="inputUser"><b>Rua:</b></label>
-                <input type="text" name="road" id="road" required>
+                        </div>
+                    </div>
+        
+                    <div class="inputBox-5">
+                        <div>
+                            <label for="neighborhood"><b>Bairro:</b></label>
+                            <input type="text" name="neighborhood" id="neighborhood" class="inputUser-5" required>
+                        </div>
 
-                <label for="num" class="inputUser"><b>Número:</b></label>
-                <input type="text" name="num" id="num" required>
-            </div>
+                        <div>
+                            <label for="city"><b>Cidade:</b></label>
+                            <input type="text" name="city" id="city" class="inputUser-5" required>
+                        </div>
+                    </div>
+        
+                    <div class="inputBox-6">
+                        <div>
+                            <label for="state"><b>Estado:</b></label>
+                            <input type="text" name="state" id="state" class="inputUser-6" required>
+                        </div>
 
-            <div class="inputBox-5">
-                <label for="neighborhood" class="inputUser"><b>Bairro:</b></label>
-                <input type="text" name="neighborhood" id="neighborhood" required>
+                        <div>
+                            <label for="state"><b>Estado:</b></label>
+                            <input type="text" name="state" id="state" class="inputUser-6" required>
+                        </div>
+                        <div>
+                            <label for="country"><b>Web site:</b></label>
+                            <input type="text" name="country" id="country" class="inputUser-6" required>
+                        </div>
+                    </div>
+                    <div class="inputBox-7">
+                        <label for="complement"><b>Complemento:</b></label>
+                        <input type="text" name="complement" id="comoplement" class="inputUser-7" required>
+                    </div>
 
-                <label for="city" class="inputUser"><b>Cidade:</b></label>
-                <input type="text" name="city" id="city" required>
-            </div>
+                    <dvi class="btn-register">
+                        <input type="submit" value="cadastrar-se" class="register-btn" herf="">
+                    </dvi>
+                </form>
+            </section>
+        </section>
 
-            <div class="inputBox-6">
-                <label for="state" class="inputUser"><b>Estado:</b></label>
-                <input type="text" name="state" id="state" required>
-
-                <label for="country" class="inputUser"><b>Web site:</b></label>
-                <input type="text" name="country" id="country" required>
-            </div>
-
-            <div>
-                <label for="complement" class="inputUser"><b>Complemento:</b></label>
-                <input type="text" name="complement" id="comoplement" required>
-            </div>
-        </form>
 
 </body>
 </html>

@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    outline: none;
+}
+
+body{
+    background-color:#87BFC7;
+    font-family: "Inter", sans-serif;
+}
+
+nav{
+    background-color: #F6F6F6;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 35px;
+}
+
+nav a img{
+    width: 90px;
+    height: 90px;
+}
+.nav-right a img{
+    width: 40px;
+    height: 40px;
+    margin: 0 15px;
+}
+
+.nav-right{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.nav-text a{
+    font-style:normal;
+    color: rgb(0, 0, 0);
+    margin: 0 20px;
+    font-size: 18px;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.box-content{
+    position:relative;
+    background-color: rgb(255, 255, 255);
+    margin-top: 60px;
+    border-radius: 25px;
+    width: 70%;
+    box-shadow: 3px 3px 2em rgba(0, 0, 0, 0.3)
+}
+
+.btn-login{
+    display: flex;
+    flex-direction: row;
+    margin: 30px 25px;
+    justify-content: right;
+    align-items: center;
+}
+
+.btn-login h3{
+    font-size: 15px;
+    color: #8A8A8A
+}
+.login-btn{
+    margin: 0 25px;
+    background-color:#6bd1c2a9;
+    border-radius: 50px;
+    width: 115px;
+    height: 35px;
+    font-size: 17px;
+    color: #1B565F;
+    border-color: #1B565F;
+}
+
+.box-content h1{
+    margin: 30px 120px;
+    font-size: 31px;
+}
+
+input::placeholder {
+    color:#8A8A8A;
+    padding-left: 10px;
+}
+
+.inputBox-1{
+    display: flex;
+    flex-direction:column;
+    margin-top: 75px;
+    margin-left:200px;
+    margin-right:200px;
+}
+
+.inputUser-1{
+    height: 40px;
+    width: 899px;
+    border-radius: 7px;
+    border-color: #8A8A8A;
+    background-color: #F9F9F9;
+    border-width: 1px;
+    margin-top: 5px;
+}
+
+.inputBox-2{
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
+    margin-left: 200px;
+    margin-right: 207px;
+}
+
+.area-activity{
+    display: flex;
+    flex-direction: column;
+}
+
+.fundation-date{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputUser-2{
+    height: 40px;
+    width: 400px;
+    border-radius: 7px;
+    border-color: #8A8A8A;
+    background-color: #F9F9F9;
+    border-width: 1px;
+    margin-top: 5px;
+}
+
+.inputBox-3{
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
+    margin-left: 200px;
+    margin-right: 207px;
+}
+
+.telephone{
+    display: flex;
+    flex-direction: column;
+}
+
+.web-site{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputUser-3{
+    height: 40px;
+    width: 400px;
+    border-radius: 7px;
+    border-color: #8A8A8A;
+    background-color: #F9F9F9;
+    border-width: 1px;
+    margin-top: 5px;
+}
+
+.inputBox-4{
+    display: flex;
+    flex-direction:column;
+    margin-top: 75px;
+    margin-left:200px;
+    margin-right:200px;
+}
+
+.inputUser-4{
+    height: 40px;
+    width: 500px;
+    border-radius: 7px;
+    border-color: #8A8A8A;
+    background-color: #F9F9F9;
+    border-width: 1px;
+}
+
+.inputBox-5{
+    display: flex;
+    flex-direction:column;
+    margin-top: 75px;
+    margin-left:200px;
+    margin-right:200px;
+}
+
+.inputUser-5{
+    height: 40px;
+    width: 500px;
+    border-radius: 7px;
+    border-color: #8A8A8A;
+    background-color: #F9F9F9;
+    border-width: 1px;
+}
+
+.inputBox-6{
+    display: flex;
+    flex-direction:column;
+    margin-top: 75px;
+    margin-left:200px;
+    margin-right:200px;
+}
+.inputUser-6{
+    height: 40px;
+    width: 500px;
+    border-radius: 7px;
+    border-color: #8A8A8A;
+    background-color: #F9F9F9;
+    border-width: 1px;
+}
+
+.inputBox-7{
+    display: flex;
+    flex-direction:column;
+    margin-top: 75px;
+    margin-left:200px;
+    margin-right:200px;
+}
+.inputUser-7{
+    height: 40px;
+    width: 500px;
+    border-radius: 7px;
+    border-color: #8A8A8A;
+    background-color: #F9F9F9;
+    border-width: 1px;
+}
+  
+.btn-register{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-btn{
+    background-color:#46A799;
+    border-radius: 50px;
+    width: 150px;
+    height: 45px;
+    font-size: 17px;
+    color: #ffffff;
+    border-color: #46A799;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
