@@ -1,3 +1,4 @@
+
 const name = document.getElementById('name')
 const email = document.getElementById('e-mail')
 const areaActivity = document.getElementById('area-activity')
@@ -15,133 +16,104 @@ const neighborhood = document.getElementById('neighborhood')
 const city = document.getElementById('city')
 const state = document.getElementById('state')
 const country = document.getElementById('country')
-const complement = document.getElementById('complement')
 
 
 
-function btnRegisterOnClick(){
+function btnRegisterOnClick(event){
+    event.preventDefault();
+
     if (name.value === "") {
-        alert('Preenchimento obrigatório: Nome')
-        name.focus()
+        errorAlert('Preenchimento obrigatório: Nome', name)
     }
     else if (inputWithoutNumbers(name.value)) {
-        alert('Tipo de dado inválido: Nome')
-        name.focus()
+        errorAlert('Nome não pode conter números', name)
     }
     else if (email.value === "") {
-        alert('Preenchimento obrigatório: E-mail')
-        email.focus()
+        errorAlert('Preenchimento obrigatório: E-mail', email)
     }
     else if (!isEmail(email.value)) {
-        alert('Tipo de dado inválido: E-mail')
-        email.focus()
+        errorAlert('E-mail inválido', email)
     }
     else if (areaActivity.value === "") {
-        alert('Preenchimento obrigatório: Área de Atividdade')
-        areaActivity.focus()
+        errorAlert('Preenchimento obrigatório: Área de atuação', areaActivity)
     }
     else if (inputWithoutNumbers(areaActivity.value)) {
-        alert('Tipo de dado inválido: Área de atividade')
-        areaActivity.value = ""
-        areaActivity.focus()
+        errorAlert('Área de atuação não pode conter números', areaActivity)
     }
     else if (fundationDate.value === "") {
-        alert('Preenchimento obrigatório: Data de Fundação')
-        fundationDate.focus()
+        errorAlert('Preenchimento obrigatório: Data de Fundação', fundationDate)
     }
-    else if (inputWithoutNumbers(fundationDate.value)) {
-        alert('Tipo de dado inválido: Data de Fundação')
-        fundationDate.value = ""
-        fundationDate.focus()
+    else if (!isValidDate(fundationDate.value)) {
+        errorAlert('Data de Fundação inválida', fundationDate)
     }
     else if (telephone.value === "") {
-        alert('Preenchimento obrigatório: Telefone')
-        telephone.focus()
+        errorAlert('Preenchimento obrigatório: Telefone', telephone)
     }
     else if (!isTelephone(telephone.value)) {
-        alert('Tipo de dado inválido: Telefone')
-        telephone.focus()
+        errorAlert('Telefone inválido', telephone)
     }
     else if (socialMedia.value === "") {
-        alert('Preenchimento obrigatório: Rede Social')
-        socialMedia.focus()
-    }
+        errorAlert('Preenchimento obrigatório: Rede Social', socialMedia)
+    }    
     else if (password.value === "") {
-        alert('Preenchimento obrigatório: Senha')
-        password.focus()
+        errorAlert('Preenchimento obrigatório: Senha', password)
     }
     else if (!validPassword(password.value)) {
-        alert('Tipo de de dado inválido: Senha')
-        password.focus()
+        errorAlert('Senha inválida', password)
     }
     else if (confirmPass.value === "") {
-        alert('Preenchimento obrigatório: Confirme sua senha')
-        confirmPass.focus()
+        errorAlert('Preenchimento obrigatório: Confirme sua senha', confirmPass)
     }
     else if (password.value !== confirmPass.value){
-        alert('As senhas não coincidem')
-        confirmPass.focus()
+        errorAlert('As senhas não coincidem', confirmPass)
     }
     else if (cep.value === "") {
-        alert('Preenchimento obrigatório: CEP')
-        cep.focus()
+        errorAlert('Preenchimento obrigatório: CEP', cep)
     }
     else if (!isCEP(cep.value)){
-        alert('Tipo de de dado inválido: CEP')
-        cep.focus()
+        errorAlert('CEP inválido', cep)
     }
     else if (road.value === "") {
-        alert('Preenchimento obrigatório: Rua')
-        road.focus()
-    }
-    else if (inputWithoutNumbers(road.value)) {
-        alert('Tipo de dado inválido: Rua')
-        road.focus()
+        errorAlert('Preenchimento obrigatório: Rua', road)
     }
     else if (num.value === "") {
-        alert('Preenchimento obrigatório: Número')
-        num.focus()
+        errorAlert('Preenchimento obrigatório: Número', num)
     }
     else if (!isNum(parseInt(num.value))) {
-        alert('Tipo de de dado inválido: Número')
-        num.focus()
+        errorAlert('Número não pode conter letras', num)
     }
     else if (neighborhood.value === "") {
-        alert('Preenchimento obrigatório: Bairro')
-        neighborhood.focus()
+        errorAlert('Preenchimento obrigatório: Bairro', neighborhood)
     }
     else if (inputWithoutNumbers(neighborhood.value)) {
-        alert('Tipo de dado inválido: Bairro')
-        neighborhood.focus()
+        errorAlert('Bairro não pode conter números',neighborhood)
     }
     else if (city.value === "") {
-        alert('Preenchimento obrigatório: Cidade')
-        city.focus()
+        errorAlert('Preenchimento obrigatório: Cidade', city)
     }
     else if (inputWithoutNumbers(city.value)) {
-        alert('Tipo de dado inválido: Cidade')
-        city.focus()
+        errorAlert('Cidade não pode conter números',city)
     }
     else if (state.value === "") {
-        alert('Preenchimento obrigatório: Estado')
-        state.focus()
+        errorAlert('Preenchimento obrigatório: Estado', state)
     }
     else if (inputWithoutNumbers(state.value)) {
-        alert('Tipo de dado inválido: Estado')
-        state.focus()
+        errorAlert('Estado não pode conter números',state)
     }
     else if (country.value === "") {
-        alert('Preenchimento obrigatório: País')
-        country.focus()
+        errorAlert('Preenchimento obrigatório: Páis', country)
     }
     else if (inputWithoutNumbers(country.value)) {
-        alert('Tipo de dado inválido: País')
-        state.focus()
+        errorAlert('Páis não pode conter números',country)
     }
     else {
-        form.submit()
+        successAlert('Cadastro realizado com sucesso!');
+        setTimeout(() => {
+        form.submit(); // Submete o formulário após o alerta de sucesso
+    }, 3000); 
     }
 }
+
 
 // Function to check if the input contains numbers
 function inputWithoutNumbers(input) {
@@ -155,9 +127,14 @@ function isEmail(email) {
     return re.test(email)
 }
 
+function isValidDate(date) {
+    const re = /^\d{2}-?\d{2}-?\d{4}$/; // Format DD-MM-YYYY
+    return re.test(date);
+}
+
 // Function to check if is a valid password
 function validPassword(password) {
-    const re =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+    const re =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&\.])[A-Za-z\d@$!%*?&\.]{8,}$/
     return re.test(password)
 }
 
@@ -177,3 +154,26 @@ function isCEP(cep){
 function isNum(num) {
     return !isNaN(num) && num > 0;
 }
+
+function errorAlert(message, input) {
+    Swal.fire({
+        title: 'Erro!',
+        text: message,
+        icon: 'error',
+        confirmButtonText: 'Entendido'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            input.focus(); // Foca no campo que gerou o erro
+        }
+    });
+}
+
+function successAlert(message) {
+    Swal.fire({
+        title: 'Parabéns!',
+        text: message,
+        icon: 'success',
+        confirmButtonText: 'Entendido'
+    });
+}
+
