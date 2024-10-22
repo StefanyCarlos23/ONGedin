@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ONGedin - Cadastre sua ONG</title>
-    <link href="ong- register.css" rel="stylesheet">
+    <link href="ong-register.css" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -35,13 +35,17 @@
     </header>
     <section class="content">
         <section class="box-content">
-            
-            <dvi class="btn-login">
-                <h3> Você já tem uma conta?</h3>
-                <button class="login-btn" herf="login.html">Login</button>
-            </dvi>
-    
-    
+        
+                <section class="btn">
+                    <div class="btn-back">
+                        <a class="back-btn" href="home.html">Voltar</a>
+                    </div>
+                    <div class="btn-login">
+                        <h3> Você já tem uma conta?</h3>
+                        <a class="login-btn" href="login.html">Login</a>
+                    </div>
+                </section>
+
             <h1> Dados cadastrais</h1>
     
             <form id="form" name="form" action="" method="POST">
@@ -89,73 +93,77 @@
                     </div>
                 </div>
 
-                <div class="inputBox-3">
+                <div class="inputBox-4">
                     <div class="password">
                         <label for="password"><b>Senha:</b></label>
-                        <input type="text" name="password" id="password" class="inputUser-3" required>
+                        <input type="text" name="password" id="password" class="inputUser-4" required>
+                        <h3>Sua senha deve conter no mínimo 8 caracteres, combinando letras maiúsculas, minúsculas, números e símbolos especiais.</h3>
                         <br><br>
                     </div>
 
                     <div class="confirm-pass">
                         <label for="confirm-pass"><b>Confirme sua senha:</b></label>
-                        <input type="text" name="confirm-pass" id="confirm-pass" class="inputUser-3" required>
+                        <input type="text" name="confirm-pass" id="confirm-pass" class="inputUser-4" required>
                         <br><br>
                     </div>
                 </div>
     
                 <h1>Endereço</h1>
     
-                <div class="inputBox-4">
+                <div class="inputBox-5">
                     <div class="inputBox-CEP">
                         <label for="CEP"><b>CEP:</b></label>
-                        <input type="text" name="CEP" id="CEP" class="inputUser-4" required>
+                        <input type="text" name="CEP" id="CEP" class="inputUser-5" required>
                     </div>
 
                     <div class="inputBox-road">
                         <label for="road"><b>Rua:</b></label>
-                        <input type="text" name="road" id="road" class="inputUser-4" required>
+                        <input type="text" name="road" id="road" class="inputUser-5" required>
                     </div>
 
                     <div class="inputBox-num">
                         <label for="num"><b>Número:</b></label>
-                        <input type="text" name="num" id="num" class="inputUser-4" required>
-                    </div>
-                </div>
-    
-                <div class="inputBox-5">
-                    <div class="neighborhood">
-                        <label for="neighborhood"><b>Bairro:</b></label>
-                        <input type="text" name="neighborhood" id="neighborhood" class="inputUser-5" required>
-                    </div>
-
-                    <diV class="city">
-                        <label for="city"><b>Cidade:</b></label>
-                        <input type="text" name="city" id="city" class="inputUser-5" required>
+                        <input type="text" name="num" id="num" class="inputUser-5" required>
                     </div>
                 </div>
     
                 <div class="inputBox-6">
+                    <div class="neighborhood">
+                        <label for="neighborhood"><b>Bairro:</b></label>
+                        <input type="text" name="neighborhood" id="neighborhood" class="inputUser-6" required>
+                    </div>
+
+                    <diV class="city">
+                        <label for="city"><b>Cidade:</b></label>
+                        <input type="text" name="city" id="city" class="inputUser-6" required>
+                    </div>
+                </div>
+    
+                <div class="inputBox-7">
                     <div class="state">
                         <label for="state"><b>Estado:</b></label>
-                        <input type="text" name="state" id="state" class="inputUser-6" required>
+                        <input type="text" name="state" id="state" class="inputUser-7" required>
                     </div>
                     <div class="country">
                         <label for="country"><b>País</b>:</b></label>
-                        <input type="text" name="country" id="country" class="inputUser-6" required>
+                        <input type="text" name="country" id="country" class="inputUser-7" required>
                     </div>
                 </div>
 
-                <div class="inputBox-7">
+                <div class="inputBox-8">
                     <label for="complement"><b>Complemento:</b></label>
-                    <input type="text" name="complement" id="comoplement" class="inputUser-7" required>
+                    <input type="text" name="complement" id="complement" class="inputUser-8" required>
                 </div>
 
-                <dvi class="btn-register">
-                    <input type="submit" value="Cadastrar-se" class="register-btn" herf="">
-                </dvi>
+                <div class="btn-register">
+                    <input type="submit" value="Cadastrar-se" class="register-btn" onclick="bntRegisterOnClick()">
+                </div>
             </form>
         </section>
     </section>
+
+    <script src="ong-register.js"> </script>
+
     <footer class="footer">
         <p>&copy; 2024 - ONGedin - Conectando quem transforma o mundo. Todos os direitos reservados.</p>
     </footer>
