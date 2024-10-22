@@ -54,6 +54,7 @@ nav a img{
     position:relative;
     background-color: rgb(255, 255, 255);
     margin-top: 60px;
+    margin-bottom: 60px;
     border-radius: 25px;
     width: 70%;
     box-shadow: 3px 3px 2em rgba(0, 0, 0, 0.3)
@@ -79,7 +80,7 @@ nav a img{
     height: 35px;
     font-size: 17px;
     color: #1B565F;
-    border-color: #1B565F;
+    border: #1B565F solid 1px;
 }
 
 .box-content h1{
@@ -92,6 +93,7 @@ input::placeholder {
     padding-left: 10px;
 }
 
+/* --- NAME AND E-MAIL --- */
 .inputBox-1{
     display: flex;
     flex-direction:column;
@@ -99,17 +101,17 @@ input::placeholder {
     margin-left:200px;
     margin-right:200px;
 }
-
 .inputUser-1{
     height: 40px;
     width: 899px;
     border-radius: 7px;
-    border-color: #8A8A8A;
+    border: #8A8A8A SOLID;
     background-color: #F9F9F9;
     border-width: 1px;
     margin-top: 5px;
 }
 
+/* --- AREA-ACTIVITY AND FUNDATION DATE --- */
 .inputBox-2{
     display: flex;
     flex-direction:row;
@@ -117,27 +119,25 @@ input::placeholder {
     margin-left: 200px;
     margin-right: 207px;
 }
-
 .area-activity{
     display: flex;
     flex-direction: column;
 }
-
 .fundation-date{
     display: flex;
     flex-direction: column;
 }
-
 .inputUser-2{
     height: 40px;
     width: 400px;
     border-radius: 7px;
-    border-color: #8A8A8A;
+    border: #8A8A8A SOLID;
     background-color: #F9F9F9;
     border-width: 1px;
     margin-top: 5px;
 }
 
+/* --- TELEPHONE, SOCIAL MEDIA, PASSWORD AND CONFIRM PASSWORD --- */
 .inputBox-3{
     display: flex;
     flex-direction:row;
@@ -145,77 +145,117 @@ input::placeholder {
     margin-left: 200px;
     margin-right: 207px;
 }
-
 .telephone{
     display: flex;
     flex-direction: column;
 }
-
-.web-site{
+.social-media{
     display: flex;
     flex-direction: column;
 }
-
+.password{
+    display: flex;
+    flex-direction: column;
+}
+.confirm-pass{
+    display: flex;
+    flex-direction: column;
+}
 .inputUser-3{
     height: 40px;
     width: 400px;
     border-radius: 7px;
-    border-color: #8A8A8A;
+    border: #8A8A8A SOLID;
     background-color: #F9F9F9;
     border-width: 1px;
     margin-top: 5px;
 }
 
+/* --- CEP, ROAD AND NUM --- */
 .inputBox-4{
     display: flex;
-    flex-direction:column;
+    flex-direction:row;
     margin-top: 75px;
     margin-left:200px;
-    margin-right:200px;
+    margin-right:207px;
+    justify-content: space-between;
 }
-
+.inputBox-CEP{
+    display: flex;
+    flex-direction: column;
+    width: 220px;
+}
+.inputBox-road{
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+}
+.inputBox-num{
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+}
 .inputUser-4{
     height: 40px;
-    width: 500px;
     border-radius: 7px;
-    border-color: #8A8A8A;
+    border: #8A8A8A SOLID;
     background-color: #F9F9F9;
     border-width: 1px;
 }
 
+/* --- NEIGHBORHOOD AND CITY --- */
 .inputBox-5{
     display: flex;
-    flex-direction:column;
+    flex-direction:row;
     margin-top: 75px;
     margin-left:200px;
-    margin-right:200px;
+    margin-right:207px;
+    justify-content: space-between;
 }
-
+.neighborhood{
+    display: flex;
+    flex-direction: column;
+}
+.city{
+    display: flex;
+    flex-direction: column;
+}
 .inputUser-5{
     height: 40px;
-    width: 500px;
+    width: 400px;
     border-radius: 7px;
-    border-color: #8A8A8A;
+    border: #8A8A8A SOLID;
     background-color: #F9F9F9;
     border-width: 1px;
 }
 
+/* --- STATE AND COUNTRY --- */
 .inputBox-6{
     display: flex;
-    flex-direction:column;
+    flex-direction:row;
     margin-top: 75px;
     margin-left:200px;
-    margin-right:200px;
+    margin-right:207px;
+    justify-content: space-between;
+}
+.state{
+    display: flex;
+    flex-direction: column;
+}
+.country{
+    display: flex;
+    flex-direction: column;
 }
 .inputUser-6{
     height: 40px;
-    width: 500px;
+    width: 400px;
     border-radius: 7px;
-    border-color: #8A8A8A;
+    border: #8A8A8A SOLID;
     background-color: #F9F9F9;
     border-width: 1px;
 }
 
+/* --- COMPLEMENT --- */
 .inputBox-7{
     display: flex;
     flex-direction:column;
@@ -225,9 +265,9 @@ input::placeholder {
 }
 .inputUser-7{
     height: 40px;
-    width: 500px;
+    width: 400px;
     border-radius: 7px;
-    border-color: #8A8A8A;
+    border: #8A8A8A SOLID;
     background-color: #F9F9F9;
     border-width: 1px;
 }
@@ -245,7 +285,16 @@ input::placeholder {
     height: 45px;
     font-size: 17px;
     color: #ffffff;
-    border-color: #46A799;
+    border: #1B565F solid 1px;
     margin-top: 100px;
     margin-bottom: 100px;
+}
+
+.footer{
+    background-color: #F6F6F6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 35px;
+    height: 90px;
 }
