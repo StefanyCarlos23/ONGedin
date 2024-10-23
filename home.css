@@ -9,17 +9,135 @@
 }
 
 body{
-    background-color: white;
+    background-color: #87BFC7;
     font-family: "Inter", sans-serif;
 }
 
 nav{
-    background-color: white;
+    background-color: #F6F6F6;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    padding-left: 35px;
     padding-right: 35px;
+    padding-left: 20px;
+}
+
+nav ul{
+    display: flex;
+    align-items: center;
+}
+
+nav ul .ul-text a{
+    color: rgb(0, 0, 0);
+    margin: 0 20px;
+    font-size: 18px;
+    display: block;
+}
+
+nav ul .ul-text a:not(.btn)::after{
+    content: "";
+    background-color: rgb(0, 0, 0);
+    height: 2px;
+    width: 0;
+    display: block;
+    margin: 0 auto;
+    transition: 0.3s;
+}
+
+nav ul .ul-text a:hover::after{
+    width: 100%;
+}
+
+nav a img{
+    width: 90px;
+    height: 90px;
+}
+
+nav ul a img{
+    width: 40px;
+    height: 40px;
+    margin: 0 15px;
+}
+
+header .container .banner{
+    background-image: linear-gradient(150.24deg, rgba(0, 0, 0, 0.558) 10%, rgba(37, 37, 37, 0.541) 95%), url('images/banner2.jpg');
+    max-width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+header{
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.banner{
+    display: flex;
+    justify-content: center;
+}
+
+.banner .banner-text{
+    margin: 100px;
+    text-align: center;
+    padding: 0 90px;
+}
+
+.banner .banner-text h1{
+    font-size: 100px;
+    color: white;
+}
+
+.banner .banner-text h2{
+    font-size: 21px;
+    color: white;
+}
+
+.banner {
+    padding: 100px 0;
+}
+
+.box-content{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: rgb(255, 255, 255);
+    margin: 60px auto;
+    border-radius: 25px;
+    width: 93%;
+    box-shadow: 3px 3px 2em rgba(0, 0, 0, 0.3);
+    padding: 100px 0
+}
+
+.featured-events h3{
+    display: flex;
+    justify-content: center;
+    font-size: 40px;
+    color: rgb(0, 0, 0);
+    padding-bottom: 40px;
+}
+
+.featured-events .container .events{
+    font-size: 18px;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    margin: 20px 65px;
+    line-height: 1.5em;
+    padding-bottom: 50px;
+}
+
+.featured-events .container .events img{
+    width: 580px;
+    border: 4px solid #87BFC7;
+}
+
+footer{
+    background-color: #F6F6F6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 35px;
+    height: 90px;
 }
