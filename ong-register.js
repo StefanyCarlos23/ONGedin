@@ -109,8 +109,11 @@ function btnRegisterOnClick(event){
     else {
         successAlert('Cadastro realizado com sucesso!');
         setTimeout(() => {
-        form.submit(); // Submete o formulário após o alerta de sucesso
-    }, 3000); 
+        form.submit() // Submete o formulário após o alerta de sucesso
+    }, 5000); 
+        setTimeout(() => {
+        window.location.href = "home.html"; // Caminho para a página de destino
+    }, 1500);
     }
 }
 
@@ -128,8 +131,29 @@ function isEmail(email) {
 }
 
 function isValidDate(date) {
-    const re = /^\d{2}-?\d{2}-?\d{4}$/; // Format DD-MM-YYYY
-    return re.test(date);
+    const regex = /^(0[1-9]|[12]\d|3[01])\/?(0[1-9]|1[0-2])\/?(19|20)\d\d$/;
+
+    if (!regex.test(date)) {
+        return false; 
+    }
+
+    let day, month, year;
+    if (date.includes('/')) {
+        [day, month, year] = date.split('/').map(Number);
+    } else {
+        day = Number(date.slice(0, 2)); 
+        month = Number(date.slice(2, 4));  
+        year = Number(date.slice(4, 8)); 
+    }
+
+    const daysInMonth = [31, 28 + (isLeapYear(year) ? 1 : 0), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+    return day <= daysInMonth[month - 1];
+}
+
+// Function to check if a year is a leap year
+function isLeapYear(year) {
+    return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
 }
 
 // Function to check if is a valid password

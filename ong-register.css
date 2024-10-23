@@ -148,8 +148,8 @@ input::placeholder {
     display: flex;
     flex-direction:column;
     margin-top: 75px;
-    margin-left:200px;
-    margin-right:200px;
+    margin-left:15%;
+    margin-right:15%;
 }
 .inputUser-1{
     height: 40px;
@@ -166,8 +166,8 @@ input::placeholder {
     display: flex;
     flex-direction:row;
     justify-content: space-between;
-    margin-left: 200px;
-    margin-right: 207px;
+    margin-left:15%;
+    margin-right:16%;
 }
 .area-activity{
     display: flex;
@@ -192,8 +192,8 @@ input::placeholder {
     display: flex;
     flex-direction:row;
     justify-content: space-between;
-    margin-left: 200px;
-    margin-right: 207px;
+    margin-left:15%;
+    margin-right:16%;
 }
 .telephone{
     display: flex;
@@ -230,8 +230,8 @@ input::placeholder {
 .inputBox-4{
     display: flex;
     flex-direction:column;
-    margin-left:200px;
-    margin-right:200px;
+    margin-left:15%;
+    margin-right:16%;
 }
 .inputUser-4{
     height: 40px;
@@ -248,8 +248,8 @@ input::placeholder {
     display: flex;
     flex-direction:row;
     margin-top: 75px;
-    margin-left:200px;
-    margin-right:207px;
+    margin-left:15%;
+    margin-right:16%;
     justify-content: space-between;
 }
 .inputBox-CEP{
@@ -280,8 +280,8 @@ input::placeholder {
     display: flex;
     flex-direction:row;
     margin-top: 75px;
-    margin-left:200px;
-    margin-right:207px;
+    margin-left:15%;
+    margin-right:16%;
     justify-content: space-between;
 }
 .neighborhood{
@@ -306,8 +306,8 @@ input::placeholder {
     display: flex;
     flex-direction:row;
     margin-top: 75px;
-    margin-left:200px;
-    margin-right:207px;
+    margin-left:15%;
+    margin-right:16%;
     justify-content: space-between;
 }
 .state{
@@ -332,8 +332,8 @@ input::placeholder {
     display: flex;
     flex-direction:column;
     margin-top: 75px;
-    margin-left:200px;
-    margin-right:200px;
+    margin-left:15%;
+    margin-right:15%;
 }
 .inputUser-8{
     height: 40px;
