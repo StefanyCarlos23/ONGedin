@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONGedin | Login</title>
+    <link href="login.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <nav class="nav">
+                <a href="home.html">
+                    <img src="images/ongedin-logo.png" alt="ongedin-logo">
+                </a>
+                <ul class="ul">
+                    <ul class="ul-text">
+                        <a href="home.html">Início</a>
+                        <a href="discovery.html">Pesquisar</a>
+                        <a href="donations.html">Doações</a>
+                        <a href="events.html">Eventos</a>
+                        <a href="help.html">Suporte</a>
+                    </ul>
+                    <a href="notification.html">
+                        <img src="images/notificação.png" alt="ongedin-logo">
+                    </a>
+                    <a href="profile.html">
+                        <img src="images/perfil.png" alt="ongedin-logo">
+                    </a>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section class="content">
+        <section class="box-content">
+
+
+            <section class="login-box">
+                
+                <div class="banner-image">
+                    <img src="images/banner.jpg">
+                </div>
+
+                <div class="form-container">
+
+                    <section class="btn">
+                        <div class="btn-back">
+                            <a class="back-btn" href="home.html">Voltar</a>
+                        </div>
+        
+                        <div class="btn-register">
+                            <h3> Você ainda não tem uma conta?</h3>
+                            <a class="register-btn" href="register-options.html">Cadastre-se</a>
+                        </div>
+                    </section>
+
+                    <form id="form" name="form" action="" method="POST">
+                        <div class="inputBox">
+                            <h1 class="form-title">Login</h1>
+                            <div class="inputBox-1">
+                                <input type="text" name="email" id="email" class="inputUser" required>
+                                <label for="email" class="labelInput">E-mail</label>
+                            </div>
+                            <br>
+                            <div class="inputBox-1">
+                                <input type="text" name="password" id="password" class="inputUser" required>
+                                <label for="password" class="labelInput">Senha:</label>
+                            </div>
+                            <br>
+                        </div>
+        
+                        <div class="btn-login">
+                            <input type="submit" value="Login" class="login-btn" onclick="btnRegisterOnClick(event)">
+                        </div>
+                    </form>
+                </div>
+
+            </section>    
+        </section>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>"
+
+    <script src="login.js"> </script>
+
+    <footer class="footer">
+        <p>&copy; 2024 - ONGedin - Conectando quem transforma o mundo. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
