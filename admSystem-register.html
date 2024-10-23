@@ -53,42 +53,47 @@
                 <div class="inputBox">
                     <div>
                         <label for="text"><b>Nome:</b></label><br>
-                        <input type="text" id="name" name="name"class="inputUser" placeholder="Insira seu nome completo" required>
+                        <input type="text" id="name" name="name"class="inputUser" placeholder="Insira seu nome completo">
                         <br><br>
                     </div>
 
                     <div>
                         <label for="text"><b>E-mail:</b></label><br>
-                        <input type="text" id="e-mail" name="e-mail" class="inputUser" placeholder="Insira seu e-mail" required>
+                        <input type="text" id="e-mail" name="e-mail" class="inputUser" placeholder="Insira seu e-mail">
                         <br><br>
                     </div>
 
                     <div>
                         <label for="telephone"><b>Telefone:</b></label>
-                        <input type="text" name="telephone" id="telephone" class="inputUser"placeholder="Insira seu número de telefone" required>
+                        <input type="text" name="telephone" id="telephone" class="inputUser"placeholder="Insira seu número de telefone">
                         <br><br>
                     </div>
 
                     <div class="password">
                         <label for="password"><b>Senha:</b></label>
-                        <input type="text" name="password" id="password" class="inputUser-pass" placeholder="Crie uma senha" required>
+                        <input type="text" name="password" id="password" class="inputUser-pass" placeholder="Crie uma senha">
                         <h3>Sua senha deve conter no mínimo 8 caracteres, combinando letras maiúsculas, minúsculas, números e símbolos especiais.</h3>
                         <br><br>
                     </div>
 
                     <div>
                         <label for="confirm-pass"><b>Confirme sua senha:</b></label>
-                        <input type="text" name="confirm-pass" id="confirm-pass" class="inputUser" placeholder="Confirme sua senha" required>
+                        <input type="text" name="confirm-pass" id="confirm-pass" class="inputUser" placeholder="Confirme sua senha">
                         <br><br>
                     </div>
                 </div>
 
                 <dvi class="btn-register">
-                    <input type="submit" value="Cadastrar-se" class="register-btn" herf="">
+                    <input type="submit" value="Cadastrar-se" class="register-btn" onclick="btnRegisterOnClick(event)">
                 </dvi>
             </form>
         </section>
     </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>"
+
+    <script src="admSystem-register.js"> </script>
+    
     <footer class="footer">
         <p>&copy; 2024 - ONGedin - Conectando quem transforma o mundo. Todos os direitos reservados.</p>
     </footer>
