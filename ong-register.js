@@ -7,7 +7,6 @@ const telephone = document.getElementById('telephone')
 const socialMedia = document.getElementById('social-media')
 const password = document.getElementById('password')
 const confirmPass = document.getElementById('confirm-pass')
-
 // Address
 const cep = document.getElementById('CEP')
 const road = document.getElementById('road')
@@ -18,21 +17,19 @@ const state = document.getElementById('state')
 const country = document.getElementById('country')
 
 
+const form = document.getElementById('form')
+const campos = document.querySelectorAll('.required')
+const spans = document.querySelectorAll('.span-required')
+
 
 function btnRegisterOnClick(event){
-    event.preventDefault();
+    event.preventDefault()
 
     if (name.value === "") {
         errorAlert('Preenchimento obrigatório: Nome', name)
     }
-    else if (inputWithoutNumbers(name.value)) {
-        errorAlert('Nome não pode conter números', name)
-    }
     else if (email.value === "") {
         errorAlert('Preenchimento obrigatório: E-mail', email)
-    }
-    else if (!isEmail(email.value)) {
-        errorAlert('E-mail inválido', email)
     }
     else if (areaActivity.value === "") {
         errorAlert('Preenchimento obrigatório: Área de atuação', areaActivity)
@@ -109,14 +106,74 @@ function btnRegisterOnClick(event){
     else {
         successAlert('Cadastro realizado com sucesso!');
         setTimeout(() => {
-        form.submit() // Submete o formulário após o alerta de sucesso
+        form.submit()
     }, 5000); 
         setTimeout(() => {
-        window.location.href = "home.html"; // Caminho para a página de destino
+        window.location.href = "home.html"
     }, 1500);
     }
 }
 
+
+// Function creates a red border on the input where the condition is not met
+function setError(index) {
+    campos[index].style.border = '2px solid #e63636'
+    spans[index].style.display = 'block'
+    campos[index].focus();
+}
+
+// Function remove the red border
+function removeError(index) {
+    campos[index].style.border = ''
+    spans[index].style.display = 'none'
+}
+
+// Function creates error alert for input that is not filled in
+function errorAlert(message, input) {
+    Swal.fire({
+        title: 'Erro!',
+        text: message,
+        icon: 'error',
+        confirmButtonText: 'Entendido' ,
+        confirmButtonColor:'#399aa8'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            input.focus();
+        }
+    });
+}
+
+// Function creates a success alert when de form is submit 
+function successAlert(message) {
+    Swal.fire({
+        title: 'Parabéns!',
+        text: message,
+        icon: 'success',
+        confirmButtonText: 'Entendido',
+        confirmButtonColor: '#399aa8'
+    });
+}
+
+// Function 
+function nameValidate() {
+    if (inputWithoutNumbers(campos[0].value)) {
+        setError(0);
+    }
+    else{
+        removeError(0)
+    }
+}
+
+function emailValidate() {
+    if (!isEmail(campos[1].value)) {
+        setError(1);
+    }
+    else{
+        removeError(1)
+    }
+}
+
+// ----- REGEX ----- ///
 
 // Function to check if the input contains numbers
 function inputWithoutNumbers(input) {
@@ -130,10 +187,11 @@ function isEmail(email) {
     return re.test(email)
 }
 
+// Function to check if is a valid date
 function isValidDate(date) {
-    const regex = /^(0[1-9]|[12]\d|3[01])\/?(0[1-9]|1[0-2])\/?(19|20)\d\d$/;
+    const re = /^(0[1-9]|[12]\d|3[01])\/?(0[1-9]|1[0-2])\/?(19|20)\d\d$/;
 
-    if (!regex.test(date)) {
+    if (!re.test(date)) {
         return false; 
     }
 
@@ -176,28 +234,5 @@ function isCEP(cep){
 
 // Function to check if is positive numbers
 function isNum(num) {
-    return !isNaN(num) && num > 0;
+    return !isNaN(num) && num > 0
 }
-
-function errorAlert(message, input) {
-    Swal.fire({
-        title: 'Erro!',
-        text: message,
-        icon: 'error',
-        confirmButtonText: 'Entendido'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            input.focus(); // Foca no campo que gerou o erro
-        }
-    });
-}
-
-function successAlert(message) {
-    Swal.fire({
-        title: 'Parabéns!',
-        text: message,
-        icon: 'success',
-        confirmButtonText: 'Entendido'
-    });
-}
-

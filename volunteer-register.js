@@ -57,10 +57,10 @@ function btnRegisterOnClick(event){
     else {
         successAlert('Cadastro realizado com sucesso!');
         setTimeout(() => {
-        form.submit() // Submete o formulário após o alerta de sucesso
+        form.submit()
     }, 5000); 
         setTimeout(() => {
-        window.location.href = "home.html"; // Caminho para a página de destino
+        window.location.href = "home.html";
     }, 1500);
     }
 }
@@ -80,9 +80,9 @@ function isCPF(cpf) {
 
 // Function to check if is a valid date of birth
 function isValidDate(date) {
-    const regex = /^(0[1-9]|[12]\d|3[01])\/?(0[1-9]|1[0-2])\/?(19|20)\d\d$/;
+    const re = /^(0[1-9]|[12]\d|3[01])\/?(0[1-9]|1[0-2])\/?(19|20)\d\d$/;
 
-    if (!regex.test(date)) {
+    if (!re.test(date)) {
         return false; 
     }
 
@@ -130,10 +130,11 @@ function errorAlert(message, input) {
         title: 'Erro!',
         text: message,
         icon: 'error',
-        confirmButtonText: 'Entendido'
+        confirmButtonText: 'Entendido',
+        confirmButtonColor: "#399aa8"
     }).then((result) => {
         if (result.isConfirmed) {
-            input.focus(); // Foca no campo que gerou o erro
+            input.focus();
         }
     });
 }
@@ -143,7 +144,8 @@ function successAlert(message) {
         title: 'Parabéns!',
         text: message,
         icon: 'success',
-        confirmButtonText: 'Entendido'
+        confirmButtonText: 'Entendido',
+        confirmButtonColor: "#399aa8",
     });
 }
 

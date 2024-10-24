@@ -372,3 +372,10 @@ input::placeholder {
     padding-right: 35px;
     height: 90px;
 }
+
+.span-required{
+    display: none;
+    font-size: 12px;
+    color:#e63636;
+    margin: 3px 0 0 1px;
+}

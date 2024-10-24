@@ -50,13 +50,15 @@
                 <div class="inputBox-1">
                     <div>
                         <label for="text"><b>Nome:</b></label><br>
-                        <input type="text" id="name" name="name"class="inputUser-1" placeholder="Insira seu nome completo">
+                        <input type="text" id="name" name="name"class="inputUser-1 required" placeholder="Insira seu nome completo" oninput="nameValidate()">
+                        <span class="span-required">Nome não pode conter números</span>
                     </div>
                     <br><br>
 
                     <div>
                         <label for="text"><b>E-mail:</b></label><br>
-                        <input type="text" id="e-mail" name="e-mail" class="inputUser-1" placeholder="Insira seu e-mail">
+                        <input type="text" id="e-mail" name="e-mail" class="inputUser-1 required" placeholder="Insira seu e-mail" oninput="emailValidate()">
+                        <span class="span-required">Insira um e-mail válido</span>
                     </div>
                     <br><br>
                 </div>
@@ -65,13 +67,15 @@
                 <div class="inputBox-2">
                     <div class="area-activity">
                         <label for="text"><b>Área de Atuação:</b></label>
-                        <input type="text" id="area-activity" name="area-activity" class="inputUser-2" placeholder="Insira a área de atuação da ONG">
+                        <input type="text" id="area-activity" name="area-activity" class="inputUser-2 required" placeholder="Insira a área de atuação da ONG">
+                        <span class="span-required">Área de atuação não pode conter números</span>
                         <br><br>
                     </div>
 
                     <div class="fundation-date">
                         <label for="text"><b>Data de fundação:</b></label>
-                        <input type="text" id="fundation-date" name="fundation-date" class="inputUser-2" placeholder="Insira a data de fundação da ONG">
+                        <input type="text" id="fundation-date" name="fundation-date" class="inputUser-2 required" placeholder="Insira a data de fundação da ONG">
+                        <span class="span-required">Data da fundação inválida</span>
                         <br><br>
                     </div>
 
@@ -81,6 +85,7 @@
                     <div class="telephone">
                         <label for="telephone"><b>Telefone:</b></label>
                         <input type="text" name="telephone" id="telephone" class="inputUser-3" placeholder="Insira o telefone da ONG">
+                        <span class="span-required">Telefone inválido</span>
                         <br><br>
                     </div>
 
@@ -94,14 +99,15 @@
                 <div class="inputBox-4">
                     <div class="password">
                         <label for="password"><b>Senha:</b></label>
-                        <input type="text" name="password" id="password" class="inputUser-4" placeholder="Crie uma senha">
-                        <h3>Sua senha deve conter no mínimo 8 caracteres, combinando letras maiúsculas, minúsculas, números e símbolos especiais.</h3>
+                        <input type="text" name="password" id="password" class="inputUser-4 required" placeholder="Crie uma senha">
+                        <span class="span-required">Sua senha deve conter no mínimo 8 caracteres, combinando letras maiúsculas, minúsculas, números e símbolos especiais.</span>
                         <br><br>
                     </div>
 
                     <div class="confirm-pass">
                         <label for="confirm-pass"><b>Confirme sua senha:</b></label>
-                        <input type="text" name="confirm-pass" id="confirm-pass" class="inputUser-4" placeholder="Confirme a senha">
+                        <input type="text" name="confirm-pass" id="confirm-pass" class="inputUser-4 required" placeholder="Repita a senha">
+                        <span class="span-required">As senhas não coincidem</span>
                         <br><br>
                     </div>
                 </div>
@@ -111,40 +117,47 @@
                 <div class="inputBox-5">
                     <div class="inputBox-CEP">
                         <label for="CEP"><b>CEP:</b></label>
-                        <input type="text" name="CEP" id="CEP" class="inputUser-5"placeholder="Insira o CEP">
+                        <input type="text" name="CEP" id="CEP" class="inputUser-5 required" placeholder="Insira o CEP">
+                        <span class="span-required">CEP inválido</span>
                     </div>
 
                     <div class="inputBox-road">
                         <label for="road"><b>Rua:</b></label>
                         <input type="text" name="road" id="road" class="inputUser-5" placeholder="Insira o nome da rua">
+                        <span class="span-required"></span>
                     </div>
 
                     <div class="inputBox-num">
                         <label for="num"><b>Número:</b></label>
-                        <input type="text" name="num" id="num" class="inputUser-5" placeholder="Insira o número">
+                        <input type="text" name="num" id="num" class="inputUser-5 required" placeholder="Insira o número">
+                        <span class="span-required">Número não pode conter letras</span>
                     </div>
                 </div>
     
                 <div class="inputBox-6">
                     <div class="neighborhood">
                         <label for="neighborhood"><b>Bairro:</b></label>
-                        <input type="text" name="neighborhood" id="neighborhood" class="inputUser-6" placeholder="Insira o bairro">
+                        <input type="text" name="neighborhood" id="neighborhood" class="inputUser-6 required" placeholder="Insira o bairro">
+                        <span class="span-required">Bairro não pode conter números</span>
                     </div>
 
                     <diV class="city">
                         <label for="city"><b>Cidade:</b></label>
-                        <input type="text" name="city" id="city" class="inputUser-6" placeholder="Insira a cidade">
+                        <input type="text" name="city" id="city" class="inputUser-6 required" placeholder="Insira a cidade">
+                        <span class="span-required">Cidade não pode conter números</span>
                     </div>
                 </div>
     
                 <div class="inputBox-7">
                     <div class="state">
                         <label for="state"><b>Estado:</b></label>
-                        <input type="text" name="state" id="state" class="inputUser-7" placeholder="Insira o estado">
+                        <input type="text" name="state" id="state" class="inputUser-7 required" placeholder="Insira o estado">
+                        <span class="span-required">Estado não pode conter números</span>
                     </div>
                     <div class="country">
                         <label for="country"><b>País</b>:</b></label>
-                        <input type="text" name="country" id="country" class="inputUser-7" placeholder="Insira o país">
+                        <input type="text" name="country" id="country" class="inputUser-7 required" placeholder="Insira o país">
+                        <span class="span-required">País não pode conter números</span>
                     </div>
                 </div>
 
