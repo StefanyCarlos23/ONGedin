@@ -9,7 +9,7 @@
 }
 
 body{
-    background-color: white;
+    background-color: #F6F6F6;
     font-family: "Inter", sans-serif;
 }
 
@@ -238,11 +238,145 @@ header{
     transition: 0.4s;
 }
 
-footer{
+.about-us .container{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 80px;
+    width: 90%;
+    margin: 0 auto;
+    padding-bottom: 75px;
+}
+
+.about-us .about-us-text,
+.about-us .about-us-image{
+    width: 50%;
+    flex: 1;
+    padding: 0 50px;
+}
+
+.about-us .about-us-text h3{
+    padding-bottom: 30px;
+    font-size: 40px;
+    color: #87BFC7;
+    text-align: center;
+}
+
+.about-us .about-us-text p{
+    font-size: 18px;
+    line-height: 1.5em;
+    color: #666666;
+    text-align: center;
+}
+
+.about-us .about-us-text h4{
+    font-size: 22px;
+    color: #666666;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.about-us .about-us-text .contact{
+    font-size: 18px;
+    line-height: 1.5em;
+    color: #666666;
+    text-align: center;
+}
+
+.about-us .about-us-image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 40px;
+}
+
+.about-us .about-us-image img{
+    width: 500px;
+    max-width: 100%;
+    border: 3px solid #87BFC7;
+    border-radius: 20px;
+}
+
+.sponsor{
+    padding-bottom: 95px;
+}
+
+.sponsor .container h3{
+    display: flex;
+    justify-content: center;
+    font-size: 40px;
+    color: #87BFC7;
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+
+.sponsor .container .slideshow{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    margin: 0 auto;
+    border-radius: 25px;
+    width: 90%;
+    box-shadow: 3px 3px 2em rgba(0, 0, 0, 0.3);
+    padding: 20px 0;
+}
+
+.slideshow{
+    overflow: hidden;
+    height: 200px;
+}
+
+.slides{
+    display: flex;
+    width: calc(100% * 5);
+    animation: slide 15s linear infinite;
+}
+
+.slide,
+.modify1,
+.modify2{
+    flex: 0 0 calc(19.5%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px;
+}
+
+.modify1{
+    padding-right: 45px;
+}
+
+.modify2{
+    padding-right: 80px;
+}
+
+.slideshow img{
+    width: 80%;
+    height: auto;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+@keyframes slide{
+    0% { transform: translateX(0); }
+    20% { transform: translateX(0); }
+    30% { transform: translateX(-100%); }
+    50% { transform: translateX(-100%); }
+    60% { transform: translateX(-200%); }
+    80% { transform: translateX(-200%); }
+    90% { transform: translateX(0); }
+    100% { transform: translateX(0); }
+}
+
+footer {
+    border-top: 3px solid #87BFC7;
     background-color: #F6F6F6;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-right: 35px;
     height: 90px;
+    text-align: center;
 }
