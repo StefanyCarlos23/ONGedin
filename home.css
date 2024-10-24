@@ -371,7 +371,7 @@ header{
     100% { transform: translateX(0); }
 }
 
-footer {
+footer{
     border-top: 3px solid #87BFC7;
     background-color: #F6F6F6;
     display: flex;
