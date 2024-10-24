@@ -14,21 +14,21 @@
                     <a href="home.html">
                         <img src="images/ongedin-logo.png" alt="ongedin-logo">
                     </a>
-                    <div class="nav-right">
-                        <div class="nav-text">
+                    <ul class="ul">
+                        <ul class="ul-text">
                             <a href="home.html">Início</a>
                             <a href="discovery.html">Pesquisar</a>
                             <a href="donations.html">Doações</a>
                             <a href="events.html">Eventos</a>
-                            <a href="home.html">Início</a>
-                        </div>
+                            <a href="help.html">Suporte</a>
+                        </ul>
                         <a href="notification.html">
                             <img src="images/notificação.png" alt="ongedin-logo">
                         </a>
                         <a href="profile.html">
                             <img src="images/perfil.png" alt="ongedin-logo">
                         </a>
-                    </div>
+                    </ul>
                 </nav>
             </div>
         </section>
@@ -52,7 +52,8 @@
                 <div class="inputBox-1">
                     <div>
                         <label for="text"><b>Nome:</b></label><br>
-                        <input type="text" id="name" name="name"class="inputUser-1" placeholder="Insira seu nome completo">
+                        <input type="text" id="name" name="name"class="inputUser-1 required" placeholder="Insira seu nome completo">
+                        <span class="span-required">Nome não pode conter números</span>
                     </div>
                     <br><br>
                 </div>
@@ -61,13 +62,15 @@
                 <div class="inputBox-2">
                     <div class="cpf">
                         <label for="text"><b>CPF:</b></label>
-                        <input type="text" id="cpf" name="cpf" class="inputUser-2" placeholder="Insira seu CPF">
+                        <input type="text" id="cpf" name="cpf" class="inputUser-2 required" placeholder="Insira seu CPF">
+                        <span class="span-required">Insira um CPF válido</span>
                         <br><br>
                     </div>
 
                     <div class="date-birth">
                         <label for="text"><b>Data de nascimento:</b></label>
-                        <input type="text" id="date-birth" name="date-birth" class="inputUser-2" placeholder="Insira sua data de nascimento">
+                        <input type="text" id="date-birth" name="date-birth" class="inputUser-2 resquired" placeholder="Insira sua data de nascimento">
+                        <span class="span-required">Insira uma data de nascimento válida</span>
                         <br><br>
                     </div>
 
@@ -76,12 +79,14 @@
                 <div class="inputBox-3">
                     <div class="telephone">
                         <label for="telephone"><b>Telefone:</b></label>
-                        <input type="text" name="telephone" id="telephone" class="inputUser-3" placeholder="Insira o seu telefone">
+                        <input type="text" name="telephone" id="telephone" class="inputUser-3 required" placeholder="Insira o seu telefone">
+                        <span class="span-required">Insira um telefone válido</span>
                         <br><br>
                     </div>
                     <div class="email">
                         <label for="email"><b>E-mail:</b></label>
-                        <input type="text" name="email" id="email" class="inputUser-3" placeholder="Insira o seu e-mail">
+                        <input type="text" name="email" id="email" class="inputUser-3 required" placeholder="Insira o seu e-mail">
+                        <span class="span-required">Insira um e-mail válido</span>
                         <br><br>
                     </div>
                 </div>
@@ -89,14 +94,16 @@
                 <div class="inputBox-4">
                     <div class="password">
                         <label for="password"><b>Senha:</b></label>
-                        <input type="text" name="password" id="password" class="inputUser-4" placeholder="Crie uma senha">
-                        <h3>Sua senha deve conter no mínimo 8 caracteres, combinando letras maiúsculas, minúsculas, números e símbolos especiais.</h3>
+                        <input type="text" name="password" id="password" class="inputUser-4 required" placeholder="Crie uma senha">
+                        <span class="span-required">Sua senha deve conter no mínimo 8 caracteres, combinando letras maiúsculas, minúsculas, números e símbolos especiais.</span>
                         <br><br>
                     </div>
 
                     <div class="confirm-pass">
                         <label for="confirm-pass"><b>Confirme sua senha:</b></label>
-                        <input type="text" name="confirm-pass" id="confirm-pass" class="inputUser-4" placeholder="Repita a senha">
+                        <input type="text" name="confirm-pass" id="confirm-pass" class="inputUser-4 required" placeholder="Repita a senha">
+                        <span class="span-required">As senhas não coincidem</span>
+                        
                         <br><br>
                     </div>
                 </div>

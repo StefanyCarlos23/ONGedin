@@ -34,20 +34,11 @@ function btnRegisterOnClick(event){
     else if (areaActivity.value === "") {
         errorAlert('Preenchimento obrigatório: Área de atuação', areaActivity)
     }
-    else if (inputWithoutNumbers(areaActivity.value)) {
-        errorAlert('Área de atuação não pode conter números', areaActivity)
-    }
     else if (fundationDate.value === "") {
         errorAlert('Preenchimento obrigatório: Data de Fundação', fundationDate)
     }
-    else if (!isValidDate(fundationDate.value)) {
-        errorAlert('Data de Fundação inválida', fundationDate)
-    }
     else if (telephone.value === "") {
         errorAlert('Preenchimento obrigatório: Telefone', telephone)
-    }
-    else if (!isTelephone(telephone.value)) {
-        errorAlert('Telefone inválido', telephone)
     }
     else if (socialMedia.value === "") {
         errorAlert('Preenchimento obrigatório: Rede Social', socialMedia)
@@ -172,6 +163,34 @@ function emailValidate() {
         removeError(1)
     }
 }
+
+function areaActivityValiate() {
+    if (inputWithoutNumbers(campos[2].value)) {
+        setError(2);
+    }
+    else{
+        removeError(2)
+    }
+}
+
+function fundationDateValiate() {
+    if (!isValidDate(campos[3].value)) {
+        setError(3);
+    }
+    else{
+        removeError(3)
+    }
+}
+
+function telephoneValiate() {
+    if (!isValidDate(campos[4].value)) {
+        setError(4);
+    }
+    else{
+        removeError(4)
+    }
+}
+
 
 // ----- REGEX ----- ///
 

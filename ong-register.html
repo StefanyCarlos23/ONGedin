@@ -67,14 +67,14 @@
                 <div class="inputBox-2">
                     <div class="area-activity">
                         <label for="text"><b>Área de Atuação:</b></label>
-                        <input type="text" id="area-activity" name="area-activity" class="inputUser-2 required" placeholder="Insira a área de atuação da ONG">
+                        <input type="text" id="area-activity" name="area-activity" class="inputUser-2 required" placeholder="Insira a área de atuação da ONG" oninput="areaActivityValiate()">
                         <span class="span-required">Área de atuação não pode conter números</span>
                         <br><br>
                     </div>
 
                     <div class="fundation-date">
                         <label for="text"><b>Data de fundação:</b></label>
-                        <input type="text" id="fundation-date" name="fundation-date" class="inputUser-2 required" placeholder="Insira a data de fundação da ONG">
+                        <input type="text" id="fundation-date" name="fundation-date" class="inputUser-2 required" placeholder="Insira a data de fundação da ONG" oninput="fundationDateValiate()">
                         <span class="span-required">Data da fundação inválida</span>
                         <br><br>
                     </div>
@@ -84,7 +84,7 @@
                 <div class="inputBox-3">
                     <div class="telephone">
                         <label for="telephone"><b>Telefone:</b></label>
-                        <input type="text" name="telephone" id="telephone" class="inputUser-3" placeholder="Insira o telefone da ONG">
+                        <input type="text" name="telephone" id="telephone" class="inputUser-3 required" placeholder="Insira o telefone da ONG" oninput="telephoneValiate()">
                         <span class="span-required">Telefone inválido</span>
                         <br><br>
                     </div>

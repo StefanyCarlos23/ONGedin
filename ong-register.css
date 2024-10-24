@@ -69,8 +69,8 @@ nav ul a img{
 .box-content{
     position:relative;
     background-color: rgb(255, 255, 255);
-    margin-top: 60px;
-    margin-bottom: 60px;
+    margin-top: 4.5rem;
+    margin-bottom: 4.5rem;
     border-radius: 25px;
     width: 70%;
     box-shadow: 3px 3px 2em rgba(0, 0, 0, 0.3)
@@ -80,22 +80,21 @@ nav ul a img{
 .btn{
     display: flex;
     flex-direction: row;
-    margin: 50px 25px;
+    margin: 4rem 2.5rem;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 100px;
+    margin-bottom: 5.5rem;
 }
 
 .back-btn{
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 25px;
     background-color:#E7E7E7;
     border-radius: 50px;
-    width: 120px;
-    height:35px;
-    font-size: 17px;
+    width: 7rem;
+    height: 2rem;
+    font-size: 1rem;
     color: #777575;
     border: #d0d0d0 solid 1px;
 }
@@ -107,19 +106,19 @@ nav ul a img{
     justify-content: center;
 }
 .btn-login h3{
-    font-size: 15px;
+    font-size: 0.9rem;
     color: #8A8A8A
 }
 .login-btn{
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 25px;
+    margin: 0 2rem;
     background-color:#6bd1c2a9;
     border-radius: 50px;
-    width: 120px;
-    height:35px;
-    font-size: 17px;
+    width: 7rem;
+    height: 2rem;
+    font-size: 1rem;
     color: #1B565F;
     border: #1B565F solid 1px;
 }
@@ -134,31 +133,31 @@ nav ul a img{
 
 
 .box-content h1{
-    margin: 25px 120px;
-    font-size: 31px;
+    margin: 2.5rem 7rem;
+    font-size: 2rem;
 }
 
 input::placeholder {
     color:#8A8A8A;
-    padding-left: 10px;
+    padding-left: 1rem;
 }
 
 /* --- NAME AND E-MAIL --- */
 .inputBox-1{
     display: flex;
     flex-direction:column;
-    margin-top: 75px;
-    margin-left:15%;
-    margin-right:15%;
+    margin-top: 5rem;
+    margin-left:12rem;
+    margin-right:12rem;
 }
 .inputUser-1{
-    height: 40px;
-    width: 899px;
+    height: 2.5rem;
+    width: 56.5rem;
     border-radius: 7px;
     border: #8A8A8A SOLID;
     background-color: #F9F9F9;
     border-width: 1px;
-    margin-top: 5px;
+    margin-top: 0.3rem;
 }
 
 /* --- AREA-ACTIVITY AND FUNDATION DATE --- */
@@ -166,8 +165,8 @@ input::placeholder {
     display: flex;
     flex-direction:row;
     justify-content: space-between;
-    margin-left:15%;
-    margin-right:16%;
+    margin-left:12rem;
+    margin-right:13rem;
 }
 .area-activity{
     display: flex;
@@ -178,13 +177,13 @@ input::placeholder {
     flex-direction: column;
 }
 .inputUser-2{
-    height: 40px;
-    width: 400px;
+    height: 2.5rem;
+    width: 26rem;
     border-radius: 7px;
     border: #8A8A8A SOLID;
     background-color: #F9F9F9;
     border-width: 1px;
-    margin-top: 5px;
+    margin-top: 0.3rem;
 }
 
 /* --- TELEPHONE, SOCIAL MEDIA, PASSWORD AND CONFIRM PASSWORD --- */
@@ -192,8 +191,8 @@ input::placeholder {
     display: flex;
     flex-direction:row;
     justify-content: space-between;
-    margin-left:15%;
-    margin-right:16%;
+    margin-left:12rem;
+    margin-right:13rem;
 }
 .telephone{
     display: flex;
@@ -207,81 +206,76 @@ input::placeholder {
     display: flex;
     flex-direction: column;
 }
-.password h3{
-    color:#8A8A8A;
-    font-size: 13px;
-    padding-left: 10px;
-    padding-top: 4px;
-}
 .confirm-pass{
     display: flex;
     flex-direction: column;
 }
 .inputUser-3{
-    height: 40px;
-    width: 400px;
+    height: 2.5rem;
+    width: 26rem;
     border-radius: 7px;
     border: #8A8A8A SOLID;
     background-color: #F9F9F9;
     border-width: 1px;
-    margin-top: 5px;
+    margin-top: 0.3rem;
 }
 
 .inputBox-4{
     display: flex;
     flex-direction:column;
-    margin-left:15%;
-    margin-right:16%;
+    margin-left:12rem;
+    margin-right:12rem;
 }
 .inputUser-4{
-    height: 40px;
-    width: 899px;
+    height: 2.5rem;
+    width: 56.5rem;
     border-radius: 7px;
     border: #8A8A8A SOLID;
     background-color: #F9F9F9;
     border-width: 1px;
-    margin-top: 5px;
+    margin-top: 0.3rem;
 }
 
 /* --- CEP, ROAD AND NUM --- */
 .inputBox-5{
     display: flex;
     flex-direction:row;
-    margin-top: 75px;
-    margin-left:15%;
-    margin-right:16%;
+    margin-top: 3rem;
+    margin-left:12rem;
+    margin-right:12rem;
     justify-content: space-between;
 }
 .inputBox-CEP{
     display: flex;
     flex-direction: column;
-    width: 220px;
+    width: 14rem;
 }
 .inputBox-road{
     display: flex;
     flex-direction: column;
-    width: 450px;
+    width: 27rem;
 }
 .inputBox-num{
     display: flex;
     flex-direction: column;
-    width: 150px;
+    width: 10rem;
 }
 .inputUser-5{
-    height: 40px;
+    height: 2.5rem;
     border-radius: 7px;
     border: #8A8A8A SOLID;
     background-color: #F9F9F9;
     border-width: 1px;
+    margin-top: 0.3rem;
 }
 
 /* --- NEIGHBORHOOD AND CITY --- */
 .inputBox-6{
     display: flex;
     flex-direction:row;
-    margin-top: 75px;
-    margin-left:15%;
-    margin-right:16%;
+    margin-top: 3rem;
+    margin-left:12rem;
+    margin-right:12rem;
     justify-content: space-between;
 }
 .neighborhood{
@@ -293,21 +287,22 @@ input::placeholder {
     flex-direction: column;
 }
 .inputUser-6{
-    height: 40px;
-    width: 400px;
+    height: 2.5rem;
+    width: 26rem;
     border-radius: 7px;
     border: #8A8A8A SOLID;
     background-color: #F9F9F9;
     border-width: 1px;
+    margin-top: 0.3rem;
 }
 
 /* --- STATE AND COUNTRY --- */
 .inputBox-7{
     display: flex;
     flex-direction:row;
-    margin-top: 75px;
-    margin-left:15%;
-    margin-right:16%;
+    margin-top: 3rem;
+    margin-left:12rem;
+    margin-right:12rem;
     justify-content: space-between;
 }
 .state{
@@ -319,29 +314,30 @@ input::placeholder {
     flex-direction: column;
 }
 .inputUser-7{
-    height: 40px;
-    width: 400px;
+    height: 2.5rem;
+    width: 26rem;
     border-radius: 7px;
     border: #8A8A8A SOLID;
     background-color: #F9F9F9;
     border-width: 1px;
+    margin-top: 0.3rem;
 }
 
 /* --- COMPLEMENT --- */
 .inputBox-8{
     display: flex;
     flex-direction:column;
-    margin-top: 75px;
-    margin-left:15%;
-    margin-right:15%;
+    margin-top: 3rem;
+    margin-left:12rem;
 }
 .inputUser-8{
-    height: 40px;
-    width: 400px;
+    height: 2.5rem;
+    width: 26rem;
     border-radius: 7px;
     border: #8A8A8A SOLID;
     background-color: #F9F9F9;
     border-width: 1px;
+    margin-top: 0.3rem;
 }
   
 .btn-register{
@@ -352,13 +348,13 @@ input::placeholder {
 .register-btn{
     background-color:#46A799;
     border-radius: 50px;
-    width: 150px;
-    height: 45px;
-    font-size: 17px;
+    width: 9rem;
+    height: 2.5rem;
+    font-size: 1rem;
     color: #ffffff;
     border: #1B565F solid 1px;
-    margin-top: 100px;
-    margin-bottom: 100px;
+    margin-top: 5.5rem;
+    margin-bottom: 5.5rem;
 }
 .register-btn:hover{
     background-color:#337c71;;
@@ -369,8 +365,7 @@ input::placeholder {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-right: 35px;
-    height: 90px;
+    height: 5rem;
 }
 
 .span-required{
