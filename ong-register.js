@@ -1,6 +1,6 @@
 
 const name = document.getElementById('name')
-const email = document.getElementById('e-mail')
+const email = document.getElementById('email')
 const areaActivity = document.getElementById('area-activity')
 const fundationDate = document.getElementById('fundation-date')
 const telephone = document.getElementById('telephone')
@@ -28,8 +28,23 @@ function btnRegisterOnClick(event){
     if (name.value === "") {
         errorAlert('Preenchimento obrigatório: Nome', name)
     }
+    else if (inputWithoutNumbers(name.value)){
+        if (inputWithoutNumbers(campos[0].value)) {
+            setError(0);
+        }
+        else{
+            removeError(0)
+        }
+    }
     else if (email.value === "") {
         errorAlert('Preenchimento obrigatório: E-mail', email)
+    }
+    else if (!isEmail(email.value)) {
+        if (!isEmail(campos[1].value)) {
+            setError(1);
+        } else {
+            removeError(1);
+        }
     }
     else if (areaActivity.value === "") {
         errorAlert('Preenchimento obrigatório: Área de atuação', areaActivity)
@@ -148,7 +163,7 @@ function successAlert(message) {
 // Function 
 function nameValidate() {
     if (inputWithoutNumbers(campos[0].value)) {
-        setError(0);
+        setError(0)
     }
     else{
         removeError(0)
@@ -156,17 +171,18 @@ function nameValidate() {
 }
 
 function emailValidate() {
-    if (!isEmail(campos[1].value)) {
+    if (campos[1].value === "") {
+        removeError(1);
+    } else if (!isEmail(campos[1].value)) {
         setError(1);
-    }
-    else{
-        removeError(1)
+    } else {
+        removeError(1);
     }
 }
 
 function areaActivityValiate() {
     if (inputWithoutNumbers(campos[2].value)) {
-        setError(2);
+        setError(2)
     }
     else{
         removeError(2)
@@ -202,8 +218,8 @@ function inputWithoutNumbers(input) {
 
 // Function to check if is a valid email
 function isEmail(email) {
-    const re = /^\w.+@\w{3}.*\.\w{2,}$/
-    return re.test(email)
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    return re.test(email);
 }
 
 // Function to check if is a valid date
