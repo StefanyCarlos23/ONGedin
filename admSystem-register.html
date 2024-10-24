@@ -51,35 +51,35 @@
                 <div class="inputBox">
                     <div>
                         <label for="text"><b>Nome:</b></label><br>
-                        <input type="text" id="name" name="name"class="inputUser required" placeholder="Insira seu nome completo">
-                        <span class="span-required">Nome não pode conter números</span>
+                        <input type="text" id="name" name="name"class="inputUser required" placeholder="Insira seu nome completo" oninput="inputWithoutNumbersValidate(0)">
+                        <span class="span-required">Nome não pode conter números ou caracteres especiais</span>
                         <br><br>
                     </div>
 
                     <div>
                         <label for="text"><b>E-mail:</b></label><br>
-                        <input type="text" id="e-mail" name="e-mail" class="inputUser required" placeholder="Insira seu e-mail">
+                        <input type="text" id="e-mail" name="e-mail" class="inputUser required" placeholder="Insira seu e-mail" oninput="emailValidate()">
                         <span class="span-required">Insira um e-mail válido</span>
                         <br><br>
                     </div>
 
                     <div>
                         <label for="telephone"><b>Telefone:</b></label>
-                        <input type="text" name="telephone" id="telephone" class="inputUser required"placeholder="Insira seu número de telefone">
+                        <input type="text" name="telephone" id="telephone" class="inputUser required"placeholder="Insira seu número de telefone" oninput="telephoneValiate()">
                         <span class="span-required">Telefone inválido</span>
                         <br><br>
                     </div>
 
                     <div>
                         <label for="password"><b>Senha:</b></label>
-                        <input type="text" name="password" id="password" class="inputUser required" placeholder="Crie uma senha">
+                        <input type="text" name="password" id="password" class="inputUser required" placeholder="Crie uma senha" oninput="passwordValidade()">
                         <span class="span-required">Sua senha deve conter no mínimo 8 caracteres, combinando letras maiúsculas, minúsculas, números e símbolos especiais.</span>
                         <br><br>
                     </div>
 
                     <div>
                         <label for="confirm-pass"><b>Confirme sua senha:</b></label>
-                        <input type="text" name="confirm-pass" id="confirm-pass" class="inputUser required" placeholder="Repita sua senha">
+                        <input type="text" name="confirm-pass" id="confirm-pass" class="inputUser required" placeholder="Repita sua senha" oninput="confirmPasswordValidade()">
                         <span class="span-required">As senhas não coincidem</span>
                         <br><br>
                     </div>

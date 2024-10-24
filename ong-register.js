@@ -1,22 +1,4 @@
 
-const name = document.getElementById('name')
-const email = document.getElementById('email')
-const areaActivity = document.getElementById('area-activity')
-const fundationDate = document.getElementById('fundation-date')
-const telephone = document.getElementById('telephone')
-const socialMedia = document.getElementById('social-media')
-const password = document.getElementById('password')
-const confirmPass = document.getElementById('confirm-pass')
-// Address
-const cep = document.getElementById('CEP')
-const road = document.getElementById('road')
-const num = document.getElementById('num')
-const neighborhood = document.getElementById('neighborhood')
-const city = document.getElementById('city')
-const state = document.getElementById('state')
-const country = document.getElementById('country')
-
-
 const form = document.getElementById('form')
 const campos = document.querySelectorAll('.required')
 const spans = document.querySelectorAll('.span-required')
@@ -25,90 +7,107 @@ const spans = document.querySelectorAll('.span-required')
 function btnRegisterOnClick(event){
     event.preventDefault()
 
-    if (name.value === "") {
-        errorAlert('Preenchimento obrigatório: Nome', name)
+    if (campos[0].value === "") {
+        errorAlert('Preenchimento obrigatório: Nome', 0)
     }
-    else if (inputWithoutNumbers(name.value)){
-        if (inputWithoutNumbers(campos[0].value)) {
-            setError(0);
-        }
-        else{
-            removeError(0)
-        }
+    else if (!inputWithoutNumbers(campos[0].value)){
+        inputWithoutNumbersValidate(0)
     }
-    else if (email.value === "") {
-        errorAlert('Preenchimento obrigatório: E-mail', email)
+
+    else if (campos[1].value === "") {
+        errorAlert('Preenchimento obrigatório: E-mail', 1)
     }
-    else if (!isEmail(email.value)) {
-        if (!isEmail(campos[1].value)) {
-            setError(1);
-        } else {
-            removeError(1);
-        }
+    else if (!isEmail(campos[1].value)) {
+        emailValidate()
     }
-    else if (areaActivity.value === "") {
-        errorAlert('Preenchimento obrigatório: Área de atuação', areaActivity)
+
+    else if (campos[2].value === "") {
+        errorAlert('Preenchimento obrigatório: Área de atuação', 2)
     }
-    else if (fundationDate.value === "") {
-        errorAlert('Preenchimento obrigatório: Data de Fundação', fundationDate)
+    else if (!inputWithoutNumbers(campos[2].value)){
+        inputWithoutNumbersValidate(2)
     }
-    else if (telephone.value === "") {
-        errorAlert('Preenchimento obrigatório: Telefone', telephone)
+
+    else if (campos[3].value === "") {
+        errorAlert('Preenchimento obrigatório: Data de Fundação', 3)
     }
-    else if (socialMedia.value === "") {
-        errorAlert('Preenchimento obrigatório: Rede Social', socialMedia)
-    }    
-    else if (password.value === "") {
-        errorAlert('Preenchimento obrigatório: Senha', password)
+    else if (!isValidDate(campos[3].value.value)){
+        fundationDateValiate()
     }
-    else if (!validPassword(password.value)) {
-        errorAlert('Senha inválida', password)
+
+    else if (campos[4].value === "") {
+        errorAlert('Preenchimento obrigatório: Telefone', 4)
     }
-    else if (confirmPass.value === "") {
-        errorAlert('Preenchimento obrigatório: Confirme sua senha', confirmPass)
+    else if (!isTelephone(campos[4].value.value)) {
+        telephoneValiate()
     }
-    else if (password.value !== confirmPass.value){
-        errorAlert('As senhas não coincidem', confirmPass)
+
+    else if (campos[5].value === "") {
+        errorAlert('Preenchimento obrigatório: Rede Social', 5)
+    }  
+
+    else if (campos[6].value === "") {
+        errorAlert('Preenchimento obrigatório: Senha', 6)
     }
-    else if (cep.value === "") {
-        errorAlert('Preenchimento obrigatório: CEP', cep)
+    else if (!validPassword(campos[6].value)) {
+        passwordValidade()
     }
-    else if (!isCEP(cep.value)){
-        errorAlert('CEP inválido', cep)
+
+    else if (campos[7].value === "") {
+        errorAlert('Preenchimento obrigatório: Confirme sua senha', 7)
     }
-    else if (road.value === "") {
-        errorAlert('Preenchimento obrigatório: Rua', road)
+    else if (campos[6].value !== campos[7].value){
+        confirmPasswordValidade()
     }
-    else if (num.value === "") {
-        errorAlert('Preenchimento obrigatório: Número', num)
+
+    else if (campos[8].value === "") {
+        errorAlert('Preenchimento obrigatório: CEP', 8)
     }
-    else if (!isNum(parseInt(num.value))) {
-        errorAlert('Número não pode conter letras', num)
+    else if (!isCEP(campos[8].value)){
+        cepValidate()
     }
-    else if (neighborhood.value === "") {
-        errorAlert('Preenchimento obrigatório: Bairro', neighborhood)
+
+    else if (campos[9].value === "") {
+        errorAlert('Preenchimento obrigatório: Rua', 9)
     }
-    else if (inputWithoutNumbers(neighborhood.value)) {
-        errorAlert('Bairro não pode conter números',neighborhood)
+    else if (!isRoad(campos[9].value)){
+        roadValidate()
     }
-    else if (city.value === "") {
-        errorAlert('Preenchimento obrigatório: Cidade', city)
+    else if (campos[10].value === "") {
+        errorAlert('Preenchimento obrigatório: Número', 10)
     }
-    else if (inputWithoutNumbers(city.value)) {
-        errorAlert('Cidade não pode conter números',city)
+    else if (!isNum(parseInt(campos[10].value))) {
+        numValidate() 
     }
-    else if (state.value === "") {
-        errorAlert('Preenchimento obrigatório: Estado', state)
+
+    else if (campos[11].value === "") {
+        errorAlert('Preenchimento obrigatório: Bairro', 11)
     }
-    else if (inputWithoutNumbers(state.value)) {
-        errorAlert('Estado não pode conter números',state)
+    else if (!inputWithoutNumbers(campos[11].value)){
+        inputWithoutNumbersValidate(11)
     }
-    else if (country.value === "") {
-        errorAlert('Preenchimento obrigatório: Páis', country)
+
+    else if (campos[12].value === "") {
+        errorAlert('Preenchimento obrigatório: Cidade', 12)
     }
-    else if (inputWithoutNumbers(country.value)) {
-        errorAlert('Páis não pode conter números',country)
+    else if (!inputWithoutNumbers(campos[12].value)) {
+        inputWithoutNumbersValidate(12)
     }
+
+    else if (campos[13].value === "") {
+        errorAlert('Preenchimento obrigatório: Estado', 13)
+    }
+    else if (!inputWithoutNumbers(campos[13].value)) {
+        inputWithoutNumbersValidate(13)
+    }
+
+    else if (campos[14].value === "") {
+        errorAlert('Preenchimento obrigatório: Páis', 14)
+    }
+    else if (!inputWithoutNumbers(campos[14].value)) { 
+        inputWithoutNumbersValidate(14);
+    }
+
     else {
         successAlert('Cadastro realizado com sucesso!');
         setTimeout(() => {
@@ -135,7 +134,7 @@ function removeError(index) {
 }
 
 // Function creates error alert for input that is not filled in
-function errorAlert(message, input) {
+function errorAlert(message, index) {
     Swal.fire({
         title: 'Erro!',
         text: message,
@@ -144,7 +143,7 @@ function errorAlert(message, input) {
         confirmButtonColor:'#399aa8'
     }).then((result) => {
         if (result.isConfirmed) {
-            input.focus();
+            campos[index].focus();
         }
     });
 }
@@ -160,13 +159,17 @@ function successAlert(message) {
     });
 }
 
-// Function 
-function nameValidate() {
-    if (inputWithoutNumbers(campos[0].value)) {
-        setError(0)
-    }
-    else{
-        removeError(0)
+
+// ----- FUNCTIONS TO VALIDATE THE INPUTS ----- ///
+function inputWithoutNumbersValidate(index) {
+    if (campos[index].value === "") {
+        removeError(index)
+    } 
+    else if (!inputWithoutNumbers(campos[index].value)) {
+        setError(index)
+    } 
+    else {
+        removeError(index)
     }
 }
 
@@ -174,24 +177,18 @@ function emailValidate() {
     if (campos[1].value === "") {
         removeError(1);
     } else if (!isEmail(campos[1].value)) {
-        setError(1);
+        setError(1)
     } else {
-        removeError(1);
-    }
-}
-
-function areaActivityValiate() {
-    if (inputWithoutNumbers(campos[2].value)) {
-        setError(2)
-    }
-    else{
-        removeError(2)
+        removeError(1)
     }
 }
 
 function fundationDateValiate() {
-    if (!isValidDate(campos[3].value)) {
-        setError(3);
+    if (campos[3].value === "") {
+        removeError(3)
+    }
+    else if (!isValidDate(campos[3].value)) {
+        setError(3)
     }
     else{
         removeError(3)
@@ -199,21 +196,84 @@ function fundationDateValiate() {
 }
 
 function telephoneValiate() {
-    if (!isValidDate(campos[4].value)) {
-        setError(4);
+    if (campos[4].value === "") {
+        removeError(4)
+    } 
+    else if (!isTelephone(campos[4].value)) {
+        setError(4)
     }
     else{
         removeError(4)
     }
 }
 
+function passwordValidade() {
+    if (campos[6].value === "") {
+        removeError(6)
+    } 
+    else if (!validPassword(campos[6].value)) {
+        setError(6)
+    }
+    else{
+        removeError(6)
+    }
+}
+
+function confirmPasswordValidade() {
+    if (campos[7].value === "") {
+        removeError(7)
+    } 
+    if ((campos[6].value !== campos[7].value)) {
+        setError(6)
+    }
+    else{
+        removeError(6)
+    }
+}
+
+function cepValidate() {
+    if (campos[8].value === "") {
+        removeError(8)
+    } 
+    else if (!isCEP(campos[8].value)) {
+        setError(8)
+    }
+    else{
+        removeError(8)
+    }
+}
+
+function roadValidate() {
+    if (campos[9].value === "") {
+        removeError(9)
+    } 
+    else if (!isCEP(campos[9].value)) {
+        setError(9)
+    }
+    else{
+        removeError(9)
+    }
+}
+
+
+function numValidate() {
+    if (campos[10].value === "") {
+        removeError(10)
+    } 
+    else if (!isNum(campos[10].value)) {
+        setError(10)
+    }
+    else{
+        removeError(10)
+    }
+}
 
 // ----- REGEX ----- ///
 
 // Function to check if the input contains numbers
-function inputWithoutNumbers(input) {
-    const re = /\d+/
-    return re.test(input)
+function inputWithoutNumbers(index) {
+    const re = /^[A-Za-z]+$/;
+    return re.test(index)
 }
 
 // Function to check if is a valid email
@@ -265,6 +325,12 @@ function isTelephone(telephone) {
 function isCEP(cep){
     const re = /^\d{2}\.?\d{3}-?\d{3}$/
     return re.test(cep)
+}
+
+// Function to check if is a valid road
+function isRoad(road){
+    const re = /^[A-Za-z0-9]+$/;
+    return re.test(road)
 }
 
 // Function to check if is positive numbers

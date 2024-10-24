@@ -47,65 +47,62 @@
             <h1> Dados cadastrais</h1>
     
             <form id="form" name="form" action="" method="POST">
-                <div class="inputBox-1">
+                <div class="full-inputBox">
                     <div>
                         <label for="text"><b>Nome:</b></label><br>
-                        <input type="text" id="name" name="name"class="inputUser-1 required" placeholder="Insira seu nome completo" oninput="nameValidate()">
-                        <span class="span-required">Nome não pode conter números</span>
+                        <input type="text" id="name" name="name"class="full-inputUser required" placeholder="Insira seu nome completo" oninput="inputWithoutNumbersValidate(0)">
+                        <span class="span-required">Nome não pode conter números e caracteres especiais</span>
+                        <br><br>
                     </div>
-                    <br><br>
+
                     <div>
                         <label for="text"><b>E-mail:</b></label><br>
-                        <input type="text" id="email" name="email"class="inputUser-1 required" placeholder="Insira seu melhor e-mail" oninput="emailValidate()">
+                        <input type="text" id="email" name="email"class="full-inputUser required" placeholder="Insira seu melhor e-mail" oninput="emailValidate()">
                         <span class="span-required">Insira um e-mail válido</span>
+                        <br><br>
                     </div>
-                    <br><br>
                 </div>
 
 
-                <div class="inputBox-2">
-                    <div class="area-activity">
+                <div class="mid-inputBox">
+                    <div class="switch-to-column">
                         <label for="text"><b>Área de Atuação:</b></label>
-                        <input type="text" id="area-activity" name="area-activity" class="inputUser-2 required" placeholder="Insira a área de atuação da ONG" oninput="areaActivityValiate()">
-                        <span class="span-required">Área de atuação não pode conter números</span>
-                        <br><br>
+                        <input type="text" id="area-activity" name="area-activity" class="mid-inputUser required" placeholder="Insira a área de atuação da ONG" oninput="inputWithoutNumbersValidate(2)">
+                        <span class="span-required">Área de atuação não pode conter números ou caracteres especiais</span>
                     </div>
 
-                    <div class="fundation-date">
+                    <div class="switch-to-column">
                         <label for="text"><b>Data de fundação:</b></label>
-                        <input type="text" id="fundation-date" name="fundation-date" class="inputUser-2 required" placeholder="Insira a data de fundação da ONG" oninput="fundationDateValiate()">
+                        <input type="text" id="fundation-date" name="fundation-date" class="mid-inputUser required" placeholder="Insira a data de fundação da ONG" oninput="fundationDateValiate()">
                         <span class="span-required">Data da fundação inválida</span>
-                        <br><br>
                     </div>
-
                 </div>
 
-                <div class="inputBox-3">
-                    <div class="telephone">
+                <div class="mid-inputBox">
+                    <div>
                         <label for="telephone"><b>Telefone:</b></label>
-                        <input type="text" name="telephone" id="telephone" class="inputUser-3 required" placeholder="Insira o telefone da ONG" oninput="telephoneValiate()">
+                        <input type="text" name="telephone" id="telephone" class="mid-inputUser required" placeholder="Insira o telefone da ONG" oninput="telephoneValiate()">
                         <span class="span-required">Telefone inválido</span>
-                        <br><br>
-                    </div>
+                  </div>
 
-                    <div class="social-media">
+                    <div class="switch-to-column">
                         <label for="social-media"><b>Rede Social:</b></label>
-                        <input type="text" name="social-media" id="social-media" class="inputUser-3" placeholder="Insira a rede social da ONG">
-                        <br><br>
+                        <input type="text" name="social-media" id="social-media" class="mid-inputUser required" placeholder="Insira a rede social da ONG">
+                        <span class="span-required">Telefone inválido</span>
                     </div>
                 </div>
 
-                <div class="inputBox-4">
-                    <div class="password">
+                <div class="full-inputBox">
+                    <div>
                         <label for="password"><b>Senha:</b></label>
-                        <input type="text" name="password" id="password" class="inputUser-4 required" placeholder="Crie uma senha">
+                        <input type="text" name="password" id="password" class="full-inputUser required" placeholder="Crie uma senha" oninput="passwordValidade()">
                         <span class="span-required">Sua senha deve conter no mínimo 8 caracteres, combinando letras maiúsculas, minúsculas, números e símbolos especiais.</span>
                         <br><br>
                     </div>
 
-                    <div class="confirm-pass">
+                    <div>
                         <label for="confirm-pass"><b>Confirme sua senha:</b></label>
-                        <input type="text" name="confirm-pass" id="confirm-pass" class="inputUser-4 required" placeholder="Repita a senha">
+                        <input type="text" name="confirm-pass" id="confirm-pass" class="full-inputUser required" placeholder="Repita a senha" oninput="confirmPasswordValidade()">
                         <span class="span-required">As senhas não coincidem</span>
                         <br><br>
                     </div>
@@ -113,56 +110,58 @@
     
                 <h1>Endereço</h1>
     
-                <div class="inputBox-5">
+                <div class="mid-inputBox-1">
                     <div class="inputBox-CEP">
                         <label for="CEP"><b>CEP:</b></label>
-                        <input type="text" name="CEP" id="CEP" class="inputUser-5 required" placeholder="Insira o CEP">
+                        <input type="text" name="CEP" id="CEP" class="mid-inputUser-1 required" placeholder="Insira o CEP" oninput="cepValidate()">
                         <span class="span-required">CEP inválido</span>
                     </div>
 
                     <div class="inputBox-road">
                         <label for="road"><b>Rua:</b></label>
-                        <input type="text" name="road" id="road" class="inputUser-5" placeholder="Insira o nome da rua">
-                        <span class="span-required"></span>
+                        <input type="text" name="road" id="road" class="mid-inputUser-1 required" placeholder="Insira o nome da rua" oninput="roadValidate()">
+                        <span class="span-required"> Rua não pode conter caracteres especias</span>
                     </div>
 
                     <div class="inputBox-num">
                         <label for="num"><b>Número:</b></label>
-                        <input type="text" name="num" id="num" class="inputUser-5 required" placeholder="Insira o número">
-                        <span class="span-required">Número não pode conter letras</span>
+                        <input type="text" name="num" id="num" class="mid-inputUser-1 required" placeholder="Insira o número" oninput="numValidate()">
+                        <span class="span-required">Número não pode conter letras ou caracteres especiais</span>
                     </div>
                 </div>
     
-                <div class="inputBox-6">
-                    <div class="neighborhood">
+                <div class="mid-inputBox">
+                    <div class="switch-to-column">
                         <label for="neighborhood"><b>Bairro:</b></label>
-                        <input type="text" name="neighborhood" id="neighborhood" class="inputUser-6 required" placeholder="Insira o bairro">
-                        <span class="span-required">Bairro não pode conter números</span>
+                        <input type="text" name="neighborhood" id="neighborhood" class="mid-inputUser required" placeholder="Insira o bairro" oninput="inputWithoutNumbersValidate(11)">
+                        <span class="span-required">Bairro não pode conter números ou caracteres especiais</span>
                     </div>
 
-                    <diV class="city">
+                    <diV class="switch-to-column">
                         <label for="city"><b>Cidade:</b></label>
-                        <input type="text" name="city" id="city" class="inputUser-6 required" placeholder="Insira a cidade">
-                        <span class="span-required">Cidade não pode conter números</span>
+                        <input type="text" name="city" id="city" class="mid-inputUser required" placeholder="Insira a cidade" oninput="inputWithoutNumbersValidate(12)">
+                        <span class="span-required">Cidade não pode conter números ou caracteres especiais</span>
                     </div>
                 </div>
     
-                <div class="inputBox-7">
-                    <div class="state">
+                <div class="mid-inputBox">
+                    <div class="switch-to-column">
                         <label for="state"><b>Estado:</b></label>
-                        <input type="text" name="state" id="state" class="inputUser-7 required" placeholder="Insira o estado">
-                        <span class="span-required">Estado não pode conter números</span>
+                        <input type="text" name="state" id="state" class="mid-inputUser required" placeholder="Insira o estado" oninput="inputWithoutNumbersValidate(13)">
+                        <span class="span-required">Estado não pode conter números ou caracteres especiais</span>
                     </div>
-                    <div class="country">
+                    <div class="switch-to-column">
                         <label for="country"><b>País</b>:</b></label>
-                        <input type="text" name="country" id="country" class="inputUser-7 required" placeholder="Insira o país">
-                        <span class="span-required">País não pode conter números</span>
+                        <input type="text" name="country" id="country" class="mid-inputUser required" placeholder="Insira o país" oninput="inputWithoutNumbersValidate(14)">
+                        <span class="span-required">País não pode conter números ou caracteres especiais</span>
                     </div>
                 </div>
 
-                <div class="inputBox-8">
-                    <label for="complement"><b>Complemento:</b></label>
-                    <input type="text" name="complement" id="complement" class="inputUser-8" placeholder="Insira o complemento">
+                <div class="mid-inputBox">
+                    <div class="switch-to-column">
+                        <label for="complement"><b>Complemento:</b></label>
+                        <input type="text" name="complement" id="complement" class="mid-inputUser" placeholder="Insira o complemento">
+                    </div>
                 </div>
 
                 <div class="btn-register">
