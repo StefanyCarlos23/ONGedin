@@ -231,6 +231,7 @@ header{
     text-decoration: none;
     font-size: 18px;
     border-radius: 5px;
+    transition: color 0.1s;
 }
 
 .how-to-become .container .options a:hover{
@@ -369,6 +370,11 @@ header{
     80% { transform: translateX(-200%); }
     90% { transform: translateX(0); }
     100% { transform: translateX(0); }
+}
+
+.featured-events .container .events .btn:active,
+.how-to-become .container .options a:active{
+    color: #666666;
 }
 
 footer{

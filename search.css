@@ -60,10 +60,64 @@ nav ul a img{
     margin: 0 15px;
 }
 
-.search-bar{
+.search{
+    padding: 80px 0;
     display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
+    font-size: 18px;
+}
+
+.search input{
+    margin: 0 20px;
+    padding: 8px;
+    width: 600px;
+    font-size: 16px;
+    border: #8A8A8A solid;
+    border-width: 1px;
+    border-radius: 10px;
+}
+
+.search a{
+    margin: 0 20px;
+}
+
+.search-bar .search .search-btn{
+    padding: 10px 15px;
+    background-color: #87BFC7;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 10px;
+    transition: color 0.5s;
+}
+
+.search-bar .search .back-btn,
+.search-bar .search .search-filter-btn{
+    padding: 10px 15px;
+    background-color: #b9b9b9;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 10px;
+    transition: color 0.4s;
+}
+
+.search-bar .search .search-btn:active,
+.search-bar .search .back-btn:active,
+.search-bar .search .search-filter-btn:active{
+    color: #666666;
+}
+
+.search-bar .search .search-btn:hover{
+    background-color: #4d909a;
+    transition: 0.4s;
+}
+
+.search-bar .search .back-btn:hover,
+.search-bar .search .search-filter-btn:hover{
+    background-color: #909090;
+    transition: 0.4s;
 }
 
 footer{
