@@ -57,7 +57,7 @@
 
                     <div>
                         <label for="text"><b>E-mail:</b></label><br>
-                        <input type="text" id="email" name="email"class="full-inputUser required" placeholder="Insira seu melhor e-mail" oninput="emailValidate()">
+                        <input type="text" id="email" name="email"class="full-inputUser required" placeholder="exemplo@gmail.com" oninput="emailValidate()">
                         <span class="span-required">Insira um e-mail válido!</span>
                         <br><br>
                     </div>
@@ -73,16 +73,15 @@
 
                     <div class="switch-to-column">
                         <label for="text"><b>Data de fundação:</b></label>
-                        <input type="text" id="fundation-date" name="fundation-date" class="mid-inputUser required" placeholder="Insira a data de fundação da ONG" oninput="fundationDateValiate()">
-                        <span class="span-required">Data da fundação inválida!</span>
+                        <input type="date" min="1950-01-01" max="2024-12-31"id="fundation-date" name="fundation-date" class="mid-inputUser">
                     </div>
                 </div>
 
                 <div class="mid-inputBox">
                     <div>
                         <label for="telephone"><b>Telefone:</b></label>
-                        <input type="text" name="telephone" id="telephone" class="mid-inputUser required" placeholder="Insira o telefone da ONG" oninput="telephoneValiate()">
-                        <span class="span-required">Telefone inválido!</span>
+                        <input type="text" name="telephone" id="telephone" class="mid-inputUser required" placeholder="(XX) XXXXX-XXXX" oninput="telephoneValidate()">
+                        <span class="span-required">Insira um telefone válido</span>
                   </div>
 
                     <div class="switch-to-column">
@@ -95,14 +94,14 @@
                 <div class="full-inputBox">
                     <div>
                         <label for="password"><b>Senha:</b></label>
-                        <input type="text" name="password" id="password" class="full-inputUser required" placeholder="Crie uma senha" oninput="passwordValidade()">
+                        <input type="password" name="password" id="password" class="full-inputUser required" placeholder="Crie uma senha" oninput="passwordValidate()">
                         <span class="span-required">Sua senha deve conter no mínimo 8 caracteres, combinando letras maiúsculas, minúsculas, números e símbolos especiais.</span>
                         <br><br>
                     </div>
 
                     <div>
                         <label for="confirm-pass"><b>Confirme sua senha:</b></label>
-                        <input type="text" name="confirm-pass" id="confirm-pass" class="full-inputUser required" placeholder="Repita a senha" oninput="confirmPasswordValidade()">
+                        <input type="password" name="confirm-pass" id="confirm-pass" class="full-inputUser required" placeholder="Repita a senha" oninput="confirmPasswordValidate()">
                         <span class="span-required">As senhas não coincidem.</span>
                         <br><br>
                     </div>
@@ -113,7 +112,7 @@
                 <div class="mid-inputBox-1">
                     <div class="inputBox-CEP">
                         <label for="CEP"><b>CEP:</b></label>
-                        <input type="text" name="CEP" id="CEP" class="mid-inputUser-1 required" placeholder="Insira o CEP" oninput="cepValidate()">
+                        <input type="text" name="CEP" id="CEP" class="mid-inputUser-1 required" placeholder="XXX.XXX.XXX-XX" oninput="cepValidate()">
                         <span class="span-required">CEP inválido!</span>
                     </div>
 
@@ -133,13 +132,13 @@
                 <div class="mid-inputBox">
                     <div class="switch-to-column">
                         <label for="neighborhood"><b>Bairro:</b></label>
-                        <input type="text" name="neighborhood" id="neighborhood" class="mid-inputUser required" placeholder="Insira o bairro" oninput="inputWithoutNumbersValidate(11)">
+                        <input type="text" name="neighborhood" id="neighborhood" class="mid-inputUser required" placeholder="Insira o bairro" oninput="inputWithoutNumbersValidate(10)">
                         <span class="span-required">Bairro não pode conter números ou caracteres especiais.</span>
                     </div>
 
                     <diV class="switch-to-column">
                         <label for="city"><b>Cidade:</b></label>
-                        <input type="text" name="city" id="city" class="mid-inputUser required" placeholder="Insira a cidade" oninput="inputWithoutNumbersValidate(12)">
+                        <input type="text" name="city" id="city" class="mid-inputUser required" placeholder="Insira a cidade" oninput="inputWithoutNumbersValidate(11)">
                         <span class="span-required">Cidade não pode conter números ou caracteres especiais.</span>
                     </div>
                 </div>
@@ -147,12 +146,12 @@
                 <div class="mid-inputBox">
                     <div class="switch-to-column">
                         <label for="state"><b>Estado:</b></label>
-                        <input type="text" name="state" id="state" class="mid-inputUser required" placeholder="Insira o estado" oninput="inputWithoutNumbersValidate(13)">
+                        <input type="text" name="state" id="state" class="mid-inputUser required" placeholder="Insira o estado" oninput="inputWithoutNumbersValidate(12)">
                         <span class="span-required">Estado não pode conter números ou caracteres especiais.</span>
                     </div>
                     <div class="switch-to-column">
                         <label for="country"><b>País</b>:</b></label>
-                        <input type="text" name="country" id="country" class="mid-inputUser required" placeholder="Insira o país" oninput="inputWithoutNumbersValidate(14)">
+                        <input type="text" name="country" id="country" class="mid-inputUser required" placeholder="Insira o país" oninput="inputWithoutNumbersValidate(13)">
                         <span class="span-required">País não pode conter números ou caracteres especiais.</span>
                     </div>
                 </div>

@@ -22,19 +22,19 @@ function btnRegisterOnClick(event){
         errorAlert('Preenchimento obrigatório: Telefone', 2)
     }
     else if (!isTelephone(campos[2].value.value)) {
-        telephoneValiate()
+        telephoneValidate()
     }
     else if (campos[3].value === "") {
         errorAlert('Preenchimento obrigatório: Senha', 3)
     }
     else if (!validPassword(campos[3].value)) {
-        passwordValidade()
+        passwordValidate()
     }
     else if (campos[4].value === "") {
         errorAlert('Preenchimento obrigatório: Confirme sua senha', 4)
     }
     else if (campos[4].value !== campos[4].value){
-        confirmPasswordValidade()
+        confirmPasswordValidate()
     }
     else {
         successAlert('Cadastro realizado com sucesso!');
@@ -110,7 +110,7 @@ function emailValidate() {
     }
 }
 
-function telephoneValiate() {
+function telephoneValidate() {
     if (campos[2].value === "") {
         removeError(2)
     } 
@@ -122,7 +122,7 @@ function telephoneValiate() {
     }
 }
 
-function passwordValidade() {
+function passwordValidate() {
     if (campos[3].value === "") {
         removeError(3)
     } 
@@ -134,7 +134,7 @@ function passwordValidade() {
     }
 }
 
-function confirmPasswordValidade() {
+function confirmPasswordValidate() {
     if (campos[4].value === "") {
         removeError(4)
     } 
