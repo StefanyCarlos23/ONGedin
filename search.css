@@ -61,7 +61,8 @@ nav ul a img{
 }
 
 .search{
-    padding: 80px 0;
+    padding-top: 80px;
+    padding-bottom: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -118,6 +119,23 @@ nav ul a img{
 .search-bar .search .search-filter-btn:hover{
     background-color: #909090;
     transition: 0.4s;
+}
+
+.events-options{
+    padding-bottom: 50px;
+}
+
+.events-options .event{
+    position: relative;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: rgb(255, 255, 255);
+    margin: 40px auto;
+    border-radius: 25px;
+    width: 90%;
+    box-shadow: 3px 3px 2em rgba(0, 0, 0, 0.3);
+    width: 90%;
+    padding: 20px 0;
 }
 
 footer{
