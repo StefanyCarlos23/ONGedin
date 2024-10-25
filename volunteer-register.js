@@ -1,12 +1,7 @@
 
-const name = document.getElementById('name')
-const cpf = document.getElementById('cpf')
-const dateBirth = document.getElementById('date-birth')
-const telephone = document.getElementById('telephone')
-const email = document.getElementById('email')
-const password = document.getElementById('password')
-const confirmPass = document.getElementById('confirm-pass')
-
+const form = document.getElementById('form')
+const campos = document.querySelectorAll('.required')
+const spans = document.querySelectorAll('.span-required')
 
 
 function btnRegisterOnClick(event){
@@ -105,7 +100,6 @@ function isLeapYear(year) {
     return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
 }
 
-
 // Function to check if is a valid telephone
 function isTelephone(telephone) {
     const re = /^(\+55\s?)?(55\s?)?\d{2}\s?9?\d{4}-?\d{4}$/
@@ -148,4 +142,3 @@ function successAlert(message) {
         confirmButtonColor: "#399aa8",
     });
 }
-

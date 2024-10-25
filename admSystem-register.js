@@ -12,7 +12,6 @@ function btnRegisterOnClick(event){
     else if (!inputWithoutNumbers(campos[0].value)){
         inputWithoutNumbersValidate(0)
     }
-
     else if (campos[1].value === "") {
         errorAlert('Preenchimento obrigatório: E-mail', 1)
     }
@@ -31,7 +30,6 @@ function btnRegisterOnClick(event){
     else if (!validPassword(campos[3].value)) {
         passwordValidade()
     }
-
     else if (campos[4].value === "") {
         errorAlert('Preenchimento obrigatório: Confirme sua senha', 4)
     }
@@ -90,9 +88,6 @@ function successAlert(message) {
 }
 
 // ----- FUNCTIONS TO VALIDATE THE INPUTS ----- ///
-
-
-
 function inputWithoutNumbersValidate(index) {
     if (campos[index].value === "") {
         removeError(index)

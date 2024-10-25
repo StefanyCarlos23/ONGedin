@@ -3,7 +3,6 @@ const form = document.getElementById('form')
 const campos = document.querySelectorAll('.required')
 const spans = document.querySelectorAll('.span-required')
 
-
 function btnRegisterOnClick(event){
     event.preventDefault()
 
@@ -13,60 +12,51 @@ function btnRegisterOnClick(event){
     else if (!inputWithoutNumbers(campos[0].value)){
         inputWithoutNumbersValidate(0)
     }
-
     else if (campos[1].value === "") {
         errorAlert('Preenchimento obrigatório: E-mail', 1)
     }
     else if (!isEmail(campos[1].value)) {
         emailValidate()
     }
-
     else if (campos[2].value === "") {
         errorAlert('Preenchimento obrigatório: Área de atuação', 2)
     }
     else if (!inputWithoutNumbers(campos[2].value)){
         inputWithoutNumbersValidate(2)
     }
-
     else if (campos[3].value === "") {
         errorAlert('Preenchimento obrigatório: Data de Fundação', 3)
     }
     else if (!isValidDate(campos[3].value.value)){
         fundationDateValiate()
     }
-
     else if (campos[4].value === "") {
         errorAlert('Preenchimento obrigatório: Telefone', 4)
     }
     else if (!isTelephone(campos[4].value.value)) {
         telephoneValiate()
     }
-
     else if (campos[5].value === "") {
         errorAlert('Preenchimento obrigatório: Rede Social', 5)
     }  
-
     else if (campos[6].value === "") {
         errorAlert('Preenchimento obrigatório: Senha', 6)
     }
     else if (!validPassword(campos[6].value)) {
         passwordValidade()
     }
-
     else if (campos[7].value === "") {
         errorAlert('Preenchimento obrigatório: Confirme sua senha', 7)
     }
     else if (campos[6].value !== campos[7].value){
         confirmPasswordValidade()
     }
-
     else if (campos[8].value === "") {
         errorAlert('Preenchimento obrigatório: CEP', 8)
     }
     else if (!isCEP(campos[8].value)){
         cepValidate()
     }
-
     else if (campos[9].value === "") {
         errorAlert('Preenchimento obrigatório: Rua', 9)
     }
@@ -79,35 +69,30 @@ function btnRegisterOnClick(event){
     else if (!isNum(parseInt(campos[10].value))) {
         numValidate() 
     }
-
     else if (campos[11].value === "") {
         errorAlert('Preenchimento obrigatório: Bairro', 11)
     }
     else if (!inputWithoutNumbers(campos[11].value)){
         inputWithoutNumbersValidate(11)
     }
-
     else if (campos[12].value === "") {
         errorAlert('Preenchimento obrigatório: Cidade', 12)
     }
     else if (!inputWithoutNumbers(campos[12].value)) {
         inputWithoutNumbersValidate(12)
     }
-
     else if (campos[13].value === "") {
         errorAlert('Preenchimento obrigatório: Estado', 13)
     }
     else if (!inputWithoutNumbers(campos[13].value)) {
         inputWithoutNumbersValidate(13)
     }
-
     else if (campos[14].value === "") {
         errorAlert('Preenchimento obrigatório: Páis', 14)
     }
     else if (!inputWithoutNumbers(campos[14].value)) { 
         inputWithoutNumbersValidate(14);
     }
-
     else {
         successAlert('Cadastro realizado com sucesso!');
         setTimeout(() => {
@@ -254,7 +239,6 @@ function roadValidate() {
         removeError(9)
     }
 }
-
 
 function numValidate() {
     if (campos[10].value === "") {
