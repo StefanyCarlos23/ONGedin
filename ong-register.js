@@ -3,6 +3,8 @@ const campos = document.querySelectorAll('.required')
 console.log(campos)
 const spans = document.querySelectorAll('.span-required')
 
+isLeapYear
+
 function btnRegisterOnClick(event){
     event.preventDefault()
 
