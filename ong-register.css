@@ -148,22 +148,6 @@ input::placeholder {
     flex-direction: column;
 }
 
-input[type="date"]{
-    background: url(images/calendario.png);
-    background-size: 23px;
-    background-repeat: no-repeat;
-    background-position: 99%;
-    padding: 5px;
-    padding-left: 1rem;
-    color: #8A8A8A;
-    font-family: "Inter", sans-serif;
-    background-color:#F9F9F9 ;
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-    opacity: 0;
-}
-
 /* --- NAME, EMAIL, PASSWORD AND CONFIRMPASSWORD --- */
 .full-inputBox{
     display: flex;
