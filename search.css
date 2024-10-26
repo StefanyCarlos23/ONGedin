@@ -61,7 +61,7 @@ nav ul a img{
 }
 
 .search{
-    padding-top: 80px;
+    padding-top: 90px;
     padding-bottom: 40px;
     display: flex;
     justify-content: center;
@@ -122,50 +122,64 @@ nav ul a img{
 }
 
 .events-options{
-    padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 60px;
 }
 
-.events-options .event{
+.event{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    margin: 40px auto;
+    width: 70%;
+}
+
+.events-options .event .image{
     position: relative;
     display: flex;
     justify-content: space-evenly;
+    text-align: center;
     background-color: rgb(255, 255, 255);
-    margin: 40px auto;
+    width: 100%;
     border-radius: 25px;
-    width: 90%;
     box-shadow: 3px 3px 2em rgba(0, 0, 0, 0.3);
-    width: 90%;
     padding: 40px 0;
+    flex: 1;
+}
+
+.events-options .event .image img{
+    width: 50%;
 }
 
 .details{
+    flex: 2;
     font-size: 16px;
+    padding-left: 50px;
 }
 
 .details .important-details{
     display: flex;
-    margin-bottom: 50px;
+    margin-bottom: 35px;
 }
 
-.details .important-details h4 {
-    margin-right: 400px;
-}
-
-.details .important-details p {
-    margin-right: 10px;
+.details .important-details h4{
+    font-size: 18px;
 }
 
 .more-details{
     display: flex;
     align-items: center;
-    margin-top: 10px;
 }
 
 .more-details p{
-    margin-right: 60px;
-    max-width: calc(50%);
+    margin-right: 20px;
+    max-width: calc(90%);
     overflow-wrap: break-word;
     white-space: normal;
+    line-height: 1.5;
 }
 
 .more-details .btn{
@@ -175,6 +189,7 @@ nav ul a img{
     text-decoration: none;
     border-radius: 10px;
     transition: color 0.5s;
+    white-space: nowrap;
 }
 
 .more-details .btn:hover{
