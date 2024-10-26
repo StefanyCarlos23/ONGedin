@@ -20,27 +20,32 @@ function btnRegisterOnClick(event){
         cpfValidate()
     }
     else if (campos[2].value === "") {
-        errorAlert('Preenchimento obrigatório: Telefone', 2)
-    }
-    else if (!isTelephone(campos[2].value)) {
-        telephoneValidate()
+        errorAlert('Preenchimento obrigatório: Data de Fundação', 2);
+    } else if (!isValidDate(campos[2].value)) {
+        dateValidate()
     }
     else if (campos[3].value === "") {
-        errorAlert('Preenchimento obrigatório: E-mail', 3)
+        errorAlert('Preenchimento obrigatório: Telefone', 3)
     }
-    else if (!isEmail(campos[3].value)) {
-        emailValidate()
+    else if (!isTelephone(campos[3].value)) {
+        telephoneValidate()
     }
     else if (campos[4].value === "") {
-        errorAlert('Preenchimento obrigatório: Senha', 4)
+        errorAlert('Preenchimento obrigatório: E-mail', 4)
     }
-    else if (!validPassword(campos[4].value)) {
-        passwordValidate()
+    else if (!isEmail(campos[4].value)) {
+        emailValidate()
     }
     else if (campos[5].value === "") {
+        errorAlert('Preenchimento obrigatório: Senha', 5)
+    }
+    else if (!validPassword(campos[5].value)) {
+        passwordValidate()
+    }
+    else if (campos[6].value === "") {
         errorAlert('Preenchimento obrigatório: Confirme sua senha', 7)
     }
-    else if (campos[4].value !== campos[5].value){
+    else if (campos[5].value !== campos[6].value){
         confirmPasswordValidate()
     }
     else {
@@ -53,7 +58,6 @@ function btnRegisterOnClick(event){
     }, 1500);
     }
 }
-
 
 // Function creates a red border on the input where the condition is not met
 function setError(index) {
@@ -120,11 +124,11 @@ function cpfValidate(){
     }
 }
 
-function telephoneValidate() {
+function dateValidate() {
     if (campos[2].value === "") {
         removeError(2)
     } 
-    else if (!isTelephone(campos[2].value)) {
+    else if (!isValidDate(campos[2].value)) {
         setError(2)
     }
     else{
@@ -132,37 +136,49 @@ function telephoneValidate() {
     }
 }
 
-function emailValidate() {
+function telephoneValidate() {
     if (campos[3].value === "") {
-        removeError(3);
-    } else if (!isEmail(campos[3].value)) {
+        removeError(3)
+    } 
+    else if (!isTelephone(campos[3].value)) {
         setError(3)
-    } else {
+    }
+    else{
         removeError(3)
     }
 }
 
-function passwordValidate() {
+function emailValidate() {
     if (campos[4].value === "") {
-        removeError(4)
-    } 
-    else if (!validPassword(campos[4].value)) {
+        removeError(4);
+    } else if (!isEmail(campos[4].value)) {
         setError(4)
-    }
-    else{
+    } else {
         removeError(4)
     }
 }
 
-function confirmPasswordValidate() {
+function passwordValidate() {
     if (campos[5].value === "") {
         removeError(5)
     } 
-    if ((campos[4].value !== campos[5].value)) {
+    else if (!validPassword(campos[5].value)) {
         setError(5)
     }
     else{
         removeError(5)
+    }
+}
+
+function confirmPasswordValidate() {
+    if (campos[6].value === "") {
+        removeError(6)
+    } 
+    if ((campos[5].value !== campos[6].value)) {
+        setError(6)
+    }
+    else{
+        removeError(6)
     }
 }
 
@@ -196,6 +212,10 @@ function isValidDate(date) {
         year = Number(date.slice(4, 8)); 
     }
 
+    if (year < 1908 || year > 2014) {
+        return false;
+    }
+
     const daysInMonth = [31, 28 + (isLeapYear(year) ? 1 : 0), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
     return day <= daysInMonth[month - 1];
@@ -205,6 +225,7 @@ function isValidDate(date) {
 function isLeapYear(year) {
     return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
 }
+
 
 function isTelephone(telephone) {
     const re = /^(\+55\s?)?(55\s?)?\d{2}\s?9?\d{4}-?\d{4}$/

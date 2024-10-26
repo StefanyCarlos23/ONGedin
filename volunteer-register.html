@@ -67,7 +67,8 @@
 
                     <div class="switch-to-column">
                         <label for="text"><b>Data de nascimento:</b></label>
-                        <input type="date" min="1908-05-23" max="2024-12-31" id="date-birth" name="date-birth" class="mid-inputUser" oninput="birthDateValidate()" >
+                        <input type= id="date-birth" name="date-birth" class="mid-inputUser required" placeholder="dd/mm/aaaa" oninput="dateValidate()">
+                        <span class="span-required">Insira uma data válida!</span>
                     </div>
                 </div>
 
