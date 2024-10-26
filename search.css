@@ -135,7 +135,55 @@ nav ul a img{
     width: 90%;
     box-shadow: 3px 3px 2em rgba(0, 0, 0, 0.3);
     width: 90%;
-    padding: 20px 0;
+    padding: 40px 0;
+}
+
+.details{
+    font-size: 16px;
+}
+
+.details .important-details{
+    display: flex;
+    margin-bottom: 50px;
+}
+
+.details .important-details h4 {
+    margin-right: 400px;
+}
+
+.details .important-details p {
+    margin-right: 10px;
+}
+
+.more-details{
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.more-details p{
+    margin-right: 60px;
+    max-width: calc(50%);
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+
+.more-details .btn{
+    padding: 10px 15px;
+    background-color: #87BFC7;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: color 0.5s;
+}
+
+.more-details .btn:hover{
+    background-color: #4d909a;
+    transition: 0.4s;
+}
+
+.more-details .btn:active{
+    color: #666666;
 }
 
 footer{

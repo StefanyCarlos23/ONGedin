@@ -2,6 +2,8 @@ const form = document.getElementById('form')
 const campos = document.querySelectorAll('.required')
 const spans = document.querySelectorAll('.span-required')
 
+isLeapYear
+
 function btnRegisterOnClick(event){
     event.preventDefault()
 
@@ -26,7 +28,6 @@ function btnRegisterOnClick(event){
     else if (campos[2].value === "") {
         errorAlert('Preenchimento obrigatório: Data de fundação', 3)
     }
-    else if (campos[3])
     else if (campos[3].value === "") {
         errorAlert('Preenchimento obrigatório: Telefone', 3)
     }
