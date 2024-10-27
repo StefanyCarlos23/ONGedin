@@ -42,6 +42,7 @@
                     Filtro <span id="arrow" class="arrow">▼</span>
                 </a>
                 <section class="filter-box" id="filter-box">
+                    <span class="close" onclick="closeFilters()">×</span>
                     <p class="highlight">Área de Atuação</p>
                     <div class="checkbox-container">
                         <div class="column">
@@ -85,7 +86,7 @@
                             </label>
                         </div>
                     </div>
-                    <p class="highlight">Região</p>
+                    <p class="highlight-1">Regional</p>
                     <select id="region" onchange="updateNeighborhoods()">
                         <option value="">Selecione uma regional</option>
                         <option value="bairro_novo">Bairro Novo</option>
@@ -99,7 +100,7 @@
                         <option value="santa_felicidade">Santa Felicidade</option>
                         <option value="tatuquara">Tatuquara</option>
                     </select>
-                    <p class="highlight">Bairro</p>
+                    <p class="highlight-2">Bairro</p>
                     <select id="neighborhood">
                         <option value="">Selecione um bairro</option>
                         <option value="abranches">Abranches</option>
@@ -179,65 +180,16 @@
                         <option value="vista_alegre">Vista Alegre</option>
                         <option value="xaxim">Xaxim</option>
                     </select>
-                    <button onclick="applyFilters()">Aplicar</button>
-                    <button onclick="cleanFilters()">Limpar</button>
-                    <button onclick="closeFilters()">Fechar</button>
+                    <div class="buttons">
+                        <button onclick="applyFilters()" class="apply">Aplicar</button>
+                        <button onclick="cleanFilters()" id="clearButton" class="clean">Limpar</button>
+                    </div>
                 </section>                
             </div>
         </div>
     </section>
     <section class="events-options">
-        <div class="event">
-            <div class="image-1">
-                <a href="#">
-                    <img src="images/pequeno-cotolengo.png" alt="Logo da Primeira ONG Sugerida">
-                </a>
-            </div>
-            <div class="details">
-                <div class="important-details">
-                    <h4>Pequeno Cotolengo</h4>
-                </div>
-                <div class="more-details">
-                    <p>O Pequeno Cotolengo é uma ONG dedicada ao acolhimento de pessoas com deficiência intelectual. 
-                        Desde 1945, promove a inclusão e oferece atendimento especializado, visando melhorar a qualidade de vida dos atendidos.</p>
-                    <a href="#" class="btn">Ver mais</a>
-                </div>
-            </div>
-        </div>
-        <div class="event">
-            <div class="image-2">
-                <a href="#">
-                    <img src="images/passos-da-crianca.png" alt="Logo da Segunda ONG Sugerida">
-                </a>
-            </div>
-            <div class="details">
-                <div class="important-details">
-                    <h4>Passos da Criança</h4>
-                </div>
-                <div class="more-details">
-                    <p>A ONG Passos da Criança apoia crianças e adolescentes em vulnerabilidade social, oferecendo educação, saúde e atividades recreativas. 
-                        Com foco no empoderamento e no fortalecimento de direitos, a organização busca transformar vidas e criar oportunidades para um futuro melhor.</p>
-                    <a href="#" class="btn">Ver mais</a>
-                </div>
-            </div>
-        </div>
-        <div class="event">
-            <div class="image-3">
-                <a href="#">
-                    <img src="images/forca-animal.png"Logo da Terceira ONG Sugerida">
-                </a>
-            </div>
-            <div class="details">
-                <div class="important-details">
-                    <h4>Força Animal</h4>
-                </div>
-                <div class="more-details">
-                    <p>A ONG Força Animal protege animais abandonados e maltratados, oferecendo resgate, cuidados e abrigo. 
-                        Também realiza campanhas de conscientização sobre adoção responsável e direitos dos animais, sensibilizando a comunidade para a importância do cuidado com os pets.</p>
-                    <a href="#" class="btn">Ver mais</a>
-                </div>
-            </div>
-        </div>
+        
     </section>
     <script src="search.js"></script>
     <footer>

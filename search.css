@@ -90,7 +90,7 @@ nav ul a img{
     text-decoration: none;
     font-size: 18px;
     border-radius: 10px;
-    transition: color 0.5s;
+    transition: color 0.1s;
 }
 
 .search-bar .search .back-btn,
@@ -101,7 +101,7 @@ nav ul a img{
     text-decoration: none;
     font-size: 18px;
     border-radius: 10px;
-    transition: color 0.4s;
+    transition: color 0.1s;
 }
 
 .search-bar .search .search-btn:active,
@@ -158,6 +158,21 @@ nav ul a img{
     text-align: center;
 }
 
+.highlight-1{
+    text-decoration: underline;
+    font-size: 1.0em;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.highlight-2{
+    margin-top: 15px;
+    text-decoration: underline;
+    font-size: 1.0em;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
 .checkbox-container{
     display: flex;
     justify-content: space-between;
@@ -176,6 +191,97 @@ nav ul a img{
 label{
     display: block;
     margin-bottom: 15px;
+    text-align: left;
+}
+
+select {
+    color: #666666;
+    justify-content: center;
+    display: flex;
+    text-align: center;
+    font-size: 14px;
+    width: 300px;
+    height: 30px;
+    margin: 0 auto;
+    border: #8A8A8A solid;
+    border-width: 1px;
+    border-radius: 10px;
+}
+
+.buttons{
+    text-align: center;
+}
+
+.filter-box button{
+    display: inline-block;
+    margin: 0 10px;
+    margin-top: 30px;
+    margin-bottom: 5px;
+    padding: 10px 20px;
+}
+
+.apply{
+    background-color: #87BFC7;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.1s;
+    border: #8A8A8A solid;
+    border-width: 0px;
+    border-radius: 10px;
+}
+
+.clean{
+    background-color: #b9b9b9;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.1s;
+    border: #8A8A8A solid;
+    border-width: 0px;
+    border-radius: 10px;
+}
+
+.close{
+    position: absolute;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+    background-color: #b9b9b9;
+    border: #8A8A8A solid;
+    border-width: 0px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: color 0.1s;
+}
+
+.apply:hover{
+    background-color: #4d909a;
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+.clean:hover,
+.close:hover{
+    background-color: #909090;
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+.apply:active{
+    color: #666666;
+    background-color: #4d909a;
+}
+
+.clean:active,
+.close:active{
+    color: #666666;
+    background-color: #909090;
 }
 
 .events-options{
@@ -267,7 +373,7 @@ label{
     color: white;
     text-decoration: none;
     border-radius: 10px;
-    transition: color 0.5s;
+    transition: color 0.1s;
     white-space: nowrap;
 }
 
