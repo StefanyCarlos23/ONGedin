@@ -80,10 +80,9 @@ nav ul a img{
 .btn{
     display: flex;
     flex-direction: row;
-    margin: 4rem 2.5rem;
+    margin: 2rem 2.5rem;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 5.5rem;
 }
 
 .back-btn{
@@ -131,79 +130,68 @@ nav ul a img{
     background-color:#5aaea1a9;
 }
 
-
 .box-content h1{
-    margin: 2.5rem 7rem;
-    font-size: 2rem;
-}
-
-input::placeholder {
-    color:#8A8A8A;
-}
-
-.switch-to-column{
-    display: flex;
-    flex-direction: column;
-}
-/* --- NAME, PASSWORD AND CONFIRM PASSWORD--- */
-.full-inputBox{
-    display: flex;
-    flex-direction:column;
-    margin-left:10rem;
-    margin-right:10rem;
-    margin-bottom: 2rem;
-}
-
-.full-inputUser{
-    height: 2.5rem;
-    width: 45rem;
-    border-radius: 7px;
-    border: #8A8A8A SOLID;
-    background-color: #F9F9F9;
-    border-width: 1px;
-    margin-top: 0.3rem;
-    padding-left: 0.8rem;
-}
-
-/* --- CPF AND, DATE OF BIRTH, TELEPHONE AND E-MAIL --- */
-.mid-inputBox{
-    display: flex;
-    flex-direction:row;
-    justify-content: space-between;
-    margin-left:10rem;
-    margin-right:10rem;
-    margin-bottom: 2rem;
-}
-.mid-inputUser{
-    height: 2.5rem;
-    width: 21rem;
-    border-radius: 7px;
-    border: #8A8A8A SOLID;
-    background-color: #F9F9F9;
-    border-width: 1px;
-    margin-top: 0.3rem;
-    padding-left: 0.8rem;
-}
-
-/* --- REGISTER BUTTON --- */
-.btn-register{
     display: flex;
     justify-content: center;
+    margin: 2.8rem 0rem;
+    font-size: 27px;
+}
+
+.options{
+    display: flex;
+    flex-direction: column;
     align-items: center;
 }
-.register-btn{
-    background-color:#46A799;
-    border-radius: 50px;
-    width: 9rem;
-    height: 2.5rem;
-    font-size: 1rem;
-    color: #ffffff;
-    border: #1B565F solid 1px;
-    margin-top: 5rem;
-    margin-bottom: 5.5rem;
+
+.choose-option{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left:10px;
+    margin-bottom: 4rem;
 }
-.register-btn:hover{
-    background-color:#337c71;;
+
+.choose-option a {
+    display: block;
+    width: 24rem;
+    padding: 37px;
+    padding-left: 57px;
+    height:80px;
+    text-align: center;
+    background-color: #D9D9D9;
+    text-decoration: none;
+    border-radius: 10px;
+    border-color: #000000;
+    color:#000000;
+    font-size: 18px;
+    height: 6rem;
+    padding-left: 75px;
+}
+
+.volunteer-register{
+    background: url(images/icone-pessoas.png);
+    background-size:55px;
+    background-repeat: no-repeat;
+    background-position: 20px 20px;
+}
+
+.ong-register{
+    background: url(images/icone-ongs.png);
+    background-size:55px;
+    background-repeat: no-repeat;
+    background-position: 20px 20px;
+}
+
+.admSystem-register{
+    background: url(images/icone-sistema.png);
+    background-size:50px;
+    background-repeat: no-repeat;
+    background-position: 20px 20px;
+}
+
+.choose-option a:hover{
+    background-color: #cdcbcb;
+    box-shadow: 1px 1px 0.8em rgba(0, 0, 0, 0.618);
 }
 
 .footer{
@@ -212,11 +200,4 @@ input::placeholder {
     align-items: center;
     justify-content: center;
     height: 5rem;
-}
-
-.span-required{
-    display: none;
-    font-size: 12px;
-    color:#e63636;
-    margin: 3px 0 0 1px;
 }

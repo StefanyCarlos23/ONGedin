@@ -139,7 +139,6 @@ nav ul a img{
 
 input::placeholder {
     color:#8A8A8A;
-    padding-left: 1rem;
 }
 
 
@@ -159,12 +158,13 @@ input::placeholder {
 
 .full-inputUser{
     height: 2.5rem;
-    width: 46.5rem;
+    width: 45rem;
     border-radius: 7px;
     border: #8A8A8A SOLID;
     background-color: #F9F9F9;
     border-width: 1px;
-    margin-top: 0.3rem
+    margin-top: 0.3rem;
+    padding-left: 0.8rem;
 }
 
 /* --- AREA-ACTIVITY AND FUNDATION DATE --- */
@@ -178,12 +178,13 @@ input::placeholder {
 }
 .mid-inputUser{
     height: 2.5rem;
-    width: 22rem;
+    width: 21rem;
     border-radius: 7px;
     border: #8A8A8A SOLID;
     background-color: #F9F9F9;
     border-width: 1px;
     margin-top: 0.3rem;
+    padding-left: 0.8rem;
 }
 
 /* --- CEP, ROAD AND NUM --- */
@@ -218,6 +219,7 @@ input::placeholder {
     background-color: #F9F9F9;
     border-width: 1px;
     margin-top: 0.3rem;
+    padding-left: 0.8rem;
 }
   
 .btn-register{
@@ -253,31 +255,4 @@ input::placeholder {
     font-size: 12px;
     color:#e63636;
     margin: 3px 0 0 1px;
-}
-
-@media(max-width: 1500px) {
-    .full-inputUser{
-        width: 41.8rem;
-    }
-    .mid-inputUser{
-        width: 20rem;   
-    }
-    .inputBox-CEP{
-        display: flex;
-        flex-direction: column;
-        width: 10rem;
-    }
-    .inputBox-road{
-        display: flex;
-        flex-direction: column;
-        width: 20rem;
-    }
-    .inputBox-num{
-        display: flex;
-        flex-direction: column;
-        width: 8rem;
-    }
-    .box-content h1{
-        font-size: 1.7rem;
-    }
 }
