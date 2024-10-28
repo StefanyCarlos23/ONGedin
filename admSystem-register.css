@@ -146,12 +146,12 @@ input::placeholder {
     display: flex;
     flex-direction:column;
     margin-top: 5rem;
-    margin-left:12rem;
-    margin-right:12rem;
+    margin-left:10rem;
+    margin-right:10rem;
 }
 .inputUser{
     height: 2.5rem;
-    width: 56.5rem;
+    width: 46.5rem;
     border-radius: 7px;
     border: #8A8A8A SOLID;
     background-color: #F9F9F9;

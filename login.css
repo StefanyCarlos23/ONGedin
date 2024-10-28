@@ -92,7 +92,7 @@ nav ul a img{
     justify-content: center;
     background-color:#E7E7E7;
     border-radius: 50px;
-    width: 7rem;
+    width: 6rem;
     height: 2rem;
     font-size: 1rem;
     color: #777575;
@@ -133,7 +133,7 @@ nav ul a img{
 
 
 .box-content h1{
-    font-size: 1rem;
+    font-size: 0.8rem;
 }
 
 .login-box{
@@ -178,7 +178,7 @@ nav ul a img{
     border-radius: 50px;
     width: 6.5rem;
     height: 1.9rem;
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: #777575;
     border: #d0d0d0 solid 1px;
 }
@@ -190,7 +190,7 @@ nav ul a img{
     justify-content: center;
 }
 .btn-register h3{
-    font-size: 13px;
+    font-size: 11px;
     color: #8A8A8A
 }
 .register-btn{
@@ -202,7 +202,7 @@ nav ul a img{
     border-radius: 50px;
     width: 7rem;
     height: 1.9rem;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: #1B565F;
     border: #1B565F solid 1px;
 }
@@ -218,13 +218,13 @@ nav ul a img{
 .inputBox{
     display: flex;
     flex-direction:column;
-    margin-top: 9rem;
-    margin-left: 5.7rem;
+    margin-top: 7rem;
+    margin-left: 3rem;
 }
 
 .inputBox h1{
-    font-size: 2.7rem;
-    margin-bottom: 3.5rem;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
 }
 
 .inputBox-1{
@@ -237,10 +237,10 @@ nav ul a img{
     border-bottom: 1px solid rgb(0, 0, 0);
     outline: none;
     height: 2.9rem;
-    width:28rem;
+    width:26rem;
     border-width: 1px;
-    margin-top: 0.3rem;
-    margin-bottom: 2rem;
+    margin-top: 0rem;
+    margin-bottom: 1.5rem;
     position: relative;
 }
 
@@ -252,6 +252,7 @@ nav ul a img{
     transition: 0.5s;
     padding-left: 0.1rem;
     color: #000000;
+    font-size: 0.9rem;
 }
 .inputUser:focus ~ .labelInput,
 .inputUser:valid ~ .labelInput {
@@ -268,13 +269,13 @@ nav ul a img{
 .login-btn{
     background-color:#46A799;
     border-radius: 50px;
-    width: 9rem;
+    width: 8rem;
     height: 2.5rem;
     font-size: 1rem;
     color: #ffffff;
     border: #1B565F solid 1px;
-    margin-top: 5rem;
-    margin-bottom: 5.5rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
 }
 .login-btn:hover{
     background-color:#337c71;;
