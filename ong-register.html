@@ -11,7 +11,7 @@
         <div class="nav-container">
             <nav class="nav">
                 <a href="home.html">
-                    <img src="images/ongedin-logo.png" alt="ongedin-logo">
+                    <img src="images/ongedin-logo-2.png" alt="ongedin-logo">
                 </a>
                 <ul class="ul">
                     <ul class="ul-text">
@@ -30,6 +30,25 @@
                 </ul>
             </nav>
         </div>
+        <nav class="mobile-nav">
+            <a href="home.html">
+                <img src="images/ongedin-logo-2.png" alt="ongedin-logo">
+            </a>
+            <div class="mobile-menu">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+            <ul class="nav-list">
+                <li><a href="home.html">Início</a>
+                <li><a href="search.html">Pesquisar</a></li>
+                <li><a href="donations.html">Doações</a></li>
+                <li><a href="events.html">Eventos</a></li>
+                <li><a href="help.html">Suporte</a></li>
+                <li><a href="notification.html">Notificações</a></li>
+                <li><a href="profile.html">Perfil</a></li>
+            </ul>
+            </nav>
     </header>
     <section class="content">
         <section class="box-content">
@@ -44,48 +63,43 @@
                     </div>
                 </section>
 
-            <h1> Dados cadastrais</h1>
+            <h1>Dados cadastrais</h1>
     
             <form id="form" name="form" action="" method="POST">
                 <div class="full-inputBox">
-                    <div>
-                        <label for="text"><b>Nome:</b></label><br>
-                        <input type="text" id="name" name="name"class="full-inputUser required" placeholder="Insira seu nome completo" oninput="inputWithoutNumbersValidate(0)">
-                        <span class="span-required">Nome não pode conter números e caracteres especiais.</span>
-                        <br><br>
-                    </div>
-
-                    <div>
-                        <label for="text"><b>E-mail:</b></label><br>
-                        <input type="text" id="email" name="email"class="full-inputUser required" placeholder="exemplo@gmail.com" oninput="emailValidate()">
-                        <span class="span-required">Insira um e-mail válido!</span>
-                        <br><br>
-                    </div>
+                    <label for="text"><b>Nome:</b></label>
+                    <input type="text" id="name" name="name"class="full-inputUser required" placeholder="Insira seu nome completo" oninput="inputWithoutNumbersValidate(0)">
+                    <span class="span-required">Nome não pode conter números e caracteres especiais.</span>
                 </div>
 
+                <div class="full-inputBox">
+                    <label for="text"><b>E-mail:</b></label>
+                    <input type="text" id="email" name="email"class="full-inputUser required" placeholder="exemplo@gmail.com" oninput="emailValidate()">
+                    <span class="span-required">Insira um e-mail válido!</span>
+                </div>
 
-                <div class="mid-inputBox">
-                    <div class="switch-to-column">
+                <div class="container-row">
+                    <div class="mid-inputBox">
                         <label for="text"><b>Área de Atuação:</b></label>
                         <input type="text" id="area-activity" name="area-activity" class="mid-inputUser required" placeholder="Insira a área de atuação da ONG" oninput="inputWithoutNumbersValidate(2)">
                         <span class="span-required">Área de atuação não pode conter números ou caracteres especiais.</span>
                     </div>
 
-                    <div class="switch-to-column">
+                    <div class="mid-inputBox">
                         <label for="text"><b>Data de fundação:</b></label>
                         <input type="text" id="fundation-date" name="fundation-date" class="mid-inputUser required" placeholder="dd/mm/aaaa" oninput="dateValidate()">
                         <span class="span-required">Insira uma data válida!</span>
                     </div>
                 </div>
 
-                <div class="mid-inputBox">
-                    <div class="switch-to-column">
+                <div class="container-row">
+                    <div class="mid-inputBox">
                         <label for="telephone"><b>Telefone:</b></label>
                         <input type="text" name="telephone" id="telephone" class="mid-inputUser required" placeholder="(XX) XXXXX-XXXX" oninput="telephoneValidate()">
                         <span class="span-required">Insira um telefone válido</span>
-                  </div>
+                    </div>
 
-                    <div class="switch-to-column">
+                    <div class="mid-inputBox">
                         <label for="social-media"><b>Rede Social:</b></label>
                         <input type="text" name="social-media" id="social-media" class="mid-inputUser required" placeholder="Insira a rede social da ONG">
                         <span class="span-required"></span>
@@ -93,80 +107,75 @@
                 </div>
 
                 <div class="full-inputBox">
-                    <div class="switch-to-column">
-                        <label for="password"><b>Senha:</b></label>
-                        <input type="password" name="password" id="password" class="full-inputUser required" placeholder="Crie uma senha" oninput="passwordValidate()">
-                        <span class="span-required">Sua senha deve conter no mínimo 8 caracteres, combinando letras maiúsculas, minúsculas, números e símbolos especiais.</span>
-                        <br><br>
-                    </div>
+                    <label for="password"><b>Senha:</b></label>
+                    <input type="password" name="password" id="password" class="full-inputUser required" placeholder="Crie uma senha" oninput="passwordValidate()">
+                    <span class="span-required">Sua senha deve conter no mínimo 8 caracteres, combinando letras maiúsculas, minúsculas, números e símbolos especiais.</span>
+                </div>
 
-                    <div class="switch-to-column">
-                        <label for="confirm-pass"><b>Confirme sua senha:</b></label>
-                        <input type="password" name="confirm-pass" id="confirm-pass" class="full-inputUser required" placeholder="Repita a senha" oninput="confirmPasswordValidate()">
-                        <span class="span-required">As senhas não coincidem.</span>
-                        <br><br>
-                    </div>
+                <div class="full-inputBox">
+                    <label for="confirm-pass"><b>Confirme sua senha:</b></label>
+                    <input type="password" name="confirm-pass" id="confirm-pass" class="full-inputUser required" placeholder="Repita a senha" oninput="confirmPasswordValidate()">
+                    <span class="span-required">As senhas não coincidem.</span>
                 </div>
     
                 <h1>Endereço</h1>
-    
-                <div class="mid-inputBox-1">
-                    <div class="inputBox-CEP">
+
+                <div class="container-row">
+                    <div class="mid-inputBox">
                         <label for="CEP"><b>CEP:</b></label>
-                        <input type="text" name="CEP" id="CEP" class="mid-inputUser-1 required" placeholder="XXX.XXX.XXX-XX" oninput="cepValidate()">
+                        <input type="text" name="CEP" id="CEP" class="mid-inputUser required" placeholder="XXX.XXX.XXX-XX" oninput="cepValidate()">
                         <span class="span-required">CEP inválido!</span>
                     </div>
-
-                    <div class="inputBox-road">
+                    <div class="mid-inputBox">
                         <label for="road"><b>Rua:</b></label>
-                        <input type="text" name="road" id="road" class="mid-inputUser-1 required" placeholder="Insira o nome da rua" oninput="roadValidate()">
+                        <input type="text" name="road" id="road" class="mid-inputUser required" placeholder="Insira o nome da rua" oninput="roadValidate()">
                         <span class="span-required"> Rua não pode conter caracteres especias.</span>
                     </div>
-
-                    <div class="inputBox-num">
+                    <div class="mid-inputBox">
                         <label for="num"><b>Número:</b></label>
-                        <input type="text" name="num" id="num" class="mid-inputUser-1 required" placeholder="Insira o número" oninput="numValidate()">
+                        <input type="text" name="num" id="num" class="mid-inputUser required" placeholder="Insira o número" oninput="numValidate()">
                         <span class="span-required">Número não pode conter letras ou caracteres especiais.</span>
                     </div>
                 </div>
-    
-                <div class="mid-inputBox">
-                    <div class="switch-to-column">
+
+                <div class="container-row">
+                    <div class="mid-inputBox">
                         <label for="neighborhood"><b>Bairro:</b></label>
                         <input type="text" name="neighborhood" id="neighborhood" class="mid-inputUser required" placeholder="Insira o bairro" oninput="inputWithoutNumbersValidate(11)">
                         <span class="span-required">Bairro não pode conter números ou caracteres especiais.</span>
                     </div>
-
-                    <diV class="switch-to-column">
+                    <diV class="mid-inputBox">
                         <label for="city"><b>Cidade:</b></label>
                         <input type="text" name="city" id="city" class="mid-inputUser required" placeholder="Insira a cidade" oninput="inputWithoutNumbersValidate(12)">
                         <span class="span-required">Cidade não pode conter números ou caracteres especiais.</span>
                     </div>
                 </div>
     
-                <div class="mid-inputBox">
-                    <div class="switch-to-column">
+                <div class="container-row" >
+                    <div class="mid-inputBox">
                         <label for="state"><b>Estado:</b></label>
                         <input type="text" name="state" id="state" class="mid-inputUser required" placeholder="Insira o estado" oninput="inputWithoutNumbersValidate(13)">
-                        <span class="span-required">Estado não pode conter números ou caracteres especiais.</span>
+                        <span class="span-required">Estado não pode conter números ou caracteres especiais.</span>  
                     </div>
-                    <div class="switch-to-column">
-                        <label for="country"><b>País</b>:</b></label>
+                    <div class="mid-inputBox">
+                        <label for="country"><b>País:</b></b></label>
                         <input type="text" name="country" id="country" class="mid-inputUser required" placeholder="Insira o país" oninput="inputWithoutNumbersValidate(14)">
                         <span class="span-required">País não pode conter números ou caracteres especiais.</span>
                     </div>
                 </div>
 
-                <div class="mid-inputBox">
-                    <div class="switch-to-column">
+                <div class="container-row">
+                    <div class="mid-inputBox">
                         <label for="complement"><b>Complemento:</b></label>
                         <input type="text" name="complement" id="complement" class="mid-inputUser" placeholder="Insira o complemento">
                     </div>
                 </div>
 
+
                 <div class="btn-register">
                     <input type="submit" value="Cadastrar-se" class="register-btn" onclick="btnRegisterOnClick(event)">
                 </div>
+
             </form>
         </section>
     </section>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ONGedin | Cadastro Admin</title>
+    <title>ONGedin | Cadastre-se</title>
     <link href="admSystem-register.css" rel="stylesheet">
 </head>
 <body>
@@ -30,6 +30,25 @@
                 </ul>
             </nav>
         </div>
+        <nav class="mobile-nav">
+            <a href="home.html">
+                <img src="images/ongedin-logo-2.png" alt="ongedin-logo">
+            </a>
+            <div class="mobile-menu">
+              <div class="line1"></div>
+              <div class="line2"></div>
+              <div class="line3"></div>
+            </div>
+            <ul class="nav-list">
+                <li><a href="home.html">Início</a>
+                <li><a href="search.html">Pesquisar</a></li>
+                <li><a href="donations.html">Doações</a></li>
+                <li><a href="events.html">Eventos</a></li>
+                <li><a href="help.html">Suporte</a></li>
+                <li><a href="notification.html">Notificações</a></li>
+                <li><a href="profile.html">Perfil</a></li>
+            </ul>
+          </nav>
     </header>
     <section class="content">
         <section class="box-content">
@@ -49,40 +68,33 @@
     
             <form id="form" name="form" action="" method="POST">
                 <div class="inputBox">
-                    <div>
-                        <label for="text"><b>Nome:</b></label><br>
-                        <input type="text" id="name" name="name"class="inputUser required" placeholder="Insira seu nome completo" oninput="inputWithoutNumbersValidate(0)">
-                        <span class="span-required">Nome não pode conter números ou caracteres especiais.</span>
-                        <br><br>
-                    </div>
+                    <label for="text"><b>Nome:</b></label>
+                    <input type="text" id="name" name="name"class="inputUser required" placeholder="Insira seu nome completo" oninput="inputWithoutNumbersValidate(0)">
+                    <span class="span-required">Nome não pode conter números ou caracteres especiais.</span>
+                </div>
 
-                    <div>
-                        <label for="text"><b>E-mail:</b></label><br>
-                        <input type="text" id="e-mail" name="e-mail" class="inputUser required" placeholder="Insira seu e-mail" oninput="emailValidate()">
-                        <span class="span-required">Insira um e-mail válido!</span>
-                        <br><br>
-                    </div>
+                <div class="inputBox">
+                    <label for="text"><b>E-mail:</b></label>
+                    <input type="text" id="e-mail" name="e-mail" class="inputUser required" placeholder="Insira seu e-mail" oninput="emailValidate()">
+                    <span class="span-required">Insira um e-mail válido!</span>
+                </div>
 
-                    <div>
-                        <label for="telephone"><b>Telefone:</b></label>
-                        <input type="text" name="telephone" id="telephone" class="inputUser required"placeholder="Insira seu número de telefone" oninput="telephoneValidate()">
-                        <span class="span-required">Telefone inválido!</span>
-                        <br><br>
-                    </div>
+                <div class="inputBox">
+                    <label for="telephone"><b>Telefone:</b></label>
+                    <input type="text" name="telephone" id="telephone" class="inputUser required"placeholder="Insira seu número de telefone" oninput="telephoneValidate()">
+                    <span class="span-required">Telefone inválido!</span>
+                </div>
 
-                    <div>
-                        <label for="password"><b>Senha:</b></label>
-                        <input type="text" name="password" id="password" class="inputUser required" placeholder="Crie uma senha" oninput="passwordValidate()">
-                        <span class="span-required">Sua senha deve conter no mínimo 8 caracteres, combinando letras maiúsculas, minúsculas, números e símbolos especiais.</span>
-                        <br><br>
-                    </div>
+                <div class="inputBox">
+                    <label for="password"><b>Senha:</b></label>
+                    <input type="text" name="password" id="password" class="inputUser required" placeholder="Crie uma senha" oninput="passwordValidate()">
+                    <span class="span-required">Sua senha deve conter no mínimo 8 caracteres, combinando letras maiúsculas, minúsculas, números e símbolos especiais.</span>
+                </div>
 
-                    <div>
-                        <label for="confirm-pass"><b>Confirme sua senha:</b></label>
-                        <input type="text" name="confirm-pass" id="confirm-pass" class="inputUser required" placeholder="Repita sua senha" oninput="confirmPasswordValidate()">
-                        <span class="span-required">As senhas não coincidem.</span>
-                        <br><br>
-                    </div>
+                <div class="inputBox">
+                    <label for="confirm-pass"><b>Confirme sua senha:</b></label>
+                    <input type="text" name="confirm-pass" id="confirm-pass" class="inputUser required" placeholder="Repita sua senha" oninput="confirmPasswordValidate()">
+                    <span class="span-required">As senhas não coincidem.</span>
                 </div>
 
                 <dvi class="btn-register">
