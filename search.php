@@ -189,7 +189,24 @@
         </div>
     </section>
     <section class="events-options">
-        
+        <?php foreach ($randomOngs as $ong): ?>
+            <div class="event">
+                <div class="image-1">
+                    <a href="ong-details.html?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['imagem']); ?>">
+                        <img src="<?= $ong['imagem']; ?>" alt="Logo da <?= $ong['nome_ong']; ?>">
+                    </a>
+                </div>
+                <div class="details">
+                    <div class="important-details">
+                        <h4><?= $ong['nome_ong']; ?></h4>
+                    </div>
+                    <div class="more-details">
+                        <p>Descrição da ONG aqui.</p>
+                        <a href="ong-details.html?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['imagem']); ?>" class="btn">Ver mais</a>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
     </section>
     <script src="search.js"></script>
     <footer>
@@ -197,6 +214,14 @@
     </footer>
 <?php
 include('connection.php');
+
+$query = "SELECT ao.nome_ong, p.imagem 
+          FROM administrador_ong ao 
+          JOIN perfil p ON ao.id_perfil = p.id 
+          ORDER BY RAND() LIMIT 3";
+
+$result = mysqli_query($conn, $query);
+$randomOngs = mysqli_fetch_all($result, MYSQLI_ASSOC);
 ?>
 </body>
 </html>
