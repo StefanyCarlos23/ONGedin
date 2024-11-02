@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONGedin | Detalhes do Evento</title>
+    <link href="ong-details.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="nav">
+                <a href="home.html">
+                    <img src="images/ongedin-logo.png" alt="ongedin-logo">
+                </a>
+                <ul class="ul">
+                    <ul class="ul-text">
+                        <a href="home.html">Início</a>
+                        <a href="search.html">Pesquisar</a>
+                        <a href="donations.html">Doações</a>
+                        <a href="events.html">Eventos</a>
+                        <a href="help.html">Suporte</a>
+                    </ul>
+                    <a href="notification.html">
+                        <img src="images/notificação.png" alt="ongedin-logo">
+                    </a>
+                    <a href="profile.html">
+                        <img src="images/perfil.png" alt="ongedin-logo">
+                    </a>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section class="search-bar">
+        <div class="search">
+            <a class="back-btn" href="search.html">Voltar</a>
+            <input class="search-text" type="text" id="search-input" placeholder="Insira o nome da ONG ou título do evento" oninput="showSuggestions(this.value)">
+            <div id="suggestions" class="suggestions"></div>
+            <a class="search-btn" href="search.html">Buscar</a>
+        </div>
+    </section>
+    <section class="ong-details">
+        <div class="container">
+            <div class="image-btn">
+                <div class="image">
+                    <img src="" alt="Logo da ONG Responsável pelo Evento">
+                </div>
+                <div class="btn-container">
+                    <button class="btn" id="inscrever-btn" onclick="inscreverEvento()">Inscrever-se</button>
+                </div>
+            </div>
+            <div class="ong-text">
+                <h2></h2>
+                <p></p>
+            </div>
+        </div>
+    </section>
+    <script src="ong-details.js"></script>
+</body>
+</html>
