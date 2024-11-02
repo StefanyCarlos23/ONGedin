@@ -315,8 +315,8 @@ select {
 }
 
 .events-options .event .image-1 a img {
-    width: 10%;
-    height: 10%;
+    width: 80%;
+    height: 80%;
     object-fit: cover;
 }
 
