@@ -1,3 +1,23 @@
+<?php
+include('connection.php');
+$randomOngs = [];
+
+$query = "SELECT u.nome AS nome_ong, p.foto, p.descricao 
+          FROM administrador_ong ao 
+          JOIN perfil p ON ao.id_admin_ong = p.id_perfil 
+          JOIN usuario u ON ao.id_admin_ong = u.id_usuario 
+          ORDER BY RAND() LIMIT 3";
+
+$result = $conn->query($query);
+if ($result === false) {
+    echo "Erro na consulta: " . $conn->error;
+} else {
+    $randomOngs = $result->fetch_all(MYSQLI_ASSOC);
+}
+
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -189,39 +209,32 @@
         </div>
     </section>
     <section class="events-options">
-        <?php foreach ($randomOngs as $ong): ?>
-            <div class="event">
-                <div class="image-1">
-                    <a href="ong-details.html?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['imagem']); ?>">
-                        <img src="<?= $ong['imagem']; ?>" alt="Logo da <?= $ong['nome_ong']; ?>">
-                    </a>
-                </div>
-                <div class="details">
-                    <div class="important-details">
-                        <h4><?= $ong['nome_ong']; ?></h4>
+        <?php if (!empty($randomOngs)): ?>
+            <?php foreach ($randomOngs as $ong): ?>
+                <div class="event">
+                    <div class="image-1">
+                        <a href="ong-details.html?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>">
+                            <img src="<?= $ong['foto']; ?>" alt="Logo da <?= htmlspecialchars($ong['nome_ong']); ?>">
+                        </a>
                     </div>
-                    <div class="more-details">
-                        <p>Descrição da ONG aqui.</p>
-                        <a href="ong-details.html?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['imagem']); ?>" class="btn">Ver mais</a>
+                    <div class="details">
+                        <div class="important-details">
+                            <h4><?= htmlspecialchars($ong['nome_ong']); ?></h4>
+                        </div>
+                        <div class="more-details">
+                            <p><?= htmlspecialchars($ong['descricao']); ?></p>
+                            <a href="ong-details.html?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>" class="btn">Ver mais</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>Nenhuma ONG encontrada.</p>
+        <?php endif; ?>
     </section>
     <script src="search.js"></script>
     <footer>
         <p>&copy; 2024 - ONGedin - Conectando quem transforma o mundo. Todos os direitos reservados.</p>
     </footer>
-<?php
-include('connection.php');
-
-$query = "SELECT ao.nome_ong, p.imagem 
-          FROM administrador_ong ao 
-          JOIN perfil p ON ao.id_perfil = p.id 
-          ORDER BY RAND() LIMIT 3";
-
-$result = mysqli_query($conn, $query);
-$randomOngs = mysqli_fetch_all($result, MYSQLI_ASSOC);
-?>
 </body>
 </html>
