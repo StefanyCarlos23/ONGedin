@@ -381,7 +381,7 @@ select {
     max-width: calc(80%);
     overflow-wrap: break-word;
     white-space: normal;
-    line-height: 1.5;
+    line-height: 1.5em;
 }
 
 .more-details .btn{

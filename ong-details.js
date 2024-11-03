@@ -30,29 +30,6 @@ function ativarNotificacoes() {
     btnNotificacoes.disabled = true;
 }
 
-function getQueryParams() {
-    const params = new URLSearchParams(window.location.search);
-    return {
-        title: params.get('title'),
-        description: params.get('description'),
-        imgSrc: params.get('imgSrc'),
-    };
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    const { title, description, imgSrc } = getQueryParams();
-
-    document.querySelector('.ong-text h2').innerText = title || "Título não disponível";
-    document.querySelector('.ong-text p').innerText = description || "Descrição não disponível";
-
-    const imageElement = document.querySelector('.image img');
-    if (imageElement) {
-        imageElement.src = imgSrc || "caminho/para/imagem/default.png";
-    } else {
-        console.error("Elemento de imagem não encontrado.");
-    }
-});
-
 let debounceTimer;
 
 function showSuggestions(term) {

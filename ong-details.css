@@ -120,32 +120,29 @@ nav ul a img{
 
 .ong-details{
     display: flex;
-    align-items: center;
-    font-size: 18px;
+    align-items: flex-start;
     width: 80%;
+    margin: 30px auto;
 }
 
 .ong-details .container{
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    justify-content: flex-start;
     align-items: center;
-    margin: 30px auto;
-    margin-bottom: 70px;
 }
 
 .ong-details .image{
-    position: relative;
-    display: flex;
     flex: 1;
+    display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
     background-color: rgb(255, 255, 255);
-    width: 550px;
+    width: 250px;
     height: 300px;
     border-radius: 25px;
     box-shadow: 2px 2px 0.8em rgba(47, 47, 47, 0.3);
-    margin: 0 20px;
+    margin-right: 70px;
 }
 
 .ong-details .image img{
@@ -155,13 +152,22 @@ nav ul a img{
 }
 
 .ong-details .ong-text{
-    flex: 1;
-    margin: 0 50px;
+    flex: 2;
+    color: #666666;
 }
 
-.ong-details .ong-text h2,
+.ong-details .ong-text h3,
 .ong-details .ong-text p{
-    text-align: justify;
+    text-align: left;
+}
+
+.ong-details .ong-text h3{
+    font-size: 30px;
+}
+
+.ong-details .ong-text p{
+    margin-top: 20px;
+    line-height: 1.5em;
 }
 
 .ong-details .ong-text .btn{

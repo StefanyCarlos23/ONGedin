@@ -88,6 +88,18 @@ $conn->close();
             <a class="search-btn" href="search.php">Buscar</a>
         </div>
     </section>
+    <section class="ong-details">
+        <div class="container">
+            <div class="image">
+                <img src="" alt="Logo da ONG Responsável pelo Evento">
+            </div>
+            <div class="ong-text">
+                <h3></h3>
+                <p></p>
+                <button class="btn" id="inscrever-btn" onclick="inscreverEvento()">Inscrever-se</button>
+            </div>
+        </div>
+    </section>
     <script src="ong-details.js"></script>
     <footer>
         <p>&copy; 2024 - ONGedin - Conectando quem transforma o mundo. Todos os direitos reservados.</p>
