@@ -114,7 +114,7 @@ nav ul a img{
     background-color: #f0f0f0;
 }
 
-.search-bar .search .search-btn{
+.search-bar .search form button{
     padding: 10px 15px;
     background-color: #87BFC7;
     color: white;
@@ -122,6 +122,8 @@ nav ul a img{
     font-size: 18px;
     border-radius: 10px;
     transition: color 0.1s;
+    border: none;
+    cursor: pointer;
 }
 
 .search-bar .search .back-btn,
@@ -135,13 +137,13 @@ nav ul a img{
     transition: color 0.1s;
 }
 
-.search-bar .search .search-btn:active,
+.search-bar .search form button:active,
 .search-bar .search .back-btn:active,
 .search-bar .search .search-filter-btn:active{
     color: #666666;
 }
 
-.search-bar .search .search-btn:hover{
+.search-bar .search form button:hover{
     background-color: #4d909a;
     transition: 0.4s;
 }

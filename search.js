@@ -1,16 +1,16 @@
 function toggleFilters() {
     const filterBox = document.getElementById('filter-box');
     filterBox.style.display = filterBox.style.display === 'block' ? 'none' : 'block';
-};
+}
 
 function closeFilters() {
     document.getElementById('filter-box').style.display = 'none';
-};
+}
 
 function applyFilters() {
     alert('Filtros aplicados!');
     closeFilters();
-};
+}
 
 function cleanFilters() {
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -44,7 +44,7 @@ function cleanFilters() {
         option.textContent = neighborhood;
         neighborhoodSelect.appendChild(option);
     });
-};
+}
 
 document.getElementById('clearButton').addEventListener('click', cleanFilters);
 
@@ -99,9 +99,14 @@ function updateNeighborhoods() {
             neighborhoodSelect.appendChild(option);
         });
     }
-};
+}
 
 let debounceTimer;
+
+document.getElementById('search-input').addEventListener('input', function() {
+    const searchTerm = this.value;
+    showSuggestions(searchTerm);
+});
 
 function showSuggestions(term) {
     clearTimeout(debounceTimer);
@@ -142,6 +147,29 @@ function showSuggestions(term) {
     }, 300);
 }
 
-document.getElementById('search-input').addEventListener('input', function() {
-    showSuggestions(this.value);
+document.querySelector('.search-btn').addEventListener('click', function(event) {
+    event.preventDefault();
+
+    const searchInput = document.getElementById('search-input').value.trim();
+
+    if (searchInput === '') {
+        window.location.href = 'search.php';
+    } else {
+        fetch(`search.php?term=${encodeURIComponent(searchInput)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    const firstMatch = data[0];
+
+                    if (firstMatch.tipo === 'ong') {
+                        window.location.href = `ong-details.php?nome_ong=${encodeURIComponent(firstMatch.nome)}`;
+                    } else if (firstMatch.tipo === 'evento') {
+                        window.location.href = `evento-details.php?id_evento=${firstMatch.id}`;
+                    }
+                } else {
+                    window.location.href = 'search.php';
+                }
+            })
+            .catch(error => console.error('Erro ao buscar:', error));
+    }
 });

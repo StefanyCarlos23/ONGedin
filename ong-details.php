@@ -134,7 +134,7 @@ $conn->close();
     </header>
     <section class="search-bar">
         <div class="search">
-            <a class="back-btn" href="home.php">Voltar</a>
+            <a class="back-btn" href="search.php">Voltar</a>
             <div class="text-suggestions">
                 <input class="search-text" type="text" id="search-input" placeholder="Insira o nome da ONG ou título do evento" oninput="showSuggestions(this.value)">
                 <div id="suggestions" class="suggestions"></div>

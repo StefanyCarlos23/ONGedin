@@ -35,14 +35,10 @@ function getSuggestions($conn, $term) {
     return $results;
 }
 
-if (isset($_GET['term'])) {
-    $term = $_GET['term'];
-    $suggestions = getSuggestions($conn, $term);
-    echo json_encode($suggestions);
-    exit;
-}
-
+$searchResults = [];
+$errorMessage = '';
 $randomOngs = [];
+
 $query = "SELECT u.nome AS nome_ong, p.foto, p.descricao 
           FROM administrador_ong ao 
           JOIN perfil p ON ao.id_admin_ong = p.id_perfil 
@@ -50,10 +46,26 @@ $query = "SELECT u.nome AS nome_ong, p.foto, p.descricao
           ORDER BY RAND() LIMIT 3";
 
 $result = $conn->query($query);
-if ($result === false) {
-    echo "Erro na consulta: " . $conn->error;
-} else {
+if ($result !== false) {
     $randomOngs = $result->fetch_all(MYSQLI_ASSOC);
+}
+
+if (isset($_GET['searchTerm'])) {
+    $searchTerm = trim($_GET['searchTerm']);
+    
+    if ($searchTerm !== '') {
+        $searchResults = getSuggestions($conn, $searchTerm);
+        
+        if (empty($searchResults)) {
+            $errorMessage = 'Nenhuma ONG ou evento encontrado com esse termo.';
+        }
+    }
+}
+
+if (isset($_GET['term'])) {
+    header('Content-Type: application/json');
+    echo json_encode($searchResults);
+    exit;
 }
 
 $conn->close();
@@ -96,10 +108,12 @@ $conn->close();
         <div class="search">
             <a class="back-btn" href="home.php">Voltar</a>
             <div class="text-suggestions">
-                <input class="search-text" type="text" id="search-input" placeholder="Insira o nome da ONG ou título do evento" oninput="showSuggestions(this.value)">
+                <form action="" method="GET">
+                    <input class="search-text" type="text" id="search-input" name="searchTerm" placeholder="Insira o nome da ONG ou título do evento" value="<?= htmlspecialchars(isset($searchTerm) ? $searchTerm : ''); ?>">
+                    <button type="submit" class="search-btn">Buscar</button>
+                </form>
                 <div id="suggestions" class="suggestions"></div>
             </div>
-            <a class="search-btn" href="search.php">Buscar</a>
             <div class="filter-container">
                 <a class="search-filter-btn" href="javascript:void(0);" onclick="toggleFilters()">
                     Filtro <span id="arrow" class="arrow">▼</span>
@@ -252,27 +266,50 @@ $conn->close();
         </div>
     </section>
     <section class="events-options">
-        <?php if (!empty($randomOngs)): ?>
-            <?php foreach ($randomOngs as $ong): ?>
+        <?php if (!empty($searchResults)): ?>
+            <?php foreach ($searchResults as $result): ?>
                 <div class="event">
                     <div class="image-1">
-                        <a href="ong-details.php?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>">
-                            <img src="<?= $ong['foto']; ?>" alt="Logo da <?= htmlspecialchars($ong['nome_ong']); ?>">
+                        <a href="ong-details.php?title=<?= urlencode($result); ?>">
+                            <img src="images/default-image.png" alt="Imagem da <?= htmlspecialchars($result); ?>">
                         </a>
                     </div>
                     <div class="details">
                         <div class="important-details">
-                            <h4><?= htmlspecialchars($ong['nome_ong']); ?></h4>
+                            <h4><?= htmlspecialchars($result); ?></h4>
                         </div>
                         <div class="more-details">
-                            <p><?= htmlspecialchars($ong['descricao']); ?></p>
-                            <a href="ong-details.php?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>" class="btn">Ver mais</a>
+                            <p>Descrição não disponível.</p>
+                            <a href="ong-details.php?title=<?= urlencode($result); ?>" class="btn">Ver mais</a>
                         </div>
                     </div>
                 </div>
             <?php endforeach; ?>
+        <?php elseif (!empty($errorMessage)): ?>
+            <p><?= htmlspecialchars($errorMessage); ?></p>
         <?php else: ?>
-            <p>Nenhuma ONG encontrada.</p>
+            <?php if (!empty($randomOngs)): ?>
+                <?php foreach ($randomOngs as $ong): ?>
+                    <div class="event">
+                        <div class="image-1">
+                            <a href="ong-details.php?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>">
+                                <img src="<?= $ong['foto']; ?>" alt="Logo da <?= htmlspecialchars($ong['nome_ong']); ?>">
+                            </a>
+                        </div>
+                        <div class="details">
+                            <div class="important-details">
+                                <h4><?= htmlspecialchars($ong['nome_ong']); ?></h4>
+                            </div>
+                            <div class="more-details">
+                                <p><?= htmlspecialchars($ong['descricao']); ?></p>
+                                <a href="ong-details.php?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>" class="btn">Ver mais</a>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Nenhuma ONG encontrada.</p>
+            <?php endif; ?>
         <?php endif; ?>
     </section>
     <script src="search.js"></script>
