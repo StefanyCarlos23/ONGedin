@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ONGedin | Detalhes da ONG</title>
-    <link href="ong-details.css" rel="stylesheet">
+    <title>ONGedin | Detalhes do Evento</title>
+    <link href="event-details.css" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -39,32 +39,19 @@
             <a class="search-btn" href="search.html">Buscar</a>
         </div>
     </section>
-    <section class="ong-details">
+    <section class="event-details">
         <div class="container">
             <div class="image">
-                <img src="" alt="Logo da ONG">
+                <img src="" alt="Logo da ONG Responsável pelo Evento">
             </div>
-            <div class="ong-text">
-                <h3>Pequeno Cotolengo</h3>
-                <p>A ONG Pequeno Cotolengo é uma instituição voltada para o acolhimento de crianças e jovens com deficiência, oferecendo um ambiente seguro e acolhedor. Com foco na inclusão social, a organização proporciona atividades educativas, terapias e momentos de lazer, promovendo o desenvolvimento integral dos atendidos. Além disso, a ONG busca sensibilizar a sociedade sobre a importância dos direitos das pessoas com deficiência, contribuindo para uma cultura de respeito e igualdade.</p>
-            </div>
-        </div>
-    </section>
-    <section class="events">
-        <div class="container">
-            <h3>Próximos Eventos</h3>
-            <div class="event-box">
-                <?php foreach ($eventos as $evento): ?>
-                    <div class="event-item">
-                        <h4><?php echo htmlspecialchars($evento['titulo']); ?></h4>
-                        <p>Data: <?php echo htmlspecialchars($evento['data_evento']); ?></p>
-                        <p><?php echo htmlspecialchars($evento['descricao']); ?></p>
-                    </div>
-                <?php endforeach; ?>
+            <div class="event-text">
+                <h3>Título do Evento</h3>
+                <p>Descrição do Evento</p>
+                <button class="btn" id="inscrever-btn" onclick="inscreverEvento()">Inscrever-se</button>
             </div>
         </div>
     </section>
-    <script src="ong-details.js"></script>
+    <script src="event-details.js"></script>
     <footer>
         <p>&copy; 2024 - ONGedin - Conectando quem transforma o mundo. Todos os direitos reservados.</p>
     </footer>

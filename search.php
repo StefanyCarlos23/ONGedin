@@ -256,7 +256,7 @@ $conn->close();
             <?php foreach ($randomOngs as $ong): ?>
                 <div class="event">
                     <div class="image-1">
-                        <a href="ong-details.html?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>">
+                        <a href="ong-details.php?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>">
                             <img src="<?= $ong['foto']; ?>" alt="Logo da <?= htmlspecialchars($ong['nome_ong']); ?>">
                         </a>
                     </div>
@@ -266,7 +266,7 @@ $conn->close();
                         </div>
                         <div class="more-details">
                             <p><?= htmlspecialchars($ong['descricao']); ?></p>
-                            <a href="ong-details.html?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>" class="btn">Ver mais</a>
+                            <a href="ong-details.php?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>" class="btn">Ver mais</a>
                         </div>
                     </div>
                 </div>
