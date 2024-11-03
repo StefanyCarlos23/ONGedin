@@ -83,6 +83,37 @@ nav ul a img{
     margin: 0 20px;
 }
 
+.text-suggestions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    position: relative;
+}
+
+.suggestions{
+    display: none;
+    position: absolute;
+    width: 600px;
+    top: calc(100% + 12px);
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: white;
+    z-index: 1000;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+}
+
+.suggestion-item{
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover{
+    background-color: #f0f0f0;
+}
+
 .search-bar .search .search-btn{
     padding: 10px 15px;
     background-color: #87BFC7;
@@ -300,24 +331,24 @@ select {
     width: 70%;
 }
 
-.events-options .event .image-1 {
+.events-options .event .image-1{
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     background-color: rgb(255, 255, 255);
-    width: 100%;
+    flex: 1;
     border-radius: 25px;
     box-shadow: 2px 2px 0.8em rgba(47, 47, 47, 0.3);
     height: 200px;
     overflow: hidden;
 }
 
-.events-options .event .image-1 a img {
-    width: 80%;
-    height: 80%;
+.events-options .event .image-1 a img{
+    width: 60%;
     object-fit: cover;
+    margin: 0 auto;
 }
 
 .events-options .event .image-1:hover{

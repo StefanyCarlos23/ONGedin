@@ -1,7 +1,48 @@
 <?php
 include('connection.php');
-$randomOngs = [];
 
+function getSuggestions($conn, $term) {
+    $results = [];
+    
+    if ($term) {
+        $queryOngs = $conn->prepare("
+            SELECT u.nome 
+            FROM usuario u
+            JOIN administrador a ON u.id_usuario = a.id_administrador
+            JOIN administrador_ong ao ON a.id_administrador = ao.id_admin_ong
+            WHERE u.nome LIKE ? AND u.funcao = 'A'
+            LIMIT 10");
+        
+        $likeTerm = '%' . $term . '%';
+        $queryOngs->bind_param('s', $likeTerm);
+        $queryOngs->execute();
+        $resultOngs = $queryOngs->get_result();
+
+        while ($row = $resultOngs->fetch_assoc()) {
+            $results[] = $row['nome'];
+        }
+
+        $queryEventos = $conn->prepare("SELECT titulo FROM evento WHERE titulo LIKE ? LIMIT 10");
+        $queryEventos->bind_param('s', $likeTerm);
+        $queryEventos->execute();
+        $resultEventos = $queryEventos->get_result();
+
+        while ($row = $resultEventos->fetch_assoc()) {
+            $results[] = $row['titulo'];
+        }
+    }
+
+    return $results;
+}
+
+if (isset($_GET['term'])) {
+    $term = $_GET['term'];
+    $suggestions = getSuggestions($conn, $term);
+    echo json_encode($suggestions);
+    exit;
+}
+
+$randomOngs = [];
 $query = "SELECT u.nome AS nome_ong, p.foto, p.descricao 
           FROM administrador_ong ao 
           JOIN perfil p ON ao.id_admin_ong = p.id_perfil 
@@ -54,8 +95,10 @@ $conn->close();
     <section class="search-bar">
         <div class="search">
             <a class="back-btn" href="home.php">Voltar</a>
-            <input class="search-text" type="text" id="search-input" placeholder="Insira o nome da ONG ou título do evento" oninput="showSuggestions(this.value)">
-            <div id="suggestions" class="suggestions"></div>
+            <div class="text-suggestions">
+                <input class="search-text" type="text" id="search-input" placeholder="Insira o nome da ONG ou título do evento" oninput="showSuggestions(this.value)">
+                <div id="suggestions" class="suggestions"></div>
+            </div>
             <a class="search-btn" href="search.php">Buscar</a>
             <div class="filter-container">
                 <a class="search-filter-btn" href="javascript:void(0);" onclick="toggleFilters()">
