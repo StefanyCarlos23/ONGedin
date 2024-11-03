@@ -114,7 +114,7 @@ nav ul a img{
     background-color: #f0f0f0;
 }
 
-.search-bar .search form button{
+.search-btn{
     padding: 10px 15px;
     background-color: #87BFC7;
     color: white;
@@ -137,13 +137,13 @@ nav ul a img{
     transition: color 0.1s;
 }
 
-.search-bar .search form button:active,
+.search-btn:active,
 .search-bar .search .back-btn:active,
 .search-bar .search .search-filter-btn:active{
     color: #666666;
 }
 
-.search-bar .search form button:hover{
+.search-btn:hover{
     background-color: #4d909a;
     transition: 0.4s;
 }

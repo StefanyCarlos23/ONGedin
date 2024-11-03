@@ -109,7 +109,7 @@ $conn->close();
             <a class="back-btn" href="home.php">Voltar</a>
             <div class="text-suggestions">
                 <form action="" method="GET">
-                    <input class="search-text" type="text" id="search-input" name="searchTerm" placeholder="Insira o nome da ONG ou título do evento" value="<?= htmlspecialchars(isset($searchTerm) ? $searchTerm : ''); ?>">
+                    <input class="search-text" type="text" id="search-input" name="searchTerm" placeholder="Insira o nome da ONG ou título do evento" value="<?= htmlspecialchars(isset($searchTerm) ? $searchTerm : ''); ?>" oninput="showSuggestions(this.value)">
                     <button type="submit" class="search-btn">Buscar</button>
                 </form>
                 <div id="suggestions" class="suggestions"></div>
