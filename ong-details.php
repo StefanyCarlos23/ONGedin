@@ -64,6 +64,18 @@ if ($nome_ong) {
     $id_ong = getIdOng($conn, $nome_ong);
     
     if ($id_ong) {
+        $stmtOng = $conn->prepare("
+            SELECT ao.area_atuacao, ao.data_fundacao, ao.endereco_rua, ao.endereco_numero, 
+                   ao.endereco_complemento, ao.endereco_bairro, ao.endereco_cidade, 
+                   p.foto, p.descricao 
+            FROM administrador_ong ao 
+            JOIN perfil p ON p.id_perfil = ao.id_admin_ong 
+            WHERE ao.id_admin_ong = ?
+        ");
+        $stmtOng->bind_param('i', $id_ong);
+        $stmtOng->execute();
+        $ongDetails = $stmtOng->get_result()->fetch_assoc();
+
         $stmt = $conn->prepare("
             SELECT e.titulo, e.descricao, 
                    e.local_rua, e.local_numero, e.local_complemento, 
@@ -76,20 +88,12 @@ if ($nome_ong) {
         $stmt->execute();
         $eventos = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     } else {
+        $ongDetails = [];
         $eventos = [];
     }
 } else {
+    $ongDetails = [];
     $eventos = [];
-}
-
-if (empty($eventos)) {
-    echo "Nenhum evento disponível.";
-} else {
-    foreach ($eventos as $evento) {
-        echo "<h4>{$evento['titulo']}</h4>";
-        echo "<p>{$evento['descricao']}</p>";
-        echo "<p>Local: {$evento['local_rua']}, {$evento['local_numero']} {$evento['local_complemento']}, {$evento['local_bairro']}, {$evento['local_cidade']}</p>";
-    }
 }
 
 $conn->close();
@@ -141,11 +145,25 @@ $conn->close();
     <section class="ong-details">
         <div class="container">
             <div class="image">
-                <img src="" alt="Logo da ONG">
+                <img src="<?php echo htmlspecialchars($ongDetails['foto'] ?? 'images/default-logo.png'); ?>" alt="Logo da ONG">
             </div>
             <div class="ong-text">
-                <h3></h3>
-                <p></p>
+                <h3><?php echo htmlspecialchars($nome_ong); ?></h3>
+                <p>
+                    <?php
+                    $enderecoCompleto = 
+                        ($ongDetails['endereco_rua'] ?? '') . 
+                        ', ' . ($ongDetails['endereco_numero'] ?? '') . 
+                        (!empty($ongDetails['endereco_complemento']) ? ' - ' . htmlspecialchars($ongDetails['endereco_complemento']) : '') . 
+                        ', ' . ($ongDetails['endereco_bairro'] ?? '') . 
+                        ', ' . ($ongDetails['endereco_cidade'] ?? '');
+
+                    echo "Área de Atuação: " . htmlspecialchars($ongDetails['area_atuacao'] ?? 'N/A') . "<br>" .
+                        "Data de Fundação: " . htmlspecialchars($ongDetails['data_fundacao'] ?? 'N/A') . "<br>" .
+                        "Descrição: " . htmlspecialchars($ongDetails['descricao'] ?? 'N/A') . "<br>" .
+                        "Endereço: " . htmlspecialchars(trim($enderecoCompleto)) ?: 'Endereço não disponível';
+                    ?>
+                </p>
             </div>
         </div>
     </section>
