@@ -39,12 +39,12 @@ $searchResults = [];
 $errorMessage = '';
 $randomOngs = [];
 
-$query = "SELECT u.nome AS nome_ong, p.foto, p.descricao 
-          FROM administrador_ong ao 
-          JOIN perfil p ON ao.id_admin_ong = p.id_perfil 
-          JOIN usuario u ON ao.id_admin_ong = u.id_usuario 
-          ORDER BY RAND() LIMIT 3";
-
+$query = "
+    SELECT u.nome AS nome_ong, p.foto, p.descricao 
+    FROM administrador_ong ao 
+    JOIN perfil p ON ao.id_admin_ong = p.id_perfil 
+    JOIN usuario u ON ao.id_admin_ong = u.id_usuario 
+    ORDER BY RAND() LIMIT 3";
 $result = $conn->query($query);
 if ($result !== false) {
     $randomOngs = $result->fetch_all(MYSQLI_ASSOC);
@@ -56,7 +56,11 @@ if (isset($_GET['term'])) {
     
     $searchResults = getSuggestions($conn, $searchTerm);
     
-    echo json_encode($searchResults);
+    if (empty($searchResults)) {
+        echo json_encode(['message' => 'Nenhuma ONG ou evento encontrado com esse termo.']);
+    } else {
+        echo json_encode($searchResults);
+    }
     exit;
 }
 
@@ -70,6 +74,21 @@ if (isset($_GET['searchTerm'])) {
             $errorMessage = 'Nenhuma ONG ou evento encontrado com esse termo.';
         }
     }
+}
+
+$upcomingEvents = [];
+$queryEvents = "
+    SELECT e.titulo, e.descricao, a.data_evento, u.nome AS nome_ong
+    FROM admin_ong_cadastra_evento a
+    JOIN evento e ON a.id_evento = e.id_evento
+    JOIN usuario u ON a.id_admin_ong = u.id_usuario
+    WHERE a.data_evento >= CURDATE() AND u.funcao = 'A'
+    ORDER BY a.data_evento ASC
+    LIMIT 4";
+$resultEvents = $conn->query($queryEvents);
+
+if ($resultEvents !== false) {
+    $upcomingEvents = $resultEvents->fetch_all(MYSQLI_ASSOC);
 }
 
 $conn->close();
@@ -297,6 +316,7 @@ $conn->close();
             <p><?= htmlspecialchars($errorMessage); ?></p>
         <?php else: ?>
             <?php if (!empty($randomOngs)): ?>
+                <p class="title">Sugestões de ONGs</p>
                 <?php foreach ($randomOngs as $ong): ?>
                     <div class="event">
                         <div class="image-1">
@@ -317,6 +337,44 @@ $conn->close();
                 <?php endforeach; ?>
             <?php else: ?>
                 <p>Nenhuma ONG encontrada.</p>
+            <?php endif; ?>
+        <?php endif; ?>
+    </section>
+    <section class="events-now">
+        <?php if (!empty($searchResults)): ?>
+            <p>Resultados da pesquisa:</p>
+            <?php foreach ($searchResults as $result): ?>
+                <div class="event">
+                    <div class="important-details">
+                        <h4><?= htmlspecialchars($result['titulo'] ?? $result['nome']); ?></h4>
+                        <p><?= isset($result['data_evento']) ? 'Data: ' . date('d/m/Y', strtotime($result['data_evento'])) : ''; ?></p>
+                        <p><?= isset($result['nome_ong']) ? 'Organizado por: ' . htmlspecialchars($result['nome_ong']) : ''; ?></p>
+                    </div>
+                    <div class="more-details">
+                        <p><?= htmlspecialchars($result['descricao'] ?? 'Descrição não disponível.'); ?></p>
+                        <a href="event-details.php?title=<?= urlencode($result['titulo'] ?? $result['nome']); ?>" class="btn">Ver mais</a>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php elseif (!empty($errorMessage)): ?>
+            <p></p>
+        <?php else: ?>
+            <?php if (!empty($upcomingEvents)): ?>
+                <p class="title">Próximos Eventos</p>
+                <?php foreach ($upcomingEvents as $event): ?>
+                    <div class="event">
+                        <div class="important-details">
+                            <h4><?= htmlspecialchars($event['titulo']); ?></h4>
+                            <p>Data: <?= date('d/m/Y', strtotime($event['data_evento'])); ?></p>
+                            <p>Organizado por: <?= htmlspecialchars($event['nome_ong']); ?></p>
+                        </div>
+                        <div class="more-details">
+                            <p><?= htmlspecialchars($event['descricao']); ?></p>
+                            <a href="event-details.php?title=<?= urlencode($event['titulo']); ?>" class="btn">Ver mais</a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
             <?php endif; ?>
         <?php endif; ?>
     </section>
