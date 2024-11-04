@@ -316,7 +316,7 @@ $conn->close();
             <p><?= htmlspecialchars($errorMessage); ?></p>
         <?php else: ?>
             <?php if (!empty($randomOngs)): ?>
-                <p class="title">Sugestões de ONGs</p>
+                <h3>Sugestões de ONGs</h3>
                 <?php foreach ($randomOngs as $ong): ?>
                     <div class="event">
                         <div class="image-1">
@@ -342,17 +342,17 @@ $conn->close();
     </section>
     <section class="events-now">
         <?php if (!empty($searchResults)): ?>
-            <p>Resultados da pesquisa:</p>
             <?php foreach ($searchResults as $result): ?>
-                <div class="event">
-                    <div class="important-details">
-                        <h4><?= htmlspecialchars($result['titulo'] ?? $result['nome']); ?></h4>
-                        <p><?= isset($result['data_evento']) ? 'Data: ' . date('d/m/Y', strtotime($result['data_evento'])) : ''; ?></p>
-                        <p><?= isset($result['nome_ong']) ? 'Organizado por: ' . htmlspecialchars($result['nome_ong']) : ''; ?></p>
-                    </div>
-                    <div class="more-details">
-                        <p><?= htmlspecialchars($result['descricao'] ?? 'Descrição não disponível.'); ?></p>
-                        <a href="event-details.php?title=<?= urlencode($result['titulo'] ?? $result['nome']); ?>" class="btn">Ver mais</a>
+                <div class="event-container">
+                    <div class="event">
+                        <div class="important-details">
+                            <h4><?= htmlspecialchars($result['titulo'] ?? $result['nome']); ?></h4>
+                            <p><?= isset($result['data_evento']) ? 'Data: ' . date('d/m/Y', strtotime($result['data_evento'])) : ''; ?></p>
+                            <p><?= isset($result['nome_ong']) ? 'Organizado por: ' . htmlspecialchars($result['nome_ong']) : ''; ?></p>
+                        </div>
+                        <div class="more-details">
+                            <a href="event-details.php?title=<?= urlencode($result['titulo'] ?? $result['nome']); ?>" class="btn">Ver mais</a>
+                        </div>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -360,20 +360,21 @@ $conn->close();
             <p></p>
         <?php else: ?>
             <?php if (!empty($upcomingEvents)): ?>
-                <p class="title">Próximos Eventos</p>
-                <?php foreach ($upcomingEvents as $event): ?>
-                    <div class="event">
-                        <div class="important-details">
-                            <h4><?= htmlspecialchars($event['titulo']); ?></h4>
-                            <p>Data: <?= date('d/m/Y', strtotime($event['data_evento'])); ?></p>
-                            <p>Organizado por: <?= htmlspecialchars($event['nome_ong']); ?></p>
+                <h3>Próximos Eventos</h3>
+                <div class="events-container">
+                    <?php foreach ($upcomingEvents as $event): ?>
+                        <div class="event">
+                            <div class="important-details">
+                                <h4><?= htmlspecialchars($event['titulo']); ?></h4>
+                                <p>Data: <?= date('d/m/Y', strtotime($event['data_evento'])); ?></p>
+                                <p>Organizado por: <?= htmlspecialchars($event['nome_ong']); ?></p>
+                            </div>
+                            <div class="more-details">
+                                <a href="event-details.php?title=<?= urlencode($event['titulo']); ?>" class="btn">Ver mais</a>
+                            </div>
                         </div>
-                        <div class="more-details">
-                            <p><?= htmlspecialchars($event['descricao']); ?></p>
-                            <a href="event-details.php?title=<?= urlencode($event['titulo']); ?>" class="btn">Ver mais</a>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </div>
             <?php else: ?>
             <?php endif; ?>
         <?php endif; ?>
