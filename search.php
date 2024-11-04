@@ -50,6 +50,16 @@ if ($result !== false) {
     $randomOngs = $result->fetch_all(MYSQLI_ASSOC);
 }
 
+if (isset($_GET['term'])) {
+    header('Content-Type: application/json');
+    $searchTerm = trim($_GET['term']);
+    
+    $searchResults = getSuggestions($conn, $searchTerm);
+    
+    echo json_encode($searchResults);
+    exit;
+}
+
 if (isset($_GET['searchTerm'])) {
     $searchTerm = trim($_GET['searchTerm']);
     
@@ -60,12 +70,6 @@ if (isset($_GET['searchTerm'])) {
             $errorMessage = 'Nenhuma ONG ou evento encontrado com esse termo.';
         }
     }
-}
-
-if (isset($_GET['term'])) {
-    header('Content-Type: application/json');
-    echo json_encode($searchResults);
-    exit;
 }
 
 $conn->close();
@@ -107,12 +111,16 @@ $conn->close();
     <section class="search-bar">
         <div class="search">
             <a class="back-btn" href="home.php">Voltar</a>
-            <div class="text-suggestions">
+            <div class="form">
                 <form action="" method="GET">
-                    <input class="search-text" type="text" id="search-input" name="searchTerm" placeholder="Insira o nome da ONG ou título do evento" value="<?= htmlspecialchars(isset($searchTerm) ? $searchTerm : ''); ?>" oninput="showSuggestions(this.value)">
-                    <button type="submit" class="search-btn">Buscar</button>
+                    <div class="search-container">
+                        <input class="search-text" type="text" id="search-input" name="searchTerm" placeholder="Insira o nome da ONG ou título do evento" oninput="showSuggestions(this.value)">
+                        <div id="suggestions" class="suggestions"></div>
+                    </div>
+                    <div class="button-container">
+                        <button type="submit" class="search-btn">Buscar</button>
+                    </div>
                 </form>
-                <div id="suggestions" class="suggestions"></div>
             </div>
             <div class="filter-container">
                 <a class="search-filter-btn" href="javascript:void(0);" onclick="toggleFilters()">
@@ -270,17 +278,17 @@ $conn->close();
             <?php foreach ($searchResults as $result): ?>
                 <div class="event">
                     <div class="image-1">
-                        <a href="ong-details.php?title=<?= urlencode($result); ?>">
-                            <img src="images/default-image.png" alt="Imagem da <?= htmlspecialchars($result); ?>">
+                        <a href="ong-details.php?title=<?= urlencode($result['nome'] ?? $result['titulo']); ?>">
+                            <img src="<?= $result['foto'] ?? 'images/default-image.png'; ?>" alt="Imagem da <?= htmlspecialchars($result['nome'] ?? $result['titulo']); ?>">
                         </a>
                     </div>
                     <div class="details">
                         <div class="important-details">
-                            <h4><?= htmlspecialchars($result); ?></h4>
+                            <h4><?= htmlspecialchars($result['nome'] ?? $result['titulo']); ?></h4>
                         </div>
                         <div class="more-details">
-                            <p>Descrição não disponível.</p>
-                            <a href="ong-details.php?title=<?= urlencode($result); ?>" class="btn">Ver mais</a>
+                            <p><?= htmlspecialchars($result['descricao'] ?? 'Descrição não disponível.'); ?></p>
+                            <a href="ong-details.php?title=<?= urlencode($result['nome'] ?? $result['titulo']); ?>" class="btn">Ver mais</a>
                         </div>
                     </div>
                 </div>

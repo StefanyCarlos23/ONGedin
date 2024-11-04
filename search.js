@@ -101,75 +101,36 @@ function updateNeighborhoods() {
     }
 }
 
-let debounceTimer;
-
-document.getElementById('search-input').addEventListener('input', function() {
-    const searchTerm = this.value;
-    showSuggestions(searchTerm);
-});
-
 function showSuggestions(term) {
-    clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(() => {
-        const suggestionsContainer = document.getElementById('suggestions');
-        suggestionsContainer.innerHTML = '';
+    const suggestionsContainer = document.getElementById('suggestions');
+    suggestionsContainer.innerHTML = '';
 
-        if (term.length < 1) {
-            suggestionsContainer.style.display = 'none';
-            return;
-        }
+    if (term.length < 1) {
+        suggestionsContainer.style.display = 'none';
+        return;
+    }
 
-        fetch(`search.php?term=${encodeURIComponent(term)}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.length === 0) {
-                    suggestionsContainer.style.display = 'none';
-                    return;
-                }
-
+    fetch(`search.php?term=${encodeURIComponent(term)}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.length > 0) {
+                suggestionsContainer.style.display = 'flex';
                 data.forEach(item => {
                     const suggestionItem = document.createElement('div');
-                    suggestionItem.textContent = item;
                     suggestionItem.classList.add('suggestion-item');
-
-                    suggestionItem.onclick = function() {
-                        document.getElementById('search-input').value = item;
-                        suggestionsContainer.innerHTML = '';
-                        suggestionsContainer.style.display = 'none';
-                    };
-
+                    suggestionItem.textContent = item;
+                    suggestionItem.onclick = () => selectSuggestion(item);
                     suggestionsContainer.appendChild(suggestionItem);
                 });
-
-                suggestionsContainer.style.display = 'block';
-            })
-            .catch(error => console.error('Erro ao buscar sugestões:', error));
-    }, 300);
+            } else {
+                suggestionsContainer.style.display = 'none';
+            }
+        })
+        .catch(error => console.error('Error fetching suggestions:', error));
 }
 
-document.querySelector('.search-btn').addEventListener('click', function(event) {
-    event.preventDefault();
-
-    const searchInput = document.getElementById('search-input').value.trim();
-
-    if (searchInput === '') {
-        window.location.href = 'search.php';
-    } else {
-        fetch(`search.php?term=${encodeURIComponent(searchInput)}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.length > 0) {
-                    const firstMatch = data[0];
-
-                    if (firstMatch.tipo === 'ong') {
-                        window.location.href = `ong-details.php?nome_ong=${encodeURIComponent(firstMatch.nome)}`;
-                    } else if (firstMatch.tipo === 'evento') {
-                        window.location.href = `evento-details.php?id_evento=${firstMatch.id}`;
-                    }
-                } else {
-                    window.location.href = 'search.php';
-                }
-            })
-            .catch(error => console.error('Erro ao buscar:', error));
-    }
-});
+function selectSuggestion(value) {
+    document.getElementById('search-input').value = value;
+    document.getElementById('suggestions').innerHTML = '';
+    document.getElementById('suggestions').style.display = 'none';
+}
