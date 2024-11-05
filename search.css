@@ -159,15 +159,15 @@ button{
     transition: color 0.1s;
 }
 
-.search-btn:active,
+.search-bar .search button:active{
+    color: #666666;
+    background-color: #4d909a;
+    transition: 0.4s;
+}
+
 .search-bar .search .back-btn:active,
 .search-bar .search .search-filter-btn:active{
     color: #666666;
-}
-
-.search-btn:hover{
-    background-color: #4d909a;
-    transition: 0.4s;
 }
 
 .search-bar .search .back-btn:hover,
@@ -249,7 +249,7 @@ label{
     text-align: left;
 }
 
-select {
+select{
     color: #666666;
     justify-content: center;
     display: flex;
@@ -395,6 +395,11 @@ select {
     margin-bottom: 30px;
 }
 
+.events-now .error{
+    text-align: center;
+    margin-bottom: 90px;
+}
+
 .events-container{
     display: flex;
     flex-wrap: wrap;
@@ -427,9 +432,10 @@ select {
     justify-content: center;
     text-align: center;
     height: 100%;
+    margin-top: 10px;
 }
 
-.events-container .event .important-details p {
+.events-container .event .important-details p{
     margin: 5px 0;
 }
 
@@ -437,6 +443,7 @@ select {
     display: flex;
     flex-direction: column;
     margin-top: auto;
+    margin-bottom: 10px;
 }
 
 .events-container .event .more-details a{
