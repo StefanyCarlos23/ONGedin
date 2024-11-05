@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 include('connection.php');
 
 function getSuggestions($conn, $term) {
@@ -35,41 +37,142 @@ function getSuggestions($conn, $term) {
     return $results;
 }
 
-$searchResults = [];
-$errorMessage = '';
-$randomOngs = [];
+function fetchRandomOngs($conn) {
+    $query = "
+        SELECT u.nome AS nome_ong, p.foto, p.descricao 
+        FROM administrador_ong ao 
+        JOIN perfil p ON ao.id_admin_ong = p.id_perfil 
+        JOIN usuario u ON ao.id_admin_ong = u.id_usuario 
+        ORDER BY RAND() LIMIT 3";
+    return $conn->query($query)->fetch_all(MYSQLI_ASSOC);
+}
 
-$query = "SELECT u.nome AS nome_ong, p.foto, p.descricao 
-          FROM administrador_ong ao 
-          JOIN perfil p ON ao.id_admin_ong = p.id_perfil 
-          JOIN usuario u ON ao.id_admin_ong = u.id_usuario 
-          ORDER BY RAND() LIMIT 3";
+function getCombinedResults($conn, $searchTerm, $areas = [], $region = '', $neighborhood = '') {
+    $results = [];
 
-$result = $conn->query($query);
-if ($result !== false) {
-    $randomOngs = $result->fetch_all(MYSQLI_ASSOC);
+    $whereConditions = [];
+    $params = [];
+    
+    if ($searchTerm) {
+        $whereConditions[] = "u.nome LIKE ?";
+        $params[] = '%' . $searchTerm . '%';
+    }
+
+    if (!empty($areas)) {
+        $placeholders = implode(',', array_fill(0, count($areas), '?'));
+        $whereConditions[] = "u.area IN ($placeholders)";
+        $params = array_merge($params, $areas);
+    }
+
+    if ($region !== '') {
+        $whereConditions[] = "u.regiao = ?";
+        $params[] = $region;
+    }
+
+    if ($neighborhood !== '') {
+        $whereConditions[] = "u.bairro = ?";
+        $params[] = $neighborhood;
+    }
+
+    $queryOngs = $conn->prepare("
+        SELECT u.nome AS nome_ong, p.foto, p.descricao 
+        FROM administrador_ong ao 
+        JOIN perfil p ON ao.id_admin_ong = p.id_perfil 
+        JOIN usuario u ON ao.id_admin_ong = u.id_usuario 
+        WHERE " . implode(' AND ', $whereConditions) . "
+        LIMIT 10");
+    
+    $types = str_repeat('s', count($params)); 
+    $queryOngs->bind_param($types, ...$params);
+    $queryOngs->execute();
+    $resultOngs = $queryOngs->get_result();
+
+    while ($row = $resultOngs->fetch_assoc()) {
+        $results[] = [
+            'type' => 'ong',
+            'nome' => $row['nome_ong'],
+            'foto' => $row['foto'],
+            'descricao' => $row['descricao'],
+        ];
+    }
+
+    $queryEventos = $conn->prepare("
+        SELECT e.titulo, e.descricao, a.data_evento, u.nome AS nome_ong 
+        FROM admin_ong_cadastra_evento a
+        JOIN evento e ON a.id_evento = e.id_evento
+        JOIN usuario u ON a.id_admin_ong = u.id_usuario
+        WHERE e.titulo LIKE ? AND a.data_evento >= CURDATE()
+        LIMIT 10");
+    
+    $queryEventos->bind_param('s', $params[0]);
+    $queryEventos->execute();
+    $resultEventos = $queryEventos->get_result();
+
+    while ($row = $resultEventos->fetch_assoc()) {
+        $results[] = [
+            'type' => 'evento',
+            'titulo' => $row['titulo'],
+            'descricao' => $row['descricao'],
+            'data_evento' => $row['data_evento'],
+            'nome_ong' => $row['nome_ong'],
+        ];
+    }
+
+    return $results;
 }
 
 if (isset($_GET['term'])) {
     header('Content-Type: application/json');
     $searchTerm = trim($_GET['term']);
-    
-    $searchResults = getSuggestions($conn, $searchTerm);
-    
-    echo json_encode($searchResults);
+    echo json_encode(getSuggestions($conn, $searchTerm));
     exit;
 }
 
+$randomOngs = fetchRandomOngs($conn);
+$searchResults = [];
+$errorMessage = '';
+
 if (isset($_GET['searchTerm'])) {
     $searchTerm = trim($_GET['searchTerm']);
-    
+    $areas = isset($_GET['area']) ? $_GET['area'] : [];
+    $region = isset($_GET['region']) ? $_GET['region'] : '';
+    $neighborhood = isset($_GET['neighborhood']) ? $_GET['neighborhood'] : '';
+
     if ($searchTerm !== '') {
-        $searchResults = getSuggestions($conn, $searchTerm);
+        $searchResults = getCombinedResults($conn, $searchTerm, $areas, $region, $neighborhood);
         
-        if (empty($searchResults)) {
-            $errorMessage = 'Nenhuma ONG ou evento encontrado com esse termo.';
+        $ongsResults = array_filter($searchResults, function($result) {
+            return $result['type'] === 'ong';
+        });
+        
+        $eventsResults = array_filter($searchResults, function($result) {
+            return $result['type'] === 'evento';
+        });
+        
+        $eventsResults = array_slice($eventsResults, 0, 4);
+
+        if (empty($ongsResults)) {
+            $errorMessage = 'Nenhuma ONG encontrada com esse termo.';
+        }
+
+        if (empty($eventsResults)) {
+            $eventErrorMessage = 'Nenhum evento encontrado com esse termo.';
         }
     }
+}
+
+$upcomingEvents = [];
+$queryEvents = "
+    SELECT e.titulo, e.descricao, a.data_evento, u.nome AS nome_ong
+    FROM admin_ong_cadastra_evento a
+    JOIN evento e ON a.id_evento = e.id_evento
+    JOIN usuario u ON a.id_admin_ong = u.id_usuario
+    WHERE a.data_evento >= CURDATE() AND u.funcao = 'A'
+    ORDER BY a.data_evento ASC
+    LIMIT 4";
+$resultEvents = $conn->query($queryEvents);
+if ($resultEvents !== false) {
+    $upcomingEvents = $resultEvents->fetch_all(MYSQLI_ASSOC);
 }
 
 $conn->close();
@@ -114,189 +217,194 @@ $conn->close();
             <div class="form">
                 <form action="" method="GET">
                     <div class="search-container">
-                        <input class="search-text" type="text" id="search-input" name="searchTerm" placeholder="Insira o nome da ONG ou título do evento" oninput="showSuggestions(this.value)">
+                        <input class="search-text" type="text" id="search-input" name="searchTerm" placeholder="Insira o nome da ONG ou título do evento" oninput="showSuggestions(this.value)" value="<?php echo isset($_GET['searchTerm']) ? htmlspecialchars($_GET['searchTerm']) : ''; ?>">
                         <div id="suggestions" class="suggestions"></div>
                     </div>
                     <div class="button-container">
                         <button type="submit" class="search-btn">Buscar</button>
                     </div>
+                    <div class="filter-container">
+                        <a class="search-filter-btn" href="javascript:void(0);" onclick="toggleFilters()">
+                            Filtro <span id="arrow" class="arrow">▼</span>
+                        </a>
+                        <section class="filter-box" id="filter-box">
+                            <span class="close" onclick="closeFilters()">×</span>
+                            <p class="highlight">Área de Atuação</p>
+                            <div class="checkbox-container">
+                                <div class="column">
+                                    <label>
+                                        <input type="checkbox" name="area[]" value="meio_ambiente" <?php echo (isset($_GET['area']) && in_array('meio_ambiente', $_GET['area'])) ? 'checked' : ''; ?>> Meio Ambiente
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="area[]" value="desenvolvimento_economico" <?php echo (isset($_GET['area']) && in_array('desenvolvimento_economico', $_GET['area'])) ? 'checked' : ''; ?>> Desenvolvimento Econômico
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="area[]" value="direitos_humanos" <?php echo (isset($_GET['area']) && in_array('direitos_humanos', $_GET['area'])) ? 'checked' : ''; ?>> Direitos Humanos
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="area[]" value="direitos_das_criancas" <?php echo (isset($_GET['area']) && in_array('direitos_das_criancas', $_GET['area'])) ? 'checked' : ''; ?>> Direitos das Crianças
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="area[]" value="educacao" <?php echo (isset($_GET['area']) && in_array('educacao', $_GET['area'])) ? 'checked' : ''; ?>> Educação
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="area[]" value="defesa_dos_animais" <?php echo (isset($_GET['area']) && in_array('defesa_dos_animais', $_GET['area'])) ? 'checked' : ''; ?>> Defesa dos Animais
+                                    </label>
+                                </div>
+                                <div class="column">
+                                    <label>
+                                        <input type="checkbox" name="area[]" value="saude" <?php echo (isset($_GET['area']) && in_array('saude', $_GET['area'])) ? 'checked' : ''; ?>> Saúde
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="area[]" value="direitos_das_mulheres" <?php echo (isset($_GET['area']) && in_array('direitos_das_mulheres', $_GET['area'])) ? 'checked' : ''; ?>> Direitos das Mulheres
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="area[]" value="cultura_e_arte" <?php echo (isset($_GET['area']) && in_array('cultura_e_arte', $_GET['area'])) ? 'checked' : ''; ?>> Cultura e Arte
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="area[]" value="direitos_das_minorias" <?php echo (isset($_GET['area']) && in_array('direitos_das_minorias', $_GET['area'])) ? 'checked' : ''; ?>> Direitos das Minorias
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="area[]" value="ajuda_humanitaria" <?php echo (isset($_GET['area']) && in_array('ajuda_humanitaria', $_GET['area'])) ? 'checked' : ''; ?>> Ajuda Humanitária
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="area[]" value="assistencia_social" <?php echo (isset($_GET['area']) && in_array('assistencia_social', $_GET['area'])) ? 'checked' : ''; ?>> Assistência Social
+                                    </label>
+                                </div>
+                            </div>
+                            <p class="highlight-1">Regional</p>
+                            <select id="region" name="region" onchange="updateNeighborhoods()">
+                                <option value="">Selecione uma regional</option>
+                                <option value="bairro_novo" <?php echo (isset($_GET['region']) && $_GET['region'] === 'bairro_novo') ? 'selected' : ''; ?>>Bairro Novo</option>
+                                <option value="boa_vista" <?php echo (isset($_GET['region']) && $_GET['region'] === 'boa_vista') ? 'selected' : ''; ?>>Boa Vista</option>
+                                <option value="boqueirao" <?php echo (isset($_GET['region']) && $_GET['region'] === 'boqueirao') ? 'selected' : ''; ?>>Boqueirão</option>
+                                <option value="cajuru" <?php echo (isset($_GET['region']) && $_GET['region'] === 'cajuru') ? 'selected' : ''; ?>>Cajuru</option>
+                                <option value="cidade_industrial" <?php echo (isset($_GET['region']) && $_GET['region'] === 'cidade_industrial') ? 'selected' : ''; ?>>Cidade Industrial de Curitiba (CIC)</option>
+                                <option value="fazendinha_portao" <?php echo (isset($_GET['region']) && $_GET['region'] === 'fazendinha_portao') ? 'selected' : ''; ?>>Fazendinha/Portão</option>
+                                <option value="matriz" <?php echo (isset($_GET['region']) && $_GET['region'] === 'matriz') ? 'selected' : ''; ?>>Matriz</option>
+                                <option value="pinheirinho" <?php echo (isset($_GET['region']) && $_GET['region'] === 'pinheirinho') ? 'selected' : ''; ?>>Pinheirinho</option>
+                                <option value="santa_felicidade" <?php echo (isset($_GET['region']) && $_GET['region'] === 'santa_felicidade') ? 'selected' : ''; ?>>Santa Felicidade</option>
+                                <option value="tatuquara" <?php echo (isset($_GET['region']) && $_GET['region'] === 'tatuquara') ? 'selected' : ''; ?>>Tatuquara</option>
+                            </select>
+                            <p class="highlight-2">Bairro</p>
+                            <select id="neighborhood" name="neighborhood">
+                                <option value="">Selecione um bairro</option>
+                                <option value="abranches" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'abranches') ? 'selected' : ''; ?>>Abranches</option>
+                                <option value="agua_verde" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'agua_verde') ? 'selected' : ''; ?>>Água Verde</option>
+                                <option value="ahu" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'ahu') ? 'selected' : ''; ?>>Ahú</option>
+                                <option value="alto_boqueirao" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'alto_boqueirao') ? 'selected' : ''; ?>>Alto Boqueirão</option>
+                                <option value="alto_da_gloria" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'alto_da_gloria') ? 'selected' : ''; ?>>Alto da Glória</option>
+                                <option value="alto_da_xv" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'alto_da_xv') ? 'selected' : ''; ?>>Alto da XV</option>
+                                <option value="atuba" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'atuba') ? 'selected' : ''; ?>>Atuba</option>
+                                <option value="augusta" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'augusta') ? 'selected' : ''; ?>>Augusta</option>
+                                <option value="bacacheri" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'bacacheri') ? 'selected' : ''; ?>>Bacacheri</option>
+                                <option value="bairro_alto" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'bairro_alto') ? 'selected' : ''; ?>>Bairro Alto</option>
+                                <option value="barreirinha" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'barreirinha') ? 'selected' : ''; ?>>Barreirinha</option>
+                                <option value="batel" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'batel') ? 'selected' : ''; ?>>Batel</option>
+                                <option value="bigorrilho" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'bigorrilho') ? 'selected' : ''; ?>>Bigorrilho</option>
+                                <option value="boa_vista" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'boa_vista') ? 'selected' : ''; ?>>Boa Vista</option>
+                                <option value="bom_retiro" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'bom_retiro') ? 'selected' : ''; ?>>Bom Retiro</option>
+                                <option value="boqueirao" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'boqueirao') ? 'selected' : ''; ?>>Boqueirão</option>
+                                <option value="butiatuvinha" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'butiatuvinha') ? 'selected' : ''; ?>>Butiatuvinha</option>
+                                <option value="cabral" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'cabral') ? 'selected' : ''; ?>>Cabral</option>
+                                <option value="cachoeira" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'cachoeira') ? 'selected' : ''; ?>>Cachoeira</option>
+                                <option value="cajuru" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'cajuru') ? 'selected' : ''; ?>>Cajuru</option>
+                                <option value="campina_do_siqueira" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'campina_do_siqueira') ? 'selected' : ''; ?>>Campina do Siqueira</option>
+                                <option value="campo_comprido_norte" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'campo_comprido_norte') ? 'selected' : ''; ?>>Campo Comprido (Norte)</option>
+                                <option value="campo_comprido_sul" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'campo_comprido_sul') ? 'selected' : ''; ?>>Campo Comprido (Sul)</option>
+                                <option value="campo_de_santana" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'campo_de_santana') ? 'selected' : ''; ?>>Campo de Santana</option>
+                                <option value="capao_da_imbuia" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'capao_da_imbuia') ? 'selected' : ''; ?>>Capão da Imbuia</option>
+                                <option value="capao_raso" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'capao_raso') ? 'selected' : ''; ?>>Capão Raso</option>
+                                <option value="cascatinha" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'cascatinha') ? 'selected' : ''; ?>>Cascatinha</option>
+                                <option value="caximba" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'caximba') ? 'selected' : ''; ?>>Caximba</option>
+                                <option value="centro" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'centro') ? 'selected' : ''; ?>>Centro</option>
+                                <option value="centro_civico" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'centro_civico') ? 'selected' : ''; ?>>Centro Cívico</option>
+                                <option value="cidade_industrial" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'cidade_industrial') ? 'selected' : ''; ?>>Cidade Industrial de Curitiba (CIC)</option>
+                                <option value="cristo_rei" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'cristo_rei') ? 'selected' : ''; ?>>Cristo Rei</option>
+                                <option value="fanny" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'fanny') ? 'selected' : ''; ?>>Fanny</option>
+                                <option value="fazendinha" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'fazendinha') ? 'selected' : ''; ?>>Fazendinha</option>
+                                <option value="ganchinho" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'ganchinho') ? 'selected' : ''; ?>>Ganchinho</option>
+                                <option value="guabirotuba" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'guabirotuba') ? 'selected' : ''; ?>>Guabirotuba</option>
+                                <option value="guaira" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'guaira') ? 'selected' : ''; ?>>Guaira</option>
+                                <option value="hauer" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'hauer') ? 'selected' : ''; ?>>Hauer</option>
+                                <option value="hugo_lange" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'hugo_lange') ? 'selected' : ''; ?>>Hugo Lange</option>
+                                <option value="jardim_botanico" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'jardim_botanico') ? 'selected' : ''; ?>>Jardim Botânico</option>
+                                <option value="jardim_das_americas" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'jardim_das_americas') ? 'selected' : ''; ?>>Jardim das Américas</option>
+                                <option value="jardim_social" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'jardim_social') ? 'selected' : ''; ?>>Jardim Social</option>
+                                <option value="juveve" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'juveve') ? 'selected' : ''; ?>>Juvevê</option>
+                                <option value="lamenha_pequena" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'lamenha_pequena') ? 'selected' : ''; ?>>Lamenha Pequena</option>
+                                <option value="lindoia" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'lindoia') ? 'selected' : ''; ?>>Lindóia</option>
+                                <option value="merces" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'merces') ? 'selected' : ''; ?>>Mercês</option>
+                                <option value="mossungue" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'mossungue') ? 'selected' : ''; ?>>Mossunguê</option>
+                                <option value="novo_mundo" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'novo_mundo') ? 'selected' : ''; ?>>Novo Mundo</option>
+                                <option value="orleans" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'orleans') ? 'selected' : ''; ?>>Orleans</option>
+                                <option value="parolin" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'parolin') ? 'selected' : ''; ?>>Parolin</option>
+                                <option value="pilarzinho" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'pilarzinho') ? 'selected' : ''; ?>>Pilarzinho</option>
+                                <option value="pinheirinho" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'pinheirinho') ? 'selected' : ''; ?>>Pinheirinho</option>
+                                <option value="portao" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'portao') ? 'selected' : ''; ?>>Portão</option>
+                                <option value="prado_velho" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'prado_velho') ? 'selected' : ''; ?>>Prado Velho</option>
+                                <option value="reboucas" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'reboucas') ? 'selected' : ''; ?>>Rebouças</option>
+                                <option value="riviera" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'riviera') ? 'selected' : ''; ?>>Riviera</option>
+                                <option value="santa_candida" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'santa_candida') ? 'selected' : ''; ?>>Santa Cândida</option>
+                                <option value="santa_felicidade" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'santa_felicidade') ? 'selected' : ''; ?>>Santa Felicidade</option>
+                                <option value="santa_quiteria" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'santa_quiteria') ? 'selected' : ''; ?>>Santa Quitéria</option>
+                                <option value="santo_inacio" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'santo_inacio') ? 'selected' : ''; ?>>Santo Inácio</option>
+                                <option value="sao_braz" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'sao_braz') ? 'selected' : ''; ?>>São Braz</option>
+                                <option value="sao_francisco" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'sao_francisco') ? 'selected' : ''; ?>>São Francisco</option>
+                                <option value="sao_joao" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'sao_joao') ? 'selected' : ''; ?>>São João</option>
+                                <option value="sao_lourenco" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'sao_lourenco') ? 'selected' : ''; ?>>São Lourenço</option>
+                                <option value="sao_miguel" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'sao_miguel') ? 'selected' : ''; ?>>São Miguel</option>
+                                <option value="seminario" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'seminario') ? 'selected' : ''; ?>>Seminário</option>
+                                <option value="sitio_cercado" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'sitio_cercado') ? 'selected' : ''; ?>>Sítio Cercado</option>
+                                <option value="taboao" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'taboao') ? 'selected' : ''; ?>>Taboão</option>
+                                <option value="taruma" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'taruma') ? 'selected' : ''; ?>>Tarumã</option>
+                                <option value="tatuquara" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'tatuquara') ? 'selected' : ''; ?>>Tatuquara</option>
+                                <option value="tingui" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'tingui') ? 'selected' : ''; ?>>Tingui</option>
+                                <option value="uberaba" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'uberaba') ? 'selected' : ''; ?>>Uberaba</option>
+                                <option value="umbara" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'umbara') ? 'selected' : ''; ?>>Umbará</option>
+                                <option value="vila_izabel" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'vila_izabel') ? 'selected' : ''; ?>>Vila Izabel</option>
+                                <option value="vista_alegre" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'vista_alegre') ? 'selected' : ''; ?>>Vista Alegre</option>
+                                <option value="xaxim" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'xaxim') ? 'selected' : ''; ?>>Xaxim</option>
+                            </select>
+                            <div class="buttons">
+                                <button type="submit" class="apply">Aplicar</button>
+                                <button type="button" onclick="cleanFilters()" id="clearButton" class="clean">Limpar</button>
+                            </div>
+                        </section>                
+                    </div>
                 </form>
-            </div>
-            <div class="filter-container">
-                <a class="search-filter-btn" href="javascript:void(0);" onclick="toggleFilters()">
-                    Filtro <span id="arrow" class="arrow">▼</span>
-                </a>
-                <section class="filter-box" id="filter-box">
-                    <span class="close" onclick="closeFilters()">×</span>
-                    <p class="highlight">Área de Atuação</p>
-                    <div class="checkbox-container">
-                        <div class="column">
-                            <label>
-                                <input type="checkbox" name="area" value="meio_ambiente"> Meio Ambiente
-                            </label>
-                            <label>
-                                <input type="checkbox" name="area" value="saude"> Desenvolvimento Econômico
-                            </label>
-                            <label>
-                                <input type="checkbox" name="area" value="direitos_humanos"> Direitos Humanos
-                            </label>
-                            <label>
-                                <input type="checkbox" name="area" value="assistencia_social"> Direitos das Crianças
-                            </label>
-                            <label>
-                                <input type="checkbox" name="area" value="educacao"> Educação
-                            </label>
-                            <label>
-                                <input type="checkbox" name="area" value="defesa_animais"> Defesa dos Animais
-                            </label>
-                        </div>
-                        <div class="column">
-                            <label>
-                                <input type="checkbox" name="area" value="desenvolvimento_economico"> Saúde
-                            </label>
-                            <label>
-                                <input type="checkbox" name="area" value="cultura_arte"> Direito das Mulheres
-                            </label>
-                            <label>
-                                <input type="checkbox" name="area" value="direito_mulheres"> Cultura e Arte
-                            </label>
-                            <label>
-                                <input type="checkbox" name="area" value="direitos_minorias"> Direitos das Minorias
-                            </label>
-                            <label>
-                                <input type="checkbox" name="area" value="ajuda_humanitaria"> Ajuda Humanitária
-                            </label>
-                            <label>
-                                <input type="checkbox" name="area" value="direitos_criancas"> Assistência Social
-                            </label>
-                        </div>
-                    </div>
-                    <p class="highlight-1">Regional</p>
-                    <select id="region" onchange="updateNeighborhoods()">
-                        <option value="">Selecione uma regional</option>
-                        <option value="bairro_novo">Bairro Novo</option>
-                        <option value="boa_vista">Boa Vista</option>
-                        <option value="boqueirao">Boqueirão</option>
-                        <option value="cajuru">Cajuru</option>
-                        <option value="cidade_industrial">Cidade Industrial de Curitiba (CIC)</option>
-                        <option value="fazendinha_portao">Fazendinha/Portão</option>
-                        <option value="matriz">Matriz</option>
-                        <option value="pinheirinho">Pinheirinho</option>
-                        <option value="santa_felicidade">Santa Felicidade</option>
-                        <option value="tatuquara">Tatuquara</option>
-                    </select>
-                    <p class="highlight-2">Bairro</p>
-                    <select id="neighborhood">
-                        <option value="">Selecione um bairro</option>
-                        <option value="abranches">Abranches</option>
-                        <option value="agua_verde">Água Verde</option>
-                        <option value="ahu">Ahú</option>
-                        <option value="alto_boqueirao">Alto Boqueirão</option>
-                        <option value="alto_da_gloria">Alto da Glória</option>
-                        <option value="alto_da_xv">Alto da XV</option>
-                        <option value="atuba">Atuba</option>
-                        <option value="augusta">Augusta</option>
-                        <option value="bacacheri">Bacacheri</option>
-                        <option value="bairro_alto">Bairro Alto</option>
-                        <option value="barreirinha">Barreirinha</option>
-                        <option value="batel">Batel</option>
-                        <option value="bigorrilho">Bigorrilho</option>
-                        <option value="boa_vista">Boa Vista</option>
-                        <option value="bom_retiro">Bom Retiro</option>
-                        <option value="boqueirao">Boqueirão</option>
-                        <option value="butiatuvinha">Butiatuvinha</option>
-                        <option value="cabral">Cabral</option>
-                        <option value="cachoeira">Cachoeira</option>
-                        <option value="cajuru">Cajuru</option>
-                        <option value="campina_do_siqueira">Campina do Siqueira</option>
-                        <option value="campo_comprido_norte">Campo Comprido (Norte)</option>
-                        <option value="campo_comprido_sul">Campo Comprido (Sul)</option>
-                        <option value="campo_de_santana">Campo de Santana</option>
-                        <option value="capao_da_imbuia">Capão da Imbuia</option>
-                        <option value="capao_raso">Capão Raso</option>
-                        <option value="cascatinha">Cascatinha</option>
-                        <option value="caximba">Caximba</option>
-                        <option value="centro">Centro</option>
-                        <option value="centro_civico">Centro Cívico</option>
-                        <option value="cidade_industrial">Cidade Industrial de Curitiba (CIC)</option>
-                        <option value="cristo_rei">Cristo Rei</option>
-                        <option value="fanny">Fanny</option>
-                        <option value="fazendinha">Fazendinha</option>
-                        <option value="ganchinho">Ganchinho</option>
-                        <option value="guabirotuba">Guabirotuba</option>
-                        <option value="guaira">Guaira</option>
-                        <option value="hauer">Hauer</option>
-                        <option value="hugo_lange">Hugo Lange</option>
-                        <option value="jardim_botanico">Jardim Botânico</option>
-                        <option value="jardim_das_americas">Jardim das Américas</option>
-                        <option value="jardim_social">Jardim Social</option>
-                        <option value="juveve">Juvevê</option>
-                        <option value="lamenha_pequena">Lamenha Pequena</option>
-                        <option value="lindoia">Lindóia</option>
-                        <option value="merces">Mercês</option>
-                        <option value="mossungue">Mossunguê</option>
-                        <option value="novo_mundo">Novo Mundo</option>
-                        <option value="orleans">Orleans</option>
-                        <option value="parolin">Parolin</option>
-                        <option value="pilarzinho">Pilarzinho</option>
-                        <option value="pinheirinho">Pinheirinho</option>
-                        <option value="portao">Portão</option>
-                        <option value="prado_velho">Prado Velho</option>
-                        <option value="reboucas">Rebouças</option>
-                        <option value="riviera">Riviera</option>
-                        <option value="santa_candida">Santa Cândida</option>
-                        <option value="santa_felicidade">Santa Felicidade</option>
-                        <option value="santa_quiteria">Santa Quitéria</option>
-                        <option value="santo_inacio">Santo Inácio</option>
-                        <option value="sao_braz">São Braz</option>
-                        <option value="sao_francisco">São Francisco</option>
-                        <option value="sao_joao">São João</option>
-                        <option value="sao_lourenco">São Lourenço</option>
-                        <option value="sao_miguel">São Miguel</option>
-                        <option value="seminario">Seminário</option>
-                        <option value="sitio_cercado">Sítio Cercado</option>
-                        <option value="taboao">Taboão</option>
-                        <option value="taruma">Tarumã</option>
-                        <option value="tatuquara">Tatuquara</option>
-                        <option value="tingui">Tingui</option>
-                        <option value="uberaba">Uberaba</option>
-                        <option value="umbara">Umbará</option>
-                        <option value="vila_izabel">Vila Izabel</option>
-                        <option value="vista_alegre">Vista Alegre</option>
-                        <option value="xaxim">Xaxim</option>
-                    </select>
-                    <div class="buttons">
-                        <button onclick="applyFilters()" class="apply">Aplicar</button>
-                        <button onclick="cleanFilters()" id="clearButton" class="clean">Limpar</button>
-                    </div>
-                </section>                
             </div>
         </div>
     </section>
     <section class="events-options">
-        <?php if (!empty($searchResults)): ?>
-            <?php foreach ($searchResults as $result): ?>
+        <?php if (!empty($searchResults) && !empty($ongsResults)): ?>
+            <h3>ONGs</h3>
+            <?php foreach ($ongsResults as $ong): ?>
                 <div class="event">
                     <div class="image-1">
-                        <a href="ong-details.php?title=<?= urlencode($result['nome'] ?? $result['titulo']); ?>">
-                            <img src="<?= $result['foto'] ?? 'images/default-image.png'; ?>" alt="Imagem da <?= htmlspecialchars($result['nome'] ?? $result['titulo']); ?>">
+                        <a href="<?= $ong['type'] === 'ong' ? 'ong-details.php?title=' . urlencode($ong['nome']) : 'event-details.php?title=' . urlencode($ong['titulo']); ?>">
+                            <img src="<?= $ong['type'] === 'ong' ? $ong['foto'] : 'images/default-image.png'; ?>" alt="Imagem da <?= htmlspecialchars($ong['type'] === 'ong' ? $ong['nome'] : $ong['titulo']); ?>">
                         </a>
                     </div>
                     <div class="details">
                         <div class="important-details">
-                            <h4><?= htmlspecialchars($result['nome'] ?? $result['titulo']); ?></h4>
+                            <h4><?= htmlspecialchars($ong['type'] === 'ong' ? $ong['nome'] : $ong['titulo']); ?></h4>
                         </div>
                         <div class="more-details">
-                            <p><?= htmlspecialchars($result['descricao'] ?? 'Descrição não disponível.'); ?></p>
-                            <a href="ong-details.php?title=<?= urlencode($result['nome'] ?? $result['titulo']); ?>" class="btn">Ver mais</a>
+                            <p><?= htmlspecialchars($ong['type'] === 'ong' ? $ong['descricao'] : $ong['descricao'] ?? 'Descrição não disponível.'); ?></p>
+                            <?php if ($ong['type'] === 'ong'): ?>
+                                <a href="ong-details.php?title=<?= urlencode($ong['nome']); ?>" class="btn">Ver mais</a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
             <?php endforeach; ?>
         <?php elseif (!empty($errorMessage)): ?>
+            <h3>ONGs</h3>
             <p><?= htmlspecialchars($errorMessage); ?></p>
         <?php else: ?>
             <?php if (!empty($randomOngs)): ?>
+                <h3>Sugestões de ONGs</h3>
                 <?php foreach ($randomOngs as $ong): ?>
                     <div class="event">
                         <div class="image-1">
@@ -317,6 +425,46 @@ $conn->close();
                 <?php endforeach; ?>
             <?php else: ?>
                 <p>Nenhuma ONG encontrada.</p>
+            <?php endif; ?>
+        <?php endif; ?>
+    </section>
+    <section class="events-now">
+        <?php if (!empty($searchResults) && !empty($eventsResults)): ?>
+            <h3>Eventos</h3>
+            <div class="events-container">
+                <?php foreach ($eventsResults as $event): ?>
+                    <div class="event">
+                        <div class="important-details">
+                            <h4><?= htmlspecialchars($event['titulo'] ?? $event['nome']); ?></h4>
+                            <p><?= isset($event['data_evento']) ? 'Data: ' . date('d/m/Y', strtotime($event['data_evento'])) : ''; ?></p>
+                            <p><?= isset($event['nome_ong']) ? 'Organizado por: ' . htmlspecialchars($event['nome_ong']) : ''; ?></p>
+                        </div>
+                        <div class="more-details">
+                            <a href="event-details.php?title=<?= urlencode($event['titulo'] ?? $event['nome']); ?>" class="btn">Ver mais</a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php elseif (!empty($eventErrorMessage)): ?>
+            <h3>Eventos</h3>
+            <p class="error"><?= htmlspecialchars($eventErrorMessage); ?></p>
+        <?php else: ?>
+            <?php if (!empty($upcomingEvents) && empty($searchTerm)): ?>
+                <h3>Próximos Eventos</h3>
+                <div class="events-container">
+                    <?php foreach ($upcomingEvents as $event): ?>
+                        <div class="event">
+                            <div class="important-details">
+                                <h4><?= htmlspecialchars($event['titulo']); ?></h4>
+                                <p>Data: <?= date('d/m/Y', strtotime($event['data_evento'])); ?></p>
+                                <p>Organizado por: <?= htmlspecialchars($event['nome_ong']); ?></p>
+                            </div>
+                            <div class="more-details">
+                                <a href="event-details.php?title=<?= urlencode($event['titulo']); ?>" class="btn">Ver mais</a>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
             <?php endif; ?>
         <?php endif; ?>
     </section>

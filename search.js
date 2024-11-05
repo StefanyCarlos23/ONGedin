@@ -7,11 +7,6 @@ function closeFilters() {
     document.getElementById('filter-box').style.display = 'none';
 }
 
-function applyFilters() {
-    alert('Filtros aplicados!');
-    closeFilters();
-}
-
 function cleanFilters() {
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     checkboxes.forEach(checkbox => {

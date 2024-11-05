@@ -108,11 +108,13 @@ form{
     position: absolute;
     top: 47px;
     width: 600px;
+    max-height: 200px;
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     z-index: 10;
+    overflow-y: auto;
 }
 
 .suggestion-item{
@@ -157,15 +159,15 @@ button{
     transition: color 0.1s;
 }
 
-.search-btn:active,
+.search-bar .search button:active{
+    color: #666666;
+    background-color: #4d909a;
+    transition: 0.4s;
+}
+
 .search-bar .search .back-btn:active,
 .search-bar .search .search-filter-btn:active{
     color: #666666;
-}
-
-.search-btn:hover{
-    background-color: #4d909a;
-    transition: 0.4s;
 }
 
 .search-bar .search .back-btn:hover,
@@ -247,7 +249,7 @@ label{
     text-align: left;
 }
 
-select {
+select{
     color: #666666;
     justify-content: center;
     display: flex;
@@ -353,6 +355,15 @@ select {
     width: 70%;
 }
 
+.events-options h3{
+    display: flex;
+    justify-content: center;
+    font-size: 40px;
+    color: #87BFC7;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
 .events-options .event .image-1{
     position: relative;
     display: flex;
@@ -375,6 +386,68 @@ select {
 
 .events-options .event .image-1:hover{
     box-shadow: 2px 2px 1.2em rgba(0, 0, 0, 0.3);
+}
+
+.events-now h3{
+    text-align: center;
+    font-size: 40px;
+    color: #87BFC7;
+    margin-bottom: 30px;
+}
+
+.events-now .error{
+    text-align: center;
+    margin-bottom: 90px;
+}
+
+.events-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    max-width: 80%;
+    margin: 0 auto;
+    margin-bottom: 70px;
+}
+
+.events-container .event{
+    flex: 1;
+    color: #666666;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 25px;
+    background-color: rgb(255, 255, 255);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.events-container .event .important-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    margin-top: 10px;
+}
+
+.events-container .event .important-details p{
+    margin: 5px 0;
+}
+
+.events-container .event .more-details{
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    margin-bottom: 10px;
+}
+
+.events-container .event .more-details a{
+    margin-top: 10px;
 }
 
 .details{
