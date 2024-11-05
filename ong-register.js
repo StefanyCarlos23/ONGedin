@@ -67,9 +67,10 @@ function btnRegisterOnClick(event){
         successAlert('Cadastro realizado com sucesso!')
         setTimeout(() => {
         form.submit()
+        document.getElementById('submit').disabled = true;
     }, 5000)
         setTimeout(() => {
-        window.location.href = "home.html"
+        window.location.href = "ong-register.php"
     }, 1500)
     }
 }
