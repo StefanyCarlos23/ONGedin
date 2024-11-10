@@ -118,8 +118,6 @@ $conn->close();
                     <ul class="ul-text">
                         <a href="home.php">Início</a>
                         <a href="search.php">Pesquisar</a>
-                        <a href="donations.php">Doações</a>
-                        <a href="events.php">Eventos</a>
                         <a href="help.php">Suporte</a>
                     </ul>
                     <a href="notification.php">
