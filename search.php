@@ -331,95 +331,95 @@ if ($resultEvents !== false) {
                             <p class="highlight-1">Regional</p>
                             <select id="region" name="region" onchange="updateNeighborhoods()">
                                 <option value="">Selecione uma regional</option>
-                                <option value="bairro_novo" <?php echo (isset($_GET['region']) && $_GET['region'] === 'bairro_novo') ? 'selected' : ''; ?>>Bairro Novo</option>
-                                <option value="boa_vista" <?php echo (isset($_GET['region']) && $_GET['region'] === 'boa_vista') ? 'selected' : ''; ?>>Boa Vista</option>
+                                <option value="bairro novo" <?php echo (isset($_GET['region']) && $_GET['region'] === 'bairro novo') ? 'selected' : ''; ?>>Bairro Novo</option>
+                                <option value="boa vista" <?php echo (isset($_GET['region']) && $_GET['region'] === 'boa vista') ? 'selected' : ''; ?>>Boa Vista</option>
                                 <option value="boqueirao" <?php echo (isset($_GET['region']) && $_GET['region'] === 'boqueirao') ? 'selected' : ''; ?>>Boqueirão</option>
                                 <option value="cajuru" <?php echo (isset($_GET['region']) && $_GET['region'] === 'cajuru') ? 'selected' : ''; ?>>Cajuru</option>
-                                <option value="cidade_industrial" <?php echo (isset($_GET['region']) && $_GET['region'] === 'cidade_industrial') ? 'selected' : ''; ?>>Cidade Industrial de Curitiba (CIC)</option>
-                                <option value="fazendinha_portao" <?php echo (isset($_GET['region']) && $_GET['region'] === 'fazendinha_portao') ? 'selected' : ''; ?>>Fazendinha/Portão</option>
+                                <option value="cidade industrial" <?php echo (isset($_GET['region']) && $_GET['region'] === 'cidade industrial') ? 'selected' : ''; ?>>Cidade Industrial de Curitiba (CIC)</option>
+                                <option value="fazendinha portao" <?php echo (isset($_GET['region']) && $_GET['region'] === 'fazendinha portao') ? 'selected' : ''; ?>>Fazendinha/Portão</option>
                                 <option value="matriz" <?php echo (isset($_GET['region']) && $_GET['region'] === 'matriz') ? 'selected' : ''; ?>>Matriz</option>
                                 <option value="pinheirinho" <?php echo (isset($_GET['region']) && $_GET['region'] === 'pinheirinho') ? 'selected' : ''; ?>>Pinheirinho</option>
-                                <option value="santa_felicidade" <?php echo (isset($_GET['region']) && $_GET['region'] === 'santa_felicidade') ? 'selected' : ''; ?>>Santa Felicidade</option>
+                                <option value="santa felicidade" <?php echo (isset($_GET['region']) && $_GET['region'] === 'santa felicidade') ? 'selected' : ''; ?>>Santa Felicidade</option>
                                 <option value="tatuquara" <?php echo (isset($_GET['region']) && $_GET['region'] === 'tatuquara') ? 'selected' : ''; ?>>Tatuquara</option>
                             </select>
                             <p class="highlight-2">Bairro</p>
                             <select id="neighborhood" name="neighborhood">
                                 <option value="">Selecione um bairro</option>
                                 <option value="abranches" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'abranches') ? 'selected' : ''; ?>>Abranches</option>
-                                <option value="agua_verde" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'agua_verde') ? 'selected' : ''; ?>>Água Verde</option>
+                                <option value="agua verde" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'agua verde') ? 'selected' : ''; ?>>Água Verde</option>
                                 <option value="ahu" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'ahu') ? 'selected' : ''; ?>>Ahú</option>
-                                <option value="alto_boqueirao" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'alto_boqueirao') ? 'selected' : ''; ?>>Alto Boqueirão</option>
-                                <option value="alto_da_gloria" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'alto_da_gloria') ? 'selected' : ''; ?>>Alto da Glória</option>
-                                <option value="alto_da_xv" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'alto_da_xv') ? 'selected' : ''; ?>>Alto da XV</option>
+                                <option value="alto boqueirao" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'alto boqueirao') ? 'selected' : ''; ?>>Alto Boqueirão</option>
+                                <option value="alto da gloria" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'alto da gloria') ? 'selected' : ''; ?>>Alto da Glória</option>
+                                <option value="alto da xv" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'alto da xv') ? 'selected' : ''; ?>>Alto da XV</option>
                                 <option value="atuba" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'atuba') ? 'selected' : ''; ?>>Atuba</option>
                                 <option value="augusta" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'augusta') ? 'selected' : ''; ?>>Augusta</option>
                                 <option value="bacacheri" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'bacacheri') ? 'selected' : ''; ?>>Bacacheri</option>
-                                <option value="bairro_alto" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'bairro_alto') ? 'selected' : ''; ?>>Bairro Alto</option>
+                                <option value="bairro alto" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'bairro alto') ? 'selected' : ''; ?>>Bairro Alto</option>
                                 <option value="barreirinha" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'barreirinha') ? 'selected' : ''; ?>>Barreirinha</option>
                                 <option value="batel" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'batel') ? 'selected' : ''; ?>>Batel</option>
                                 <option value="bigorrilho" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'bigorrilho') ? 'selected' : ''; ?>>Bigorrilho</option>
-                                <option value="boa_vista" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'boa_vista') ? 'selected' : ''; ?>>Boa Vista</option>
-                                <option value="bom_retiro" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'bom_retiro') ? 'selected' : ''; ?>>Bom Retiro</option>
+                                <option value="boa vista" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'boa vista') ? 'selected' : ''; ?>>Boa Vista</option>
+                                <option value="bom retiro" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'bom retiro') ? 'selected' : ''; ?>>Bom Retiro</option>
                                 <option value="boqueirao" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'boqueirao') ? 'selected' : ''; ?>>Boqueirão</option>
                                 <option value="butiatuvinha" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'butiatuvinha') ? 'selected' : ''; ?>>Butiatuvinha</option>
                                 <option value="cabral" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'cabral') ? 'selected' : ''; ?>>Cabral</option>
                                 <option value="cachoeira" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'cachoeira') ? 'selected' : ''; ?>>Cachoeira</option>
                                 <option value="cajuru" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'cajuru') ? 'selected' : ''; ?>>Cajuru</option>
-                                <option value="campina_do_siqueira" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'campina_do_siqueira') ? 'selected' : ''; ?>>Campina do Siqueira</option>
-                                <option value="campo_comprido_norte" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'campo_comprido_norte') ? 'selected' : ''; ?>>Campo Comprido (Norte)</option>
-                                <option value="campo_comprido_sul" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'campo_comprido_sul') ? 'selected' : ''; ?>>Campo Comprido (Sul)</option>
-                                <option value="campo_de_santana" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'campo_de_santana') ? 'selected' : ''; ?>>Campo de Santana</option>
-                                <option value="capao_da_imbuia" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'capao_da_imbuia') ? 'selected' : ''; ?>>Capão da Imbuia</option>
-                                <option value="capao_raso" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'capao_raso') ? 'selected' : ''; ?>>Capão Raso</option>
+                                <option value="campina do siqueira" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'campina do siqueira') ? 'selected' : ''; ?>>Campina do Siqueira</option>
+                                <option value="campo comprido norte" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'campo comprido norte') ? 'selected' : ''; ?>>Campo Comprido (Norte)</option>
+                                <option value="campo comprido sul" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'campo comprido sul') ? 'selected' : ''; ?>>Campo Comprido (Sul)</option>
+                                <option value="campo de santana" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'campo de santana') ? 'selected' : ''; ?>>Campo de Santana</option>
+                                <option value="capao da imbuia" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'capao da imbuia') ? 'selected' : ''; ?>>Capão da Imbuia</option>
+                                <option value="capao raso" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'capao raso') ? 'selected' : ''; ?>>Capão Raso</option>
                                 <option value="cascatinha" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'cascatinha') ? 'selected' : ''; ?>>Cascatinha</option>
                                 <option value="caximba" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'caximba') ? 'selected' : ''; ?>>Caximba</option>
                                 <option value="centro" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'centro') ? 'selected' : ''; ?>>Centro</option>
-                                <option value="centro_civico" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'centro_civico') ? 'selected' : ''; ?>>Centro Cívico</option>
-                                <option value="cidade_industrial" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'cidade_industrial') ? 'selected' : ''; ?>>Cidade Industrial de Curitiba (CIC)</option>
-                                <option value="cristo_rei" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'cristo_rei') ? 'selected' : ''; ?>>Cristo Rei</option>
+                                <option value="centro civico" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'centro civico') ? 'selected' : ''; ?>>Centro Cívico</option>
+                                <option value="cidade industrial" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'cidade industrial') ? 'selected' : ''; ?>>Cidade Industrial de Curitiba (CIC)</option>
+                                <option value="cristo rei" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'cristo rei') ? 'selected' : ''; ?>>Cristo Rei</option>
                                 <option value="fanny" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'fanny') ? 'selected' : ''; ?>>Fanny</option>
                                 <option value="fazendinha" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'fazendinha') ? 'selected' : ''; ?>>Fazendinha</option>
                                 <option value="ganchinho" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'ganchinho') ? 'selected' : ''; ?>>Ganchinho</option>
                                 <option value="guabirotuba" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'guabirotuba') ? 'selected' : ''; ?>>Guabirotuba</option>
                                 <option value="guaira" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'guaira') ? 'selected' : ''; ?>>Guaira</option>
                                 <option value="hauer" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'hauer') ? 'selected' : ''; ?>>Hauer</option>
-                                <option value="hugo_lange" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'hugo_lange') ? 'selected' : ''; ?>>Hugo Lange</option>
-                                <option value="jardim_botanico" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'jardim_botanico') ? 'selected' : ''; ?>>Jardim Botânico</option>
-                                <option value="jardim_das_americas" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'jardim_das_americas') ? 'selected' : ''; ?>>Jardim das Américas</option>
-                                <option value="jardim_social" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'jardim_social') ? 'selected' : ''; ?>>Jardim Social</option>
+                                <option value="hugo lange" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'hugo lange') ? 'selected' : ''; ?>>Hugo Lange</option>
+                                <option value="jardim botanico" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'jardim botanico') ? 'selected' : ''; ?>>Jardim Botânico</option>
+                                <option value="jardim das americas" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'jardim das americas') ? 'selected' : ''; ?>>Jardim das Américas</option>
+                                <option value="jardim social" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'jardim social') ? 'selected' : ''; ?>>Jardim Social</option>
                                 <option value="juveve" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'juveve') ? 'selected' : ''; ?>>Juvevê</option>
-                                <option value="lamenha_pequena" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'lamenha_pequena') ? 'selected' : ''; ?>>Lamenha Pequena</option>
+                                <option value="lamenha pequena" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'lamenha pequena') ? 'selected' : ''; ?>>Lamenha Pequena</option>
                                 <option value="lindoia" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'lindoia') ? 'selected' : ''; ?>>Lindóia</option>
                                 <option value="merces" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'merces') ? 'selected' : ''; ?>>Mercês</option>
                                 <option value="mossungue" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'mossungue') ? 'selected' : ''; ?>>Mossunguê</option>
-                                <option value="novo_mundo" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'novo_mundo') ? 'selected' : ''; ?>>Novo Mundo</option>
+                                <option value="novo mundo" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'novo mundo') ? 'selected' : ''; ?>>Novo Mundo</option>
                                 <option value="orleans" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'orleans') ? 'selected' : ''; ?>>Orleans</option>
                                 <option value="parolin" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'parolin') ? 'selected' : ''; ?>>Parolin</option>
                                 <option value="pilarzinho" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'pilarzinho') ? 'selected' : ''; ?>>Pilarzinho</option>
                                 <option value="pinheirinho" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'pinheirinho') ? 'selected' : ''; ?>>Pinheirinho</option>
                                 <option value="portao" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'portao') ? 'selected' : ''; ?>>Portão</option>
-                                <option value="prado_velho" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'prado_velho') ? 'selected' : ''; ?>>Prado Velho</option>
+                                <option value="prado velho" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'prado velho') ? 'selected' : ''; ?>>Prado Velho</option>
                                 <option value="reboucas" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'reboucas') ? 'selected' : ''; ?>>Rebouças</option>
                                 <option value="riviera" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'riviera') ? 'selected' : ''; ?>>Riviera</option>
-                                <option value="santa_candida" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'santa_candida') ? 'selected' : ''; ?>>Santa Cândida</option>
-                                <option value="santa_felicidade" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'santa_felicidade') ? 'selected' : ''; ?>>Santa Felicidade</option>
-                                <option value="santa_quiteria" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'santa_quiteria') ? 'selected' : ''; ?>>Santa Quitéria</option>
-                                <option value="santo_inacio" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'santo_inacio') ? 'selected' : ''; ?>>Santo Inácio</option>
-                                <option value="sao_braz" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'sao_braz') ? 'selected' : ''; ?>>São Braz</option>
-                                <option value="sao_francisco" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'sao_francisco') ? 'selected' : ''; ?>>São Francisco</option>
-                                <option value="sao_joao" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'sao_joao') ? 'selected' : ''; ?>>São João</option>
-                                <option value="sao_lourenco" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'sao_lourenco') ? 'selected' : ''; ?>>São Lourenço</option>
-                                <option value="sao_miguel" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'sao_miguel') ? 'selected' : ''; ?>>São Miguel</option>
+                                <option value="santa candida" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'santa candida') ? 'selected' : ''; ?>>Santa Cândida</option>
+                                <option value="santa felicidade" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'santa felicidade') ? 'selected' : ''; ?>>Santa Felicidade</option>
+                                <option value="santa quiteria" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'santa quiteria') ? 'selected' : ''; ?>>Santa Quitéria</option>
+                                <option value="santo inacio" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'santo inacio') ? 'selected' : ''; ?>>Santo Inácio</option>
+                                <option value="sao braz" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'sao braz') ? 'selected' : ''; ?>>São Braz</option>
+                                <option value="sao francisco" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'sao francisco') ? 'selected' : ''; ?>>São Francisco</option>
+                                <option value="sao joao" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'sao joao') ? 'selected' : ''; ?>>São João</option>
+                                <option value="sao lourenco" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'sao lourenco') ? 'selected' : ''; ?>>São Lourenço</option>
+                                <option value="sao miguel" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'sao miguel') ? 'selected' : ''; ?>>São Miguel</option>
                                 <option value="seminario" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'seminario') ? 'selected' : ''; ?>>Seminário</option>
-                                <option value="sitio_cercado" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'sitio_cercado') ? 'selected' : ''; ?>>Sítio Cercado</option>
+                                <option value="sitio cercado" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'sitio cercado') ? 'selected' : ''; ?>>Sítio Cercado</option>
                                 <option value="taboao" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'taboao') ? 'selected' : ''; ?>>Taboão</option>
                                 <option value="taruma" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'taruma') ? 'selected' : ''; ?>>Tarumã</option>
                                 <option value="tatuquara" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'tatuquara') ? 'selected' : ''; ?>>Tatuquara</option>
                                 <option value="tingui" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'tingui') ? 'selected' : ''; ?>>Tingui</option>
                                 <option value="uberaba" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'uberaba') ? 'selected' : ''; ?>>Uberaba</option>
                                 <option value="umbara" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'umbara') ? 'selected' : ''; ?>>Umbará</option>
-                                <option value="vila_izabel" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'vila_izabel') ? 'selected' : ''; ?>>Vila Izabel</option>
-                                <option value="vista_alegre" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'vista_alegre') ? 'selected' : ''; ?>>Vista Alegre</option>
+                                <option value="vila izabel" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'vila izabel') ? 'selected' : ''; ?>>Vila Izabel</option>
+                                <option value="vista alegre" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'vista alegre') ? 'selected' : ''; ?>>Vista Alegre</option>
                                 <option value="xaxim" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'xaxim') ? 'selected' : ''; ?>>Xaxim</option>
                             </select>
                             <div class="buttons">
