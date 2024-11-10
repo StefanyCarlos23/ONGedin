@@ -471,62 +471,67 @@ if ($resultEvents !== false) {
             $eventsResults = [];
             $eventErrorMessage = '';
 
-            if (isset($_GET['searchTerm'])) {
+            if (isset($_GET['searchTerm']) || isset($_GET['area']) || isset($_GET['region']) || isset($_GET['neighborhood'])) {
                 $areas = isset($_GET['area']) ? $_GET['area'] : [];
                 $region = isset($_GET['region']) ? $_GET['region'] : '';
                 $neighborhood = isset($_GET['neighborhood']) ? $_GET['neighborhood'] : '';
                 $searchTerm = isset($_GET['searchTerm']) ? trim($_GET['searchTerm']) : '';
 
                 if (!empty($searchTerm)) {
+                    $ongsResults = getCombinedResults($conn, $searchTerm, $areas, $region, $neighborhood);
+
                     $eventsQuery = "
                         SELECT e.id_evento, e.titulo, e.descricao, e.local_rua, e.local_numero, e.local_bairro, e.local_cidade, e.local_estado, e.local_pais, 
                             aoc.data_evento, u.nome AS nome_ong
                         FROM evento e
-                        LEFT JOIN admin_ong_cadastra_evento aoc ON e.id_evento = aoc.id_evento
-                        LEFT JOIN usuario u ON aoc.id_admin_ong = u.id_usuario
-                        WHERE e.titulo LIKE ? OR e.descricao LIKE ?
+                        JOIN admin_ong_cadastra_evento aoc ON e.id_evento = aoc.id_evento
+                        JOIN usuario u ON aoc.id_admin_ong = u.id_usuario
+                        WHERE e.titulo LIKE ? 
                         ORDER BY aoc.data_evento ASC
                         LIMIT 4
                     ";
+
                     $stmt = $conn->prepare($eventsQuery);
-                    $searchTermWildcard = '%' . $searchTerm . '%';
-                    $stmt->bind_param('ss', $searchTermWildcard, $searchTermWildcard);
+                    $searchTermLike = "%" . $searchTerm . "%";
+                    $stmt->bind_param('s', $searchTermLike);
                     $stmt->execute();
                     $result = $stmt->get_result();
 
                     while ($row = $result->fetch_assoc()) {
                         $eventsResults[] = $row;
                     }
-                } elseif (empty($searchTerm) && ($areas !== [] || $region !== '' || $neighborhood !== '')) {
+                } else {
                     $ongsResults = getCombinedResults($conn, '', $areas, $region, $neighborhood);
 
-                    $ongIds = [];
-                    foreach ($ongsResults as $ong) {
-                        if ($ong['type'] === 'ong') {
-                            $ongIds[] = $ong['id_admin_ong'];
+                    if (!empty($ongsResults)) {
+                        $ongIds = [];
+                        foreach ($ongsResults as $ong) {
+                            if ($ong['type'] === 'ong') {
+                                $ongIds[] = $ong['id_admin_ong'];
+                            }
                         }
-                    }
 
-                    if (!empty($ongIds)) {
-                        $ongIdsPlaceholder = implode(',', array_fill(0, count($ongIds), '?'));
-                        $query = "
-                            SELECT e.id_evento, e.titulo, e.descricao, e.local_rua, e.local_numero, e.local_bairro, e.local_cidade, e.local_estado, e.local_pais, 
-                                aoc.data_evento, u.nome AS nome_ong
-                            FROM evento e
-                            JOIN admin_ong_cadastra_evento aoc ON e.id_evento = aoc.id_evento
-                            JOIN usuario u ON aoc.id_admin_ong = u.id_usuario
-                            WHERE aoc.id_admin_ong IN ($ongIdsPlaceholder)
-                            ORDER BY aoc.data_evento ASC
-                            LIMIT 4
-                        ";
+                        if (!empty($ongIds)) {
+                            $ongIdsPlaceholder = implode(',', array_fill(0, count($ongIds), '?'));
+                            $query = "
+                                SELECT e.id_evento, e.titulo, e.descricao, e.local_rua, e.local_numero, e.local_bairro, e.local_cidade, e.local_estado, e.local_pais, 
+                                    aoc.data_evento, u.nome AS nome_ong
+                                FROM evento e
+                                JOIN admin_ong_cadastra_evento aoc ON e.id_evento = aoc.id_evento
+                                JOIN usuario u ON aoc.id_admin_ong = u.id_usuario
+                                WHERE aoc.id_admin_ong IN ($ongIdsPlaceholder)
+                                ORDER BY aoc.data_evento ASC
+                                LIMIT 4
+                            ";
 
-                        $stmt = $conn->prepare($query);
-                        $stmt->bind_param(str_repeat('i', count($ongIds)), ...$ongIds);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
+                            $stmt = $conn->prepare($query);
+                            $stmt->bind_param(str_repeat('i', count($ongIds)), ...$ongIds);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
 
-                        while ($row = $result->fetch_assoc()) {
-                            $eventsResults[] = $row;
+                            while ($row = $result->fetch_assoc()) {
+                                $eventsResults[] = $row;
+                            }
                         }
                     }
                 }
