@@ -454,39 +454,6 @@ if ($resultEvents !== false) {
                     </div>
                 </div>
             <?php endforeach; ?>
-        <?php elseif (!empty($eventsResults) && empty($ongsResults)): ?>
-            <h3>ONGs</h3>
-            <?php foreach ($eventsResults as $event): ?>
-                <?php
-                    $ongId = $event['id_admin_ong'];
-
-                    $queryOng = "SELECT nome, descricao, foto FROM usuario WHERE id_usuario = ?";
-                    $stmt = $conn->prepare($queryOng);
-                    $stmt->bind_param('i', $ongId);
-                    $stmt->execute();
-                    $resultOng = $stmt->get_result();
-                    $ong = $resultOng->fetch_assoc();
-                ?>
-                
-                <?php if ($ong): ?>
-                    <div class="event">
-                        <div class="image-1">
-                            <a href="ong-details.php?title=<?= urlencode($ong['nome']); ?>">
-                                <img src="<?= !empty($ong['foto']) ? $ong['foto'] : 'images/default-image.png'; ?>" alt="Imagem da ONG <?= htmlspecialchars($ong['nome']); ?>">
-                            </a>
-                        </div>
-                        <div class="details">
-                            <div class="important-details">
-                                <h4><?= htmlspecialchars($ong['nome']); ?></h4>
-                            </div>
-                            <div class="more-details">
-                                <p><?= htmlspecialchars($ong['descricao'] ?? 'Descrição não disponível.'); ?></p>
-                                <a href="ong-details.php?title=<?= urlencode($ong['nome']); ?>" class="btn">Ver mais</a>
-                            </div>
-                        </div>
-                    </div>
-                <?php endif; ?>
-            <?php endforeach; ?>
         <?php elseif (!empty($errorMessage)): ?>
             <h3>ONGs</h3>
             <p><?= htmlspecialchars($errorMessage); ?></p>
