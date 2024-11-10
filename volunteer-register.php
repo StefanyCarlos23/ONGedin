@@ -65,7 +65,7 @@
 
             <h1>Dados cadastrais</h1>
     
-            <form id="form" name="form" action="" method="POST">
+            <form id="form" name="form" method="POST" action="volunteer-register-process.php" onsubmit="buttonDisable()">
                 <div class="full-inputBox">
                     <label for="text"><b>Nome:</b></label>
                     <input type="text" id="name" name="name"class="full-inputUser required" placeholder="Insira seu nome completo" oninput="inputWithoutNumbersValidate()">
@@ -81,7 +81,7 @@
 
                     <div class="mid-inputBox">
                         <label for="text"><b>Data de nascimento:</b></label>
-                        <input type= id="date-birth" name="date-birth" class="mid-inputUser required" placeholder="dd/mm/aaaa" oninput="dateValidate()">
+                        <input type=text id="date-birth" name="date-birth" class="mid-inputUser required" placeholder="dd/mm/aaaa" oninput="dateValidate()">
                         <span class="span-required">Insira uma data válida!</span>
                     </div>
                 </div>
@@ -113,7 +113,7 @@
                 </div>
 
                 <div class="btn-register">
-                    <input type="submit" value="Cadastrar-se" class="register-btn" onclick="btnRegisterOnClick(event)">
+                    <input id='submit' type="submit" value="Cadastrar-se" class="register-btn" onclick="btnRegisterOnClick(event)">
                 </div>
             </form>
         </section>

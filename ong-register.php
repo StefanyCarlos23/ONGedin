@@ -1,97 +1,3 @@
-<?php
-include('connection.php');
-echo "Conexão estabelecida.";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    echo "Método POST recebido.";
-
-    $name = $_POST['name'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $areaActivity = $_POST['area-activity'] ?? '';
-    $fundationDate = $_POST['fundation-date'] ?? '';
-    $telephone = $_POST['telephone'] ?? '';
-    $socialMedia = $_POST['social-media'] ?? '';
-    $password = $_POST['password'] ?? '';
-    $confirmPass = $_POST['confirm-pass'] ?? '';
-    $CEP = $_POST['CEP'] ?? '';
-    $road = $_POST['road'] ?? '';
-    $num = $_POST['num'] ?? '';
-    $neighborhood = $_POST['neighborhood'] ?? '';
-    $city = $_POST['city'] ?? '';
-    $state = $_POST['state'] ?? '';
-    $country = $_POST['country'] ?? '';
-    $complement = $_POST['complement'] ?? '';
-
-    $stmt = $conn->prepare("INSERT INTO usuario (nome, funcao, senha, data_cadastro) VALUES (?, ?, ?, NOW())");
-    
-    if (!$stmt) {
-        die("Erro ao preparar a consulta de usuário: " . $conn->error);
-    }
-
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT); // Criptografar a senha
-    $funcao = 'O';
-    $stmt->bind_param("sss", $name, $funcao, $hashedPassword);
-
-    if ($stmt->execute()) {
-        echo "Usuário cadastrado com sucesso!";
-        $id_usuario = $conn->insert_id;
-
-        // Inserir contato na tabela `contato`
-        $stmt = $conn->prepare("INSERT INTO contato (id_usuario, telefone, email) VALUES (?, ?, ?)");
-        if (!$stmt) {
-            die("Erro ao preparar a consulta de contato: " . $conn->error);
-        }
-        $stmt->bind_param("iss",$id_usuario, $telephone, $email);
-
-        if ($stmt->execute()) {
-            echo "Contato cadastrado com sucesso!";
-        } else {
-            echo "Erro ao cadastrar contato" . $stmt->error;
-            exit;
-        }
-
-        $stmt = $conn->prepare("INSERT INTO administrador (id_administrador) VALUES (?)");
-        if (!$stmt) {
-            die("Erro ao preparar a consulta de administrador: " . $conn->error);
-        }
-        $stmt->bind_param("i", $id_usuario);
-
-        if ($stmt->execute()) {
-            echo "Administrador cadastrado com sucesso!";
-        } else {
-            echo "Erro ao cadastrar administrador: " . $stmt->error;
-            exit;
-        }
-
-        $stmt = $conn->prepare("INSERT INTO administrador_ong 
-            (id_admin_ong, area_atuacao, data_fundacao, endereco_rua, endereco_numero, endereco_complemento, 
-            endereco_bairro, endereco_cidade, endereco_estado, endereco_pais, endereco_cep) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        if (!$stmt) {
-            die("Erro ao preparar a consulta de administrador_ong: " . $conn->error);
-        }
-        $stmt->bind_param("issssssssss", $id_usuario, $areaActivity, $fundationDate, $road, $num, $complement, 
-                            $neighborhood, $city, $state, $country, $CEP);
-
-        if ($stmt->execute()) {
-            echo ">> ONG CADASTRADA COM SUCESSO <<";
-        } else {
-            echo "Erro ao cadastrar administrador_ong: " . $stmt->error;
-            exit;
-        }
-
-    } else {
-        echo "Erro ao cadastrar usuário" . $stmt->error;
-        exit;
-    }
-
-    $stmt->close();
-}
-
-$conn->close();
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -159,7 +65,7 @@ $conn->close();
 
             <h1>Dados cadastrais</h1>
     
-            <form id="form" name="form" method="POST" action="">
+            <form id="form" name="form" method="POST" action="ong-register-process.php">
                 <div class="full-inputBox">
                     <label for="name"><b>Nome:</b></label>
                     <input type="text" id="name" name="name" class="full-inputUser required" placeholder="Insira o nome da ONG" oninput="inputWithoutNumbersValidate(0)">
@@ -174,9 +80,33 @@ $conn->close();
 
                 <div class="container-row">
                     <div class="mid-inputBox">
-                        <label for="text"><b>Área de Atuação:</b></label>
-                        <input type="text" id="area-activity" name="area-activity" class="mid-inputUser required" placeholder="Insira a área de atuação da ONG" oninput="inputWithoutNumbersValidate(2)">
-                        <span class="span-required">Área de atuação não pode conter números ou caracteres especiais.</span>
+                        <label for="text" class="required" ><b>Área de Atuação:</b></label>
+                        <select class="mid-inputUser" name="area-activity" >
+                            <option value="">Selecione uma área de atuação</option>
+                            <option value="meio ambiente" <?php echo (isset($_POST['area-activity']) && $_POST['area-activity'] === 'meio ambiente') ? 'selected' : ''; ?>>Meio Ambiente</option>
+
+                            <option value="desenvolvimento economico" <?php echo (isset($_POST['area-activity']) && $_POST['area-activity'] === 'desenvolvimento economico') ? 'selected' : ''; ?>>Desenvolvimento Econômico</option>
+
+                            <option value="direitos humanos" <?php echo (isset($_POST['area-activity']) && $_POST['area-activity'] === 'direitos humanos') ? 'selected' : ''; ?>>Direitos Humanos</option>
+
+                            <option value="direitos das criancas" <?php echo (isset($_POST['area-activity']) && $_POST['area-activity'] === 'direitos das criancas') ? 'selected' : ''; ?>>Direitos das Crianças</option>
+
+                            <option value="educacao" <?php echo (isset($_POST['area-activity']) && $_POST['area-activity'] === 'educacao') ? 'selected' : ''; ?>>Educação</option>
+
+                            <option value="defesa dos animais" <?php echo (isset($_POST['area-activity']) && $_POST['area-activity'] === 'defesa dos animais') ? 'selected' : ''; ?>>Defesa dos Animais</option>
+
+                            <option value="saude" <?php echo (isset($_POST['area-activity']) && $_POST['area-activity'] === 'saude') ? 'selected' : ''; ?>>Saúde</option>
+
+                            <option value="direitos das mulheres" <?php echo (isset($_POST['area-activity']) && $_POST['area-activity'] === 'direitos das mulheres') ? 'selected' : ''; ?>>Direitos das Mulheres</option>
+
+                            <option value="cultura" <?php echo (isset($_POST['area-activity']) && $_POST['area-activity'] === 'cultura') ? 'selected' : ''; ?>>Cultura e Arte</option>
+
+                            <option value="ajuda humanitaria" <?php echo (isset($_POST['area-activity']) && $_POST['area-activity'] === 'ajuda humanitaria') ? 'selected' : ''; ?>>Ajuda Humanitaria</option>
+
+                            <option value="direitos das minorias" <?php echo (isset($_POST['area-activity']) && $_POST['area-activity'] === 'direitos das minorias') ? 'selected' : ''; ?>>Direitos das Minorias</option>
+
+                            <option value="assistencia social" <?php echo (isset($_POST['area-activity']) && $_POST['area-activity'] === 'assistencia social') ? 'selected' : ''; ?>>Assistência Social</option>
+                        </select>
                     </div>
 
                     <div class="mid-inputBox">

@@ -66,7 +66,7 @@
     
             <h1> Dados cadastrais</h1>
     
-            <form id="form" name="form" action="" method="POST">
+            <form id="form" name="form" method="POST" action="admSystem-register-process.php">
                 <div class="inputBox">
                     <label for="text"><b>Nome:</b></label>
                     <input type="text" id="name" name="name"class="inputUser required" placeholder="Insira seu nome completo" oninput="inputWithoutNumbersValidate(0)">
@@ -75,7 +75,7 @@
 
                 <div class="inputBox">
                     <label for="text"><b>E-mail:</b></label>
-                    <input type="text" id="e-mail" name="e-mail" class="inputUser required" placeholder="Insira seu e-mail" oninput="emailValidate()">
+                    <input type="text" id="email" name="e-mail" class="inputUser required" placeholder="Insira seu e-mail" oninput="emailValidate()">
                     <span class="span-required">Insira um e-mail válido!</span>
                 </div>
 
@@ -87,26 +87,26 @@
 
                 <div class="inputBox">
                     <label for="password"><b>Senha:</b></label>
-                    <input type="text" name="password" id="password" class="inputUser required" placeholder="Crie uma senha" oninput="passwordValidate()">
+                    <input type="password" name="password" id="password" class="inputUser required" placeholder="Crie uma senha" oninput="passwordValidate()">
                     <span class="span-required">Sua senha deve conter no mínimo 8 caracteres, combinando letras maiúsculas, minúsculas, números e símbolos especiais.</span>
                 </div>
 
                 <div class="inputBox">
                     <label for="confirm-pass"><b>Confirme sua senha:</b></label>
-                    <input type="text" name="confirm-pass" id="confirm-pass" class="inputUser required" placeholder="Repita sua senha" oninput="confirmPasswordValidate()">
+                    <input type="password" name="confirm-pass" id="confirm-pass" class="inputUser required" placeholder="Repita a senha" oninput="confirmPasswordValidate()">
                     <span class="span-required">As senhas não coincidem.</span>
                 </div>
 
-                <dvi class="btn-register">
-                    <input type="submit" value="Cadastrar-se" class="register-btn" onclick="btnRegisterOnClick(event)">
-                </dvi>
+                <div class="btn-register">
+                    <input id='submit' type="submit" value="Cadastrar-se" class="register-btn" onclick="btnRegisterOnClick(event)">
+                </div>
             </form>
         </section>
     </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>"
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script src="admSystem-register.js"> </script>
+    <script src="admSystem-register.js"></script>
     
     <footer class="footer">
         <p>&copy; 2024 - ONGedin - Conectando quem transforma o mundo. Todos os direitos reservados.</p>

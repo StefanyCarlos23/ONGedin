@@ -4,36 +4,45 @@ const spans = document.querySelectorAll('.span-required')
 
 
 function btnRegisterOnClick(event){
-    event.preventDefault()
+    let hasError = false;
 
     if (campos[0].value === "") {
         errorAlert('Preenchimento obrigatório: Nome', 0)
+        hasError = true;
     } else if (!inputWithoutNumbers(campos[0].value)){
         inputWithoutNumbersValidate(0)
+        hasError = true;
     } else if (campos[1].value === "") {
         errorAlert('Preenchimento obrigatório: E-mail', 1)
+        hasError = true;
     } else if (!isEmail(campos[1].value)) {
         emailValidate()
+        hasError = true;
     } else if (campos[4].value === "") {
         errorAlert('Preenchimento obrigatório: Telefone', 2)
-    } else if (!isTelephone(campos[2].value.value)) {
+        hasError = true;
+    } else if (!isTelephone(campos[2].value)) {
         telephoneValidate()
+        hasError = true;
     } else if (campos[3].value === "") {
         errorAlert('Preenchimento obrigatório: Senha', 3)
+        hasError = true;
     } else if (!validPassword(campos[3].value)) {
         passwordValidate()
+        hasError = true;
     } else if (campos[4].value === "") {
         errorAlert('Preenchimento obrigatório: Confirme sua senha', 4)
+        hasError = true;
     } else if (campos[4].value !== campos[4].value){
         confirmPasswordValidate()
+        hasError = true;
+    }
+
+    if (hasError) {
+        event.preventDefault();
     } else {
-        successAlert('Cadastro realizado com sucesso!')
-        setTimeout(() => {
-        form.submit()
-    }, 5000)
-        setTimeout(() => {
-        window.location.href = "home.html"
-    }, 1500)
+        form.submit();
+        document.getElementById('submit').disabled = true;
     }
 }
 
@@ -66,18 +75,7 @@ function errorAlert(message, index) {
     })
 }
 
-// Function creates a success alert when de form is submit 
-function successAlert(message) {
-    Swal.fire({
-        title: 'Parabéns!',
-        text: message,
-        icon: 'success',
-        confirmButtonText: 'Entendido',
-        confirmButtonColor: '#399aa8'
-    })
-}
-
-// ----- FUNCTIONS TO VALIDATE THE INPUTS ----- ///
+// ----- FUNCTIONS TO VALIDATE THE INPUTS ----- //
 function inputWithoutNumbersValidate(index) {
     if (campos[index].value === "") {
         removeError(index)
@@ -129,10 +127,10 @@ function confirmPasswordValidate() {
 }
 
 
-// ----- REGEX ----- ///
+// ----- REGEX ----- //
 // Function to check if the input contains numbers and especial caracter
 function inputWithoutNumbers(index) {
-    const re = /^[A-Za-z]+$/
+    const re = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/
     return re.test(index)
 }
 
@@ -154,6 +152,7 @@ function validPassword(password) {
     return re.test(password)
 }
 
+//----- MENU MOBILE -----//
 const activeClass = "active";
 
 function animateLinks(navLinks) {
@@ -184,5 +183,4 @@ function initMobileNavbar(mobileMenuSelector, navListSelector, navLinksSelector)
   }
 }
 
-// Inicializa o menu mobile
 initMobileNavbar(".mobile-menu", ".nav-list", ".nav-list li");
