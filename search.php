@@ -49,40 +49,73 @@ function fetchRandomOngs($conn) {
 
 function getCombinedResults($conn, $searchTerm, $areas = [], $region = '', $neighborhood = '') {
     $results = [];
-
     $whereConditions = [];
     $params = [];
-    
-    if ($searchTerm) {
+
+    // Filtro de termo de pesquisa
+    if (!empty($searchTerm)) {
         $whereConditions[] = "u.nome LIKE ?";
         $params[] = '%' . $searchTerm . '%';
     }
 
+    // Filtro de área de atuação
     if (!empty($areas)) {
         $placeholders = implode(',', array_fill(0, count($areas), '?'));
-        $whereConditions[] = "u.area IN ($placeholders)";
+        $whereConditions[] = "ao.area_atuacao IN ($placeholders)";
         $params = array_merge($params, $areas);
     }
 
-    if ($region !== '') {
-        $whereConditions[] = "u.regiao = ?";
-        $params[] = $region;
+    // Mapeamento das regiões com seus respectivos bairros
+    $regionsMap = [
+        'bairro_novo' => ["Ganchinho", "Sítio Cercado", "Umbará"],
+        'boa_vista' => ["Abranches", "Atuba", "Bacacheri", "Bairro Alto", 
+                        "Barreirinha", "Boa Vista", "Cachoeira", "Pilarzinho", 
+                        "Santa Cândida", "São Lourenço", "Taboão", "Tingui"],
+        'boqueirao' => ["Alto Boqueirão", "Boqueirão", "Hauer", "Xaxim"],
+        'cajuru' => ["Cajuru", "Capão da Imbuia", "Guabirotuba", 
+                     "Jardim das Américas", "Tarumã", "Uberaba"],
+        'cidade_industrial' => ["Augusta", "Cidade Industrial de Curitiba (CIC)", "Riviera", "São Miguel"],
+        'fazendinha_portao' => ["Água Verde", "Campo Comprido (Sul)", "Fazendinha", 
+                               "Guaira", "Parolin", "Portão", "Santa Quitéria", 
+                               "Seminário", "Vila Izabel"],
+        'matriz' => ["Ahú", "Alto da Glória", "Alto da XV", "Batel", 
+                     "Bigorrilho", "Bom Retiro", "Cabral", "Centro", 
+                     "Centro Cívico", "Cristo Rei", "Hugo Lange", 
+                     "Jardim Botânico", "Jardim Social", "Juvevê", 
+                     "Mercês", "Prado Velho", "Rebouças", "São Francisco"],
+        'pinheirinho' => ["Capão Raso", "Fanny", "Lindóia", "Novo Mundo", "Pinheirinho"],
+        'santa_felicidade' => ["Butiatuvinha", "Campina do Siqueira", "Cascatinha", "Campo Comprido (Norte)", 
+                               "Lamenha Pequena", "Mossunguê", "Orleans", "Santa Felicidade", 
+                               "Santo Inácio", "São Braz", "São João", "Vista Alegre"],
+        'tatuquara' => ["Campo de Santana", "Caximba", "Tatuquara"]
+    ];
+
+    // Filtro de região (verifica a correspondência dos bairros na lista da região)
+    if ($region !== '' && isset($regionsMap[$region])) {
+        $bairrosRegiao = $regionsMap[$region];
+        $placeholders = implode(',', array_fill(0, count($bairrosRegiao), '?'));
+        $whereConditions[] = "ao.endereco_bairro IN ($placeholders)";
+        $params = array_merge($params, $bairrosRegiao);
     }
 
+    // Filtro de bairro específico
     if ($neighborhood !== '') {
-        $whereConditions[] = "u.bairro = ?";
+        $whereConditions[] = "ao.endereco_bairro = ?";
         $params[] = $neighborhood;
     }
 
+    // Montando a consulta para ONGs
     $queryOngs = $conn->prepare("
         SELECT u.nome AS nome_ong, p.foto, p.descricao 
-        FROM administrador_ong ao 
-        JOIN perfil p ON ao.id_admin_ong = p.id_perfil 
-        JOIN usuario u ON ao.id_admin_ong = u.id_usuario 
+        FROM administrador_ong ao
+        JOIN perfil p ON ao.id_admin_ong = p.id_perfil
+        JOIN usuario u ON ao.id_admin_ong = u.id_usuario
         WHERE " . implode(' AND ', $whereConditions) . "
-        LIMIT 10");
-    
-    $types = str_repeat('s', count($params)); 
+        LIMIT 10
+    ");
+
+    // Definindo o tipo dos parâmetros conforme a quantidade
+    $types = str_repeat('s', count($params));
     $queryOngs->bind_param($types, ...$params);
     $queryOngs->execute();
     $resultOngs = $queryOngs->get_result();
@@ -96,15 +129,17 @@ function getCombinedResults($conn, $searchTerm, $areas = [], $region = '', $neig
         ];
     }
 
+    // Filtro de eventos
     $queryEventos = $conn->prepare("
-        SELECT e.titulo, e.descricao, a.data_evento, u.nome AS nome_ong 
+        SELECT e.titulo, e.descricao, a.data_evento, u.nome AS nome_ong
         FROM admin_ong_cadastra_evento a
         JOIN evento e ON a.id_evento = e.id_evento
         JOIN usuario u ON a.id_admin_ong = u.id_usuario
         WHERE e.titulo LIKE ? AND a.data_evento >= CURDATE()
-        LIMIT 10");
-    
-    $queryEventos->bind_param('s', $params[0]);
+        LIMIT 10
+    ");
+    $searchTermLike = '%' . $searchTerm . '%';  // Cria a string com '%' para a busca
+    $queryEventos->bind_param('s', $searchTermLike);  // Passa a variável corretamente
     $queryEventos->execute();
     $resultEventos = $queryEventos->get_result();
 
@@ -233,22 +268,22 @@ $conn->close();
                             <div class="checkbox-container">
                                 <div class="column">
                                     <label>
-                                        <input type="checkbox" name="area[]" value="meio_ambiente" <?php echo (isset($_GET['area']) && in_array('meio_ambiente', $_GET['area'])) ? 'checked' : ''; ?>> Meio Ambiente
+                                        <input type="checkbox" name="area[]" value="meio ambiente" <?php echo (isset($_GET['area']) && in_array('meio ambiente', $_GET['area'])) ? 'checked' : ''; ?>> Meio Ambiente
                                     </label>
                                     <label>
-                                        <input type="checkbox" name="area[]" value="desenvolvimento_economico" <?php echo (isset($_GET['area']) && in_array('desenvolvimento_economico', $_GET['area'])) ? 'checked' : ''; ?>> Desenvolvimento Econômico
+                                        <input type="checkbox" name="area[]" value="desenvolvimento economico" <?php echo (isset($_GET['area']) && in_array('desenvolvimento economico', $_GET['area'])) ? 'checked' : ''; ?>> Desenvolvimento Econômico
                                     </label>
                                     <label>
-                                        <input type="checkbox" name="area[]" value="direitos_humanos" <?php echo (isset($_GET['area']) && in_array('direitos_humanos', $_GET['area'])) ? 'checked' : ''; ?>> Direitos Humanos
+                                        <input type="checkbox" name="area[]" value="direitos humanos" <?php echo (isset($_GET['area']) && in_array('direitos humanos', $_GET['area'])) ? 'checked' : ''; ?>> Direitos Humanos
                                     </label>
                                     <label>
-                                        <input type="checkbox" name="area[]" value="direitos_das_criancas" <?php echo (isset($_GET['area']) && in_array('direitos_das_criancas', $_GET['area'])) ? 'checked' : ''; ?>> Direitos das Crianças
+                                        <input type="checkbox" name="area[]" value="direitos das criancas" <?php echo (isset($_GET['area']) && in_array('direitos das criancas', $_GET['area'])) ? 'checked' : ''; ?>> Direitos das Crianças
                                     </label>
                                     <label>
                                         <input type="checkbox" name="area[]" value="educacao" <?php echo (isset($_GET['area']) && in_array('educacao', $_GET['area'])) ? 'checked' : ''; ?>> Educação
                                     </label>
                                     <label>
-                                        <input type="checkbox" name="area[]" value="defesa_dos_animais" <?php echo (isset($_GET['area']) && in_array('defesa_dos_animais', $_GET['area'])) ? 'checked' : ''; ?>> Defesa dos Animais
+                                        <input type="checkbox" name="area[]" value="defesa dos animais" <?php echo (isset($_GET['area']) && in_array('defesa dos animais', $_GET['area'])) ? 'checked' : ''; ?>> Defesa dos Animais
                                     </label>
                                 </div>
                                 <div class="column">
@@ -256,19 +291,19 @@ $conn->close();
                                         <input type="checkbox" name="area[]" value="saude" <?php echo (isset($_GET['area']) && in_array('saude', $_GET['area'])) ? 'checked' : ''; ?>> Saúde
                                     </label>
                                     <label>
-                                        <input type="checkbox" name="area[]" value="direitos_das_mulheres" <?php echo (isset($_GET['area']) && in_array('direitos_das_mulheres', $_GET['area'])) ? 'checked' : ''; ?>> Direitos das Mulheres
+                                        <input type="checkbox" name="area[]" value="direitos das mulheres" <?php echo (isset($_GET['area']) && in_array('direitos das mulheres', $_GET['area'])) ? 'checked' : ''; ?>> Direitos das Mulheres
                                     </label>
                                     <label>
-                                        <input type="checkbox" name="area[]" value="cultura_e_arte" <?php echo (isset($_GET['area']) && in_array('cultura_e_arte', $_GET['area'])) ? 'checked' : ''; ?>> Cultura e Arte
+                                        <input type="checkbox" name="area[]" value="cultura e arte" <?php echo (isset($_GET['area']) && in_array('cultura e arte', $_GET['area'])) ? 'checked' : ''; ?>> Cultura e Arte
                                     </label>
                                     <label>
-                                        <input type="checkbox" name="area[]" value="direitos_das_minorias" <?php echo (isset($_GET['area']) && in_array('direitos_das_minorias', $_GET['area'])) ? 'checked' : ''; ?>> Direitos das Minorias
+                                        <input type="checkbox" name="area[]" value="direitos das minorias" <?php echo (isset($_GET['area']) && in_array('direitos das minorias', $_GET['area'])) ? 'checked' : ''; ?>> Direitos das Minorias
                                     </label>
                                     <label>
-                                        <input type="checkbox" name="area[]" value="ajuda_humanitaria" <?php echo (isset($_GET['area']) && in_array('ajuda_humanitaria', $_GET['area'])) ? 'checked' : ''; ?>> Ajuda Humanitária
+                                        <input type="checkbox" name="area[]" value="ajuda humanitaria" <?php echo (isset($_GET['area']) && in_array('ajuda humanitaria', $_GET['area'])) ? 'checked' : ''; ?>> Ajuda Humanitária
                                     </label>
                                     <label>
-                                        <input type="checkbox" name="area[]" value="assistencia_social" <?php echo (isset($_GET['area']) && in_array('assistencia_social', $_GET['area'])) ? 'checked' : ''; ?>> Assistência Social
+                                        <input type="checkbox" name="area[]" value="assistencia social" <?php echo (isset($_GET['area']) && in_array('assistencia social', $_GET['area'])) ? 'checked' : ''; ?>> Assistência Social
                                     </label>
                                 </div>
                             </div>
@@ -367,7 +402,6 @@ $conn->close();
                                 <option value="xaxim" <?php echo (isset($_GET['neighborhood']) && $_GET['neighborhood'] === 'xaxim') ? 'selected' : ''; ?>>Xaxim</option>
                             </select>
                             <div class="buttons">
-                                <button type="submit" class="apply">Aplicar</button>
                                 <button type="button" onclick="cleanFilters()" id="clearButton" class="clean">Limpar</button>
                             </div>
                         </section>                
@@ -377,7 +411,7 @@ $conn->close();
         </div>
     </section>
     <section class="events-options">
-        <?php if (!empty($searchResults) && !empty($ongsResults)): ?>
+        <?php if (!empty($ongsResults)): ?>
             <h3>ONGs</h3>
             <?php foreach ($ongsResults as $ong): ?>
                 <div class="event">
@@ -429,7 +463,7 @@ $conn->close();
         <?php endif; ?>
     </section>
     <section class="events-now">
-        <?php if (!empty($searchResults) && !empty($eventsResults)): ?>
+        <?php if (!empty($eventsResults)): ?>
             <h3>Eventos</h3>
             <div class="events-container">
                 <?php foreach ($eventsResults as $event): ?>
@@ -440,7 +474,7 @@ $conn->close();
                             <p><?= isset($event['nome_ong']) ? 'Organizado por: ' . htmlspecialchars($event['nome_ong']) : ''; ?></p>
                         </div>
                         <div class="more-details">
-                            <a href="event-details.php?title=<?= urlencode($event['titulo'] ?? $event['nome']); ?>" class="btn">Ver mais</a>
+                            <a href="event-details.php?title=<?= urlencode($event['titulo']); ?>" class="btn">Ver mais</a>
                         </div>
                     </div>
                 <?php endforeach; ?>
