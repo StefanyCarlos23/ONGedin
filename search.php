@@ -107,6 +107,7 @@ function getCombinedResults($conn, $searchTerm = '', $areas = [], $region = '', 
         JOIN perfil p ON ao.id_admin_ong = p.id_perfil
         JOIN usuario u ON ao.id_admin_ong = u.id_usuario
         $whereClause
+        ORDER BY u.nome ASC
         LIMIT 10
     ");
 
@@ -132,30 +133,37 @@ function getCombinedResults($conn, $searchTerm = '', $areas = [], $region = '', 
         ];
     }
 
-    $queryEventos = $conn->prepare("
-        SELECT e.titulo, e.descricao, a.data_evento, u.nome AS nome_ong, a.id_admin_ong
-        FROM admin_ong_cadastra_evento a
-        JOIN evento e ON a.id_evento = e.id_evento
-        JOIN usuario u ON a.id_admin_ong = u.id_usuario
-        WHERE e.titulo LIKE ? AND a.data_evento >= CURDATE()
-        ORDER BY a.data_evento ASC
-        LIMIT 10
-    ");
+    if (!empty($results)) {
+        $ongIds = array_column($results, 'id_admin_ong');
+        $ongIdsPlaceholder = implode(',', array_fill(0, count($ongIds), '?'));
 
-    $searchTermLike = '%' . $searchTerm . '%';
-    $queryEventos->bind_param('s', $searchTermLike);
-    $queryEventos->execute();
-    $resultEventos = $queryEventos->get_result();
+        $queryEventos = $conn->prepare("
+            SELECT e.titulo, e.descricao, a.data_evento, u.nome AS nome_ong, a.id_admin_ong
+            FROM admin_ong_cadastra_evento a
+            JOIN evento e ON a.id_evento = e.id_evento
+            JOIN usuario u ON a.id_admin_ong = u.id_usuario
+            WHERE a.id_admin_ong IN ($ongIdsPlaceholder) AND e.titulo LIKE ? AND a.data_evento >= CURDATE()
+            ORDER BY a.data_evento ASC
+            LIMIT 10
+        ");
+        $searchTermLike = '%' . $searchTerm . '%';
+        $types = str_repeat('i', count($ongIds)) . 's';
+        $params = array_merge($ongIds, [$searchTermLike]);
 
-    while ($row = $resultEventos->fetch_assoc()) {
-        $results[] = [
-            'type' => 'evento',
-            'titulo' => $row['titulo'],
-            'descricao' => $row['descricao'],
-            'data_evento' => $row['data_evento'],
-            'nome_ong' => $row['nome_ong'],
-            'id_admin_ong' => $row['id_admin_ong'], 
-        ];
+        $queryEventos->bind_param($types, ...$params);
+        $queryEventos->execute();
+        $resultEventos = $queryEventos->get_result();
+
+        while ($row = $resultEventos->fetch_assoc()) {
+            $results[] = [
+                'type' => 'evento',
+                'titulo' => $row['titulo'],
+                'descricao' => $row['descricao'],
+                'data_evento' => $row['data_evento'],
+                'nome_ong' => $row['nome_ong'],
+                'id_admin_ong' => $row['id_admin_ong'],
+            ];
+        }
     }
 
     return $results;
@@ -446,6 +454,39 @@ if ($resultEvents !== false) {
                     </div>
                 </div>
             <?php endforeach; ?>
+        <?php elseif (!empty($eventsResults) && empty($ongsResults)): ?>
+            <h3>ONGs</h3>
+            <?php foreach ($eventsResults as $event): ?>
+                <?php
+                    $ongId = $event['id_admin_ong'];
+
+                    $queryOng = "SELECT nome, descricao, foto FROM usuario WHERE id_usuario = ?";
+                    $stmt = $conn->prepare($queryOng);
+                    $stmt->bind_param('i', $ongId);
+                    $stmt->execute();
+                    $resultOng = $stmt->get_result();
+                    $ong = $resultOng->fetch_assoc();
+                ?>
+                
+                <?php if ($ong): ?>
+                    <div class="event">
+                        <div class="image-1">
+                            <a href="ong-details.php?title=<?= urlencode($ong['nome']); ?>">
+                                <img src="<?= !empty($ong['foto']) ? $ong['foto'] : 'images/default-image.png'; ?>" alt="Imagem da ONG <?= htmlspecialchars($ong['nome']); ?>">
+                            </a>
+                        </div>
+                        <div class="details">
+                            <div class="important-details">
+                                <h4><?= htmlspecialchars($ong['nome']); ?></h4>
+                            </div>
+                            <div class="more-details">
+                                <p><?= htmlspecialchars($ong['descricao'] ?? 'Descrição não disponível.'); ?></p>
+                                <a href="ong-details.php?title=<?= urlencode($ong['nome']); ?>" class="btn">Ver mais</a>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            <?php endforeach; ?>
         <?php elseif (!empty($errorMessage)): ?>
             <h3>ONGs</h3>
             <p><?= htmlspecialchars($errorMessage); ?></p>
@@ -546,8 +587,6 @@ if ($resultEvents !== false) {
                     }
                 }
             }
-
-            $conn->close();
         ?>
         <?php if (!empty($eventsResults)): ?>
             <h3>Eventos</h3>
@@ -565,12 +604,50 @@ if ($resultEvents !== false) {
                     </div>
                 <?php endforeach; ?>
             </div>
-        <?php elseif (empty($eventsResults) && !empty($searchTerm)): ?>
+        <?php elseif (empty($ongsResults) && empty($eventsResults) && empty($searchTerm) && (!empty($areas) || !empty($region) || !empty($neighborhood))): ?>
             <h3>Eventos</h3>
             <p class="error">Nenhum evento encontrado.</p>
         <?php elseif (empty($eventsResults) && !empty($ongsResults)): ?>
             <h3>Eventos</h3>
-            <p class="error">Nenhum evento encontrado.</p>
+            <div class="events-container">
+                <?php
+                    foreach ($ongsResults as $ong) {
+                        if ($ong['type'] === 'ong') {
+                            $eventsQuery = "
+                                SELECT e.id_evento, e.titulo, e.descricao, e.local_rua, e.local_numero, e.local_bairro, e.local_cidade, e.local_estado, e.local_pais, 
+                                    aoc.data_evento, u.nome AS nome_ong
+                                FROM evento e
+                                JOIN admin_ong_cadastra_evento aoc ON e.id_evento = aoc.id_evento
+                                JOIN usuario u ON aoc.id_admin_ong = u.id_usuario
+                                WHERE aoc.id_admin_ong = ? 
+                                ORDER BY aoc.data_evento ASC
+                                LIMIT 4
+                            ";
+
+                            $stmt = $conn->prepare($eventsQuery);
+                            $stmt->bind_param('i', $ong['id_admin_ong']);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+
+                            while ($row = $result->fetch_assoc()) {
+                                ?>
+                                <div class="event">
+                                    <div class="important-details">
+                                        <h4><?= htmlspecialchars($row['titulo']); ?></h4>
+                                        <p>Data: <?= date('d/m/Y', strtotime($row['data_evento'])); ?></p>
+                                        <p>Organizado por: <?= htmlspecialchars($row['nome_ong']); ?></p>
+                                    </div>
+                                    <div class="more-details">
+                                        <a href="event-details.php?title=<?= urlencode($row['titulo']); ?>" class="btn">Ver mais</a>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                        }
+                    }
+                    $conn->close();
+                ?>
+            </div>
         <?php elseif (!empty($eventErrorMessage)): ?>
             <h3>Eventos</h3>
             <p class="error"><?= htmlspecialchars($eventErrorMessage); ?></p>
