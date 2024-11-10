@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+/* Reset Básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    outline: none;
+}
+
+body {
+    background-color: #F6F6F6;
+    font-family: "Inter", sans-serif;
+    color: #333;
+}
+
+/* Estilo do Cabeçalho */
+nav {
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    display: flex;
+    align-items: center;
+}
+
+nav ul .ul-text a {
+    color: #333;
+    margin: 0 20px;
+    font-size: 18px;
+    font-weight: 500;
+    position: relative;
+}
+
+nav ul .ul-text a:not(.btn)::after {
+    content: "";
+    background-color: #00796b; /* Cor primária */
+    height: 2px;
+    width: 0;
+    display: block;
+    margin: 0 auto;
+    transition: 0.3s;
+}
+
+nav ul .ul-text a:hover::after {
+    width: 100%;
+}
+
+nav a img {
+    width: 90px;
+    height: 90px;
+}
+
+nav ul a img {
+    width: 40px;
+    height: 40px;
+    margin: 0 15px;
+}
+
+/* Estilo da seção de Banner */
+header {
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.banner {
+    padding: 80px 0;
+    text-align: center;
+    background-color: #00796b; /* Tom ciano */
+}
+
+.banner .banner-text {
+    margin: 40px;
+}
+
+.banner .banner-text h1 {
+    font-size: 70px;
+    color: white;
+    font-weight: 700;
+}
+
+.banner .banner-text h2 {
+    font-size: 24px;
+    color: white;
+    font-weight: 300;
+    margin-top: 10px;
+}
+
+/* Estilo das Seções do Conteúdo */
+main {
+    padding: 40px 0;
+    background-color: #ffffff;
+}
+
+/* Títulos */
+h2 {
+    color: #00796b; /* Cor primária */
+    margin: 30px 0;
+    text-align: center;
+    font-size: 32px;
+    font-weight: 600;
+}
+
+h3 {
+    color: #00796b;
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+p, ul {
+    margin-bottom: 15px;
+    text-align: center; /* Centraliza texto */
+}
+
+ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+/* Estilo do Rodapé */
+footer {
+    border-top: 3px solid #87BFC7;
+    background-color: #F6F6F6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90px;
+    text-align: center;
+    padding: 20px 0;
+}
+
+footer p {
+    color: #666666;
+    font-size: 14px;
+}
+
+/* Seções Específicas */
+#faq, #contato, #redes-sociais, #apoio-tecnico, #feedback {
+    background-color: white;
+    border-radius: 10px;
+    padding: 25px;
+    margin: 20px auto;
+    width: 85%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#faq {
+    text-align: center;
+}
+
+#faq h3 {
+    margin-top: 30px;
+}
+
+.option {
+    margin: 10px 0;
+}
+
+/* Estilo das Notificações */
+.notifications {
+    padding: 20px;
+    background-color: #f4f7fb; /* Cor de fundo mais suave */
+}
+
+.notifications h2 {
+    color: #00796b;
+    font-size: 28px;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.notification-list {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.notification-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+.notification-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+}
+
+.notification-item p {
+    flex: 1;
+    margin: 0;
+    color: #333;
+}
+
+.notification-time {
+    font-size: 12px;
+    color: #888;
+}
+
+.clear-notifications {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background-color: #00796b; /* Cor do botão */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.clear-notifications:hover {
+    background-color: #004d40;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .banner .banner-text h1 {
+        font-size: 50px;
+    }
+
+    .banner .banner-text h2 {
+        font-size: 20px;
+    }
+
+    .notification-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .notification-icon {
+        margin-bottom: 10px;
+    }
+}

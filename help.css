@@ -32,6 +32,7 @@ nav ul .ul-text a {
     margin: 0 20px;
     font-size: 18px;
     display: block;
+    height: 1px;
 }
 
 nav ul .ul-text a:not(.btn)::after {
