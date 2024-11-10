@@ -99,17 +99,26 @@ function getCombinedResults($conn, $searchTerm = '', $areas = [], $region = '', 
         $params[] = $neighborhood;
     }
 
+    $whereClause = !empty($whereConditions) ? "WHERE " . implode(' AND ', $whereConditions) : '';
+
     $queryOngs = $conn->prepare("
         SELECT u.nome AS nome_ong, p.foto, p.descricao, ao.id_admin_ong
         FROM administrador_ong ao
         JOIN perfil p ON ao.id_admin_ong = p.id_perfil
         JOIN usuario u ON ao.id_admin_ong = u.id_usuario
-        WHERE " . implode(' AND ', $whereConditions) . "
+        $whereClause
         LIMIT 10
     ");
 
-    $types = str_repeat('s', count($params));
-    $queryOngs->bind_param($types, ...$params);
+    if ($queryOngs === false) {
+        die('Erro ao preparar consulta: ' . $conn->error);
+    }
+
+    if (!empty($params)) {
+        $types = str_repeat('s', count($params));
+        $queryOngs->bind_param($types, ...$params);
+    }
+
     $queryOngs->execute();
     $resultOngs = $queryOngs->get_result();
 
@@ -132,6 +141,7 @@ function getCombinedResults($conn, $searchTerm = '', $areas = [], $region = '', 
         ORDER BY a.data_evento ASC
         LIMIT 10
     ");
+
     $searchTermLike = '%' . $searchTerm . '%';
     $queryEventos->bind_param('s', $searchTermLike);
     $queryEventos->execute();
