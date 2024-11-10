@@ -167,45 +167,40 @@ if (isset($_GET['searchTerm'])) {
     $region = isset($_GET['region']) ? $_GET['region'] : '';
     $neighborhood = isset($_GET['neighborhood']) ? $_GET['neighborhood'] : '';
 
-    if ($searchTerm !== '') {
-        $searchResults = getCombinedResults($conn, $searchTerm, $areas, $region, $neighborhood);
-        
+    // Se o termo de pesquisa está vazio e não há filtros selecionados, não faça nada
+    if (empty($searchTerm) && empty($areas) && empty($region) && empty($neighborhood)) {
+        $searchResults = [];  // Apenas mantém os resultados vazios
+        $ongsResults = [];
+        $eventsResults = [];
+    } 
+    // Caso contrário, realiza a busca
+    else {
+        // Se o termo de pesquisa não estiver vazio, realiza a busca normal
+        if ($searchTerm !== '') {
+            $searchResults = getCombinedResults($conn, $searchTerm, $areas, $region, $neighborhood);
+        }
+        // Caso não haja termo de pesquisa, mas haja filtros selecionados, realiza a busca pelos filtros
+        elseif (empty($searchTerm) && ($areas !== '' || $region !== '' || $neighborhood !== '')) {
+            $searchResults = getCombinedResults($conn, '', $areas, $region, $neighborhood);
+        }
+
+        // Filtra os resultados para ONGs e eventos
         $ongsResults = array_filter($searchResults, function($result) {
             return $result['type'] === 'ong';
         });
-        
+
         $eventsResults = array_filter($searchResults, function($result) {
             return $result['type'] === 'evento';
         });
-        
+
+        // Limita os eventos a 4
         $eventsResults = array_slice($eventsResults, 0, 4);
 
+        // Mensagens de erro se não houver resultados
         if (empty($ongsResults)) {
             $errorMessage = 'Nenhuma ONG encontrada.';
         }
 
-        if (empty($eventsResults)) {
-            $eventErrorMessage = 'Nenhum evento encontrado.';
-        }
-    }
-
-    elseif ($searchTerm === '' && ($areas !== '' || $region !== '' || $neighborhood !== '')) {
-        $searchResults = getCombinedResults($conn, '', $areas, $region, $neighborhood);
-        
-        $ongsResults = array_filter($searchResults, function($result) {
-            return $result['type'] === 'ong';
-        });
-    
-        $eventsResults = array_filter($searchResults, function($result) {
-            return $result['type'] === 'evento';
-        });
-    
-        $eventsResults = array_slice($eventsResults, 0, 4);
-    
-        if (empty($ongsResults)) {
-            $errorMessage = 'Nenhuma ONG encontrada.';
-        }
-    
         if (empty($eventsResults)) {
             $eventErrorMessage = 'Nenhum evento encontrado.';
         }
@@ -483,42 +478,48 @@ if ($resultEvents !== false) {
             $eventErrorMessage = '';
 
             if (isset($_GET['searchTerm'])) {
-                $searchTerm = trim($_GET['searchTerm']);
                 $areas = isset($_GET['area']) ? $_GET['area'] : [];
                 $region = isset($_GET['region']) ? $_GET['region'] : '';
                 $neighborhood = isset($_GET['neighborhood']) ? $_GET['neighborhood'] : '';
+                $searchTerm = isset($_GET['searchTerm']) ? trim($_GET['searchTerm']) : '';  // Verifica o searchTerm
 
-                if ($searchTerm !== '') {
+                if (!empty($searchTerm)) {
+                    // Se o termo de pesquisa não está vazio, faz a busca com o termo
                     $ongsResults = getCombinedResults($conn, $searchTerm, $areas, $region, $neighborhood);
+                } elseif (empty($searchTerm) && ($areas !== [] || $region !== '' || $neighborhood !== '')) {
+                    // Se o $searchTerm está vazio, mas os filtros estão preenchidos
+                    $ongsResults = getCombinedResults($conn, '', $areas, $region, $neighborhood);  // Busca apenas pelos filtros
                 }
-            }
 
-            $ongIds = [];
-            foreach ($ongsResults as $ong) {
-                if ($ong['type'] === 'ong') {
-                    $ongIds[] = $ong['id_admin_ong'];
+                // Coleta os IDs das ONGs
+                $ongIds = [];
+                foreach ($ongsResults as $ong) {
+                    if ($ong['type'] === 'ong') {
+                        $ongIds[] = $ong['id_admin_ong'];
+                    }
                 }
-            }
 
-            if (!empty($ongIds)) {
-                $ongIdsPlaceholder = implode(',', array_fill(0, count($ongIds), '?'));
-                $query = "
-                    SELECT e.id_evento, e.titulo, e.descricao, e.local_rua, e.local_numero, e.local_bairro, e.local_cidade, e.local_estado, e.local_pais, 
-                        aoc.data_evento, u.nome AS nome_ong
-                    FROM evento e
-                    JOIN admin_ong_cadastra_evento aoc ON e.id_evento = aoc.id_evento
-                    JOIN usuario u ON aoc.id_admin_ong = u.id_usuario  -- Associando a ONG ao evento
-                    WHERE aoc.id_admin_ong IN ($ongIdsPlaceholder)
-                    LIMIT 4
-                ";
+                // Se existirem ONGs filtradas, buscamos os eventos relacionados a essas ONGs
+                if (!empty($ongIds)) {
+                    $ongIdsPlaceholder = implode(',', array_fill(0, count($ongIds), '?'));
+                    $query = "
+                        SELECT e.id_evento, e.titulo, e.descricao, e.local_rua, e.local_numero, e.local_bairro, e.local_cidade, e.local_estado, e.local_pais, 
+                            aoc.data_evento, u.nome AS nome_ong
+                        FROM evento e
+                        JOIN admin_ong_cadastra_evento aoc ON e.id_evento = aoc.id_evento
+                        JOIN usuario u ON aoc.id_admin_ong = u.id_usuario  -- Associando a ONG ao evento
+                        WHERE aoc.id_admin_ong IN ($ongIdsPlaceholder)
+                        LIMIT 4
+                    ";
 
-                $stmt = $conn->prepare($query);
-                $stmt->bind_param(str_repeat('i', count($ongIds)), ...$ongIds);
-                $stmt->execute();
-                $result = $stmt->get_result();
+                    $stmt = $conn->prepare($query);
+                    $stmt->bind_param(str_repeat('i', count($ongIds)), ...$ongIds);  // Bind dos IDs das ONGs
+                    $stmt->execute();
+                    $result = $stmt->get_result();
 
-                while ($row = $result->fetch_assoc()) {
-                    $eventsResults[] = $row;
+                    while ($row = $result->fetch_assoc()) {
+                        $eventsResults[] = $row;  // Adiciona os eventos encontrados ao array
+                    }
                 }
             }
 
@@ -543,11 +544,14 @@ if ($resultEvents !== false) {
         <?php elseif (empty($eventsResults) && !empty($searchTerm)): ?>
             <h3>Eventos</h3>
             <p class="error">Nenhum evento encontrado.</p>
+        <?php elseif (empty($eventsResults) && !empty($ongsResults)): ?>
+            <h3>Eventos</h3>
+            <p class="error">Nenhum evento encontrado.</p>
         <?php elseif (!empty($eventErrorMessage)): ?>
             <h3>Eventos</h3>
             <p class="error"><?= htmlspecialchars($eventErrorMessage); ?></p>
         <?php else: ?>
-            <?php if (!empty($upcomingEvents) && empty($searchTerm)): ?>
+            <?php if (!empty($upcomingEvents) && empty($searchTerm) && empty($areas) && empty($region) && empty($neighborhood)): ?>
                 <h3>Próximos Eventos</h3>
                 <div class="events-container">
                     <?php foreach ($upcomingEvents as $event): ?>
