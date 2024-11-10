@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!$stmt) {
             die("Erro ao preparar a consulta de contato: " . $conn->error);
         }
-        $stmt->bind_param("iss",$id_usuario, $telephone, $email,);
+        $stmt->bind_param("iss",$id_usuario, $telephone, $email);
 
         if ($stmt->execute()) {
             echo "Contato cadastrado com sucesso!";
@@ -159,7 +159,7 @@ $conn->close();
 
             <h1>Dados cadastrais</h1>
     
-            <form id="form" name="form" method="POST" action="" onsubmit="buttonDisable()">
+            <form id="form" name="form" method="POST" action="">
                 <div class="full-inputBox">
                     <label for="name"><b>Nome:</b></label>
                     <input type="text" id="name" name="name" class="full-inputUser required" placeholder="Insira o nome da ONG" oninput="inputWithoutNumbersValidate(0)">

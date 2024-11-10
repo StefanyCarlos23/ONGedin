@@ -5,73 +5,105 @@ const spans = document.querySelectorAll('.span-required')
 function btnRegisterOnClick(event){
     event.preventDefault()
 
+    let valid = true
+
     if (campos[0].value === "") {
         errorAlert('Preenchimento obrigatório: Nome', 0)
+        valid = false
     } else if (!inputWithoutNumbers(campos[0].value)){
         inputWithoutNumbersValidate(0)
+        valid = false
     } else if (campos[1].value === "") {
         errorAlert('Preenchimento obrigatório: E-mail', 1)
+        valid = false
     } else if (!isEmail(campos[1].value)) {
         emailValidate()
+        valid = false
     } else if (campos[2].value === "") {
         errorAlert('Preenchimento obrigatório: Área de atuação', 2)
+        valid = false
     } else if (!inputWithoutNumbers(campos[2].value)){
         inputWithoutNumbersValidate(2)
+        valid = false
     } else if (campos[3].value === "") {
         errorAlert('Preenchimento obrigatório: Data de Fundação', 3)
+        valid = false
     } else if (!isValidDate(campos[3].value)) {
         dateValidate()
+        valid = false
     } else if (campos[4].value === "") {
         errorAlert('Preenchimento obrigatório: Telefone', 4)
+        valid = false
     } else if (!isTelephone(campos[4].value)) {
         telephoneValidate()
+        valid = false
     } else if (campos[5].value === "") {
         errorAlert('Preenchimento obrigatório: Rede Social', 5)
+        valid = false
     } else if (campos[6].value === "") {
         errorAlert('Preenchimento obrigatório: Senha', 6)
+        valid = false
     } else if (!validPassword(campos[6].value)) {
         passwordValidate()
+        valid = false
     } else if (campos[7].value === "") {
         errorAlert('Preenchimento obrigatório: Confirme sua senha', 7)
+        valid = false
     } else if (campos[6].value !== campos[7].value){
         confirmPasswordValidate()
+        valid = false
     } else if (campos[8].value === "") {
         errorAlert('Preenchimento obrigatório: CEP', 8)
+        valid = false
     } else if (!isCEP(campos[8].value)){
         cepValidate()
+        valid = false
     } else if (campos[9].value === "") {
         errorAlert('Preenchimento obrigatório: Rua', 9)
+        valid = false
     } else if (!isRoad(campos[9].value)){
         roadValidate()
+        valid = false
     } else if (campos[10].value === "") {
         errorAlert('Preenchimento obrigatório: Número', 10)
+        valid = false
     } else if (!isNum(parseInt(campos[10].value))) {
         numValidate() 
+        valid = false
     } else if (campos[11].value === "") {
         errorAlert('Preenchimento obrigatório: Bairro', 11)
+        valid = false
     } else if (!inputWithoutNumbers(campos[11].value)){
         inputWithoutNumbersValidate(11)
+        valid = false
     } else if (campos[12].value === "") {
         errorAlert('Preenchimento obrigatório: Cidade', 12)
+        valid = false
     } else if (!inputWithoutNumbers(campos[12].value)) {
         inputWithoutNumbersValidate(12)
+        valid = false
     } else if (campos[13].value === "") {
         errorAlert('Preenchimento obrigatório: Estado', 13)
+        valid = false
     } else if (!inputWithoutNumbers(campos[13].value)) {
         inputWithoutNumbersValidate(13)
+        valid = false
     } else if (campos[14].value === "") {
         errorAlert('Preenchimento obrigatório: Páis', 14)
+        valid = false
     } else if (!inputWithoutNumbers(campos[14].value)) { 
         inputWithoutNumbersValidate(14)
-    } else {
-        successAlert('Cadastro realizado com sucesso!')
+        valid = false
+    } 
+    
+    if (valid) {
+        successAlert('Cadastro realizado com sucesso!');
         setTimeout(() => {
-        form.submit()
-        document.getElementById('submit').disabled = true;
-    }, 5000)
-        setTimeout(() => {
-        window.location.href = "ong-register.php"
-    }, 1500)
+            form.submit();
+            document.getElementById('submit').disabled = true;
+        }, 5000);
+    }else{
+        console.log("Formulário inválido. Não será enviado.");
     }
 }
 
