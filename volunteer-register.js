@@ -3,46 +3,60 @@ const campos = document.querySelectorAll('.required')
 const spans = document.querySelectorAll('.span-required')
 
 function btnRegisterOnClick(event){
-    event.preventDefault()
+    let hasError = false;
 
     if (campos[0].value === "") {
         errorAlert('Preenchimento obrigatório: Nome', 0)
+        hasError = true;
     } else if (!inputWithoutNumbers(campos[0].value)){
         inputWithoutNumbersValidate()
+        hasError = true;
     } else if (campos[1].value === "") {
         errorAlert('Preenchimento obrigatório: CPF', 1)
+        hasError = true;
     } else if (!isCPF(campos[1].value)) {
         cpfValidate()
+        hasError = true;
     } else if (campos[2].value === "") {
         errorAlert('Preenchimento obrigatório: Data de Fundação', 2)
+        hasError = true;
     } else if (!isValidDate(campos[2].value)) {
         dateValidate()
+        hasError = true;
     } else if (campos[3].value === "") {
         errorAlert('Preenchimento obrigatório: Telefone', 3)
+        hasError = true;
     } else if (!isTelephone(campos[3].value)) {
         telephoneValidate()
+        hasError = true;
     } else if (campos[4].value === "") {
         errorAlert('Preenchimento obrigatório: E-mail', 4)
+        hasError = true;
     } else if (!isEmail(campos[4].value)) {
         emailValidate()
+        hasError = true;
     } else if (campos[5].value === "") {
         errorAlert('Preenchimento obrigatório: Senha', 5)
+        hasError = true;
     } else if (!validPassword(campos[5].value)) {
         passwordValidate()
+        hasError = true;
     } else if (campos[6].value === "") {
         errorAlert('Preenchimento obrigatório: Confirme sua senha', 7)
+        hasError = true;
     } else if (campos[5].value !== campos[6].value){
         confirmPasswordValidate()
+        hasError = true;
+    }
+
+    if (hasError) {
+        event.preventDefault();
     } else {
-        successAlert('Cadastro realizado com sucesso!')
-        setTimeout(() => {
-        form.submit()
-    }, 5000) 
-        setTimeout(() => {
-        window.location.href = "home.html"
-    }, 1500)
+        form.submit();
+        document.getElementById('submit').disabled = true;
     }
 }
+
 
 // Function creates a red border on the input where the condition is not met
 function setError(index) {
@@ -69,17 +83,6 @@ function errorAlert(message, index) {
         if (result.isConfirmed) {
             campos[index].focus()
         }
-    })
-}
-
-// Function creates a success alert when de form is submit 
-function successAlert(message) {
-    Swal.fire({
-        title: 'Parabéns!',
-        text: message,
-        icon: 'success',
-        confirmButtonText: 'Entendido',
-        confirmButtonColor: '#399aa8'
     })
 }
 
@@ -157,7 +160,7 @@ function confirmPasswordValidate() {
 // ----- REGEX ----- ///
 // Function to check if the input contains numbers
 function inputWithoutNumbers(name) {
-    const re = /^[A-Za-z]+$/
+    const re = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/
     return re.test(name)
 }
 

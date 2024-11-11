@@ -192,6 +192,19 @@ label {
     padding-left: 0.8rem;
 }
 
+select.mid-inputUser {
+    color: #8A8A8A;
+}
+select.mid-inputUser:focus {
+    color: #000000;
+}
+select.mid-inputUser option:checked {
+    color: #46A799;
+}
+select.mid-inputUser option {
+    color: #8A8A8A;
+}
+
 .btn-register{
     display: flex;
     justify-content: center;

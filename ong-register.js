@@ -2,108 +2,103 @@ const form = document.getElementById('form')
 const campos = document.querySelectorAll('.required')
 const spans = document.querySelectorAll('.span-required')
 
-function btnRegisterOnClick(event){
-    event.preventDefault()
-
-    let valid = true
+function btnRegisterOnClick(event) {
+    let hasError = false;
 
     if (campos[0].value === "") {
-        errorAlert('Preenchimento obrigatório: Nome', 0)
-        valid = false
-    } else if (!inputWithoutNumbers(campos[0].value)){
-        inputWithoutNumbersValidate(0)
-        valid = false
+        errorAlert('Preenchimento obrigatório: Nome', 0);
+        hasError = true;
+    } else if (!inputWithoutNumbers(campos[0].value)) {
+        inputWithoutNumbersValidate(0);
+        hasError = true;
     } else if (campos[1].value === "") {
-        errorAlert('Preenchimento obrigatório: E-mail', 1)
-        valid = false
+        errorAlert('Preenchimento obrigatório: E-mail', 1);
+        hasError = true;
     } else if (!isEmail(campos[1].value)) {
-        emailValidate()
-        valid = false
+        emailValidate();
+        hasError = true;
     } else if (campos[2].value === "") {
-        errorAlert('Preenchimento obrigatório: Área de atuação', 2)
-        valid = false
-    } else if (!inputWithoutNumbers(campos[2].value)){
-        inputWithoutNumbersValidate(2)
-        valid = false
+        errorAlert('Preenchimento obrigatório: Área de atuação', 2);
+        hasError = true;
+    } else if (!inputWithoutNumbers(campos[2].value)) {
+        inputWithoutNumbersValidate(2);
+        hasError = true;
     } else if (campos[3].value === "") {
-        errorAlert('Preenchimento obrigatório: Data de Fundação', 3)
-        valid = false
+        errorAlert('Preenchimento obrigatório: Data de Fundação', 3);
+        hasError = true;
     } else if (!isValidDate(campos[3].value)) {
-        dateValidate()
-        valid = false
+        dateValidate();
+        hasError = true;
     } else if (campos[4].value === "") {
-        errorAlert('Preenchimento obrigatório: Telefone', 4)
-        valid = false
+        errorAlert('Preenchimento obrigatório: Telefone', 4);
+        hasError = true;
     } else if (!isTelephone(campos[4].value)) {
-        telephoneValidate()
-        valid = false
+        telephoneValidate();
+        hasError = true;
     } else if (campos[5].value === "") {
-        errorAlert('Preenchimento obrigatório: Rede Social', 5)
-        valid = false
+        errorAlert('Preenchimento obrigatório: Rede Social', 5);
+        hasError = true;
     } else if (campos[6].value === "") {
-        errorAlert('Preenchimento obrigatório: Senha', 6)
-        valid = false
+        errorAlert('Preenchimento obrigatório: Senha', 6);
+        hasError = true;
     } else if (!validPassword(campos[6].value)) {
-        passwordValidate()
-        valid = false
+        passwordValidate();
+        hasError = true;
     } else if (campos[7].value === "") {
-        errorAlert('Preenchimento obrigatório: Confirme sua senha', 7)
-        valid = false
-    } else if (campos[6].value !== campos[7].value){
-        confirmPasswordValidate()
-        valid = false
+        errorAlert('Preenchimento obrigatório: Confirme sua senha', 7);
+        hasError = true;
+    } else if (campos[6].value !== campos[7].value) {
+        confirmPasswordValidate();
+        hasError = true;
     } else if (campos[8].value === "") {
-        errorAlert('Preenchimento obrigatório: CEP', 8)
-        valid = false
-    } else if (!isCEP(campos[8].value)){
-        cepValidate()
-        valid = false
+        errorAlert('Preenchimento obrigatório: CEP', 8);
+        hasError = true;
+    } else if (!isCEP(campos[8].value)) {
+        cepValidate();
+        hasError = true;
     } else if (campos[9].value === "") {
-        errorAlert('Preenchimento obrigatório: Rua', 9)
-        valid = false
-    } else if (!isRoad(campos[9].value)){
-        roadValidate()
-        valid = false
+        errorAlert('Preenchimento obrigatório: Rua', 9);
+        hasError = true;
+    } else if (!isRoad(campos[9].value)) {
+        roadValidate();
+        hasError = true;
     } else if (campos[10].value === "") {
-        errorAlert('Preenchimento obrigatório: Número', 10)
-        valid = false
+        errorAlert('Preenchimento obrigatório: Número', 10);
+        hasError = true;
     } else if (!isNum(parseInt(campos[10].value))) {
-        numValidate() 
-        valid = false
+        numValidate();
+        hasError = true;
     } else if (campos[11].value === "") {
-        errorAlert('Preenchimento obrigatório: Bairro', 11)
-        valid = false
-    } else if (!inputWithoutNumbers(campos[11].value)){
-        inputWithoutNumbersValidate(11)
-        valid = false
+        errorAlert('Preenchimento obrigatório: Bairro', 11);
+        hasError = true;
+    } else if (!inputWithoutNumbers(campos[11].value)) {
+        inputWithoutNumbersValidate(11);
+        hasError = true;
     } else if (campos[12].value === "") {
-        errorAlert('Preenchimento obrigatório: Cidade', 12)
-        valid = false
+        errorAlert('Preenchimento obrigatório: Cidade', 12);
+        hasError = true;
     } else if (!inputWithoutNumbers(campos[12].value)) {
-        inputWithoutNumbersValidate(12)
-        valid = false
+        inputWithoutNumbersValidate(12);
+        hasError = true;
     } else if (campos[13].value === "") {
-        errorAlert('Preenchimento obrigatório: Estado', 13)
-        valid = false
+        errorAlert('Preenchimento obrigatório: Estado', 13);
+        hasError = true;
     } else if (!inputWithoutNumbers(campos[13].value)) {
-        inputWithoutNumbersValidate(13)
-        valid = false
+        inputWithoutNumbersValidate(13);
+        hasError = true;
     } else if (campos[14].value === "") {
-        errorAlert('Preenchimento obrigatório: Páis', 14)
-        valid = false
-    } else if (!inputWithoutNumbers(campos[14].value)) { 
-        inputWithoutNumbersValidate(14)
-        valid = false
-    } 
-    
-    if (valid) {
-        successAlert('Cadastro realizado com sucesso!');
-        setTimeout(() => {
-            form.submit();
-            document.getElementById('submit').disabled = true;
-        }, 5000);
-    }else{
-        console.log("Formulário inválido. Não será enviado.");
+        errorAlert('Preenchimento obrigatório: País', 14);
+        hasError = true;
+    } else if (!inputWithoutNumbers(campos[14].value)) {
+        inputWithoutNumbersValidate(14);
+        hasError = true;
+    }
+
+    if (hasError) {
+        event.preventDefault();
+    } else {
+        form.submit();
+        document.getElementById('submit').disabled = true;
     }
 }
 
@@ -135,18 +130,7 @@ function errorAlert(message, index) {
     })
 }
 
-// Function creates a success alert when de form is submit 
-function successAlert(message) {
-    Swal.fire({
-        title: 'Parabéns!',
-        text: message,
-        icon: 'success',
-        confirmButtonText: 'Entendido',
-        confirmButtonColor: '#399aa8'
-    })
-}
-
-// ----- FUNCTIONS TO VALIDATE THE INPUTS ----- ///
+// ----- FUNCTIONS TO VALIDATE THE INPUTS ----- //
 function inputWithoutNumbersValidate(index) {
     if (campos[index].value === "") {
         removeError(index)
@@ -269,10 +253,10 @@ function isLeapYear(year) {
     return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0)
 }
 
-// ----- REGEX ----- ///
+// ----- REGEX ----- //
 // Function to check if the input contains numbers
 function inputWithoutNumbers(index) {
-    const re = /^[A-Za-z\s]+$/
+    const re = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/
     return re.test(index)
 }
 
@@ -311,6 +295,7 @@ function isNum(num) {
     return !isNaN(num) && num > 0
 }
 
+//----- MENU MOBILE -----//
 const activeClass = "active";
 
 function animateLinks(navLinks) {
@@ -341,5 +326,4 @@ function initMobileNavbar(mobileMenuSelector, navListSelector, navLinksSelector)
   }
 }
 
-// Inicializa o menu mobile
 initMobileNavbar(".mobile-menu", ".nav-list", ".nav-list li");
