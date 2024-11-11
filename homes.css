@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+
 *{
     margin: 0;
     padding: 0;
@@ -7,11 +10,21 @@
 }
 body{
     font-family: "Inter", sans-serif;
+    background-color: #F6F6F6;    
 }
 
 .mobile-nav{
     display: none;
 }
+
+.banner-mobile{
+    display: none;
+}
+
+.banner-text-mobile{
+    display: none;
+}
+
 nav{
     background-color: #F6F6F6;
     display: flex;
@@ -52,7 +65,7 @@ nav ul a img{
     margin: 0 15px;
 }
 
-header .container .banner{
+header .banner{
     background-image: linear-gradient(150.24deg, rgba(0, 0, 0, 0.558) 10%, rgba(37, 37, 37, 0.541) 95%), url('images/banner2.jpg');
     max-width: 100%;
     background-size: cover;
@@ -153,7 +166,7 @@ header{
     transition: opacity 2.2s;
     border: 3px solid #87BFC7;
     border-radius: 20px;
-    z-index: 1;
+    
 }
 
 .featured-events .container .events .image-wrapper:hover .overlay{
@@ -388,72 +401,6 @@ footer{
         margin-bottom: 100px;
     }
 
-    main{
-        width: 90%;
-    }
-
-    .faq{
-        margin-top: 100px;
-        margin-left: 10%;
-        margin-right: 10%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 50px;
-    }
-
-    .contato{
-        margin-left: 10%;
-        margin-right: 10%;
-        display: flex;
-        flex-direction: column-reverse;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 50px;
-    }
-
-    .apoio-tecnico{
-        margin-left: 10%;
-        margin-right: 10%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .feedback{
-        margin-left: 10%;
-        margin-right: 10%;
-        display: flex;
-        flex-direction: column-reverse;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 100px;
-    }
-
-    .faq img{
-        width: 300px;
-        height: 300px;
-    }
-
-    .contato img {
-        width: 300px;
-        height: 300px;
-    }
-    
-    
-    .apoio-tecnico img {
-        margin-left: 0;
-        width: 280px;
-        height: 280px;
-    }
-    
-    .feedback img {
-        margin-right: 5px;
-        width: 220px;
-        height: 220px
-    }
 }
 
 
@@ -479,62 +426,7 @@ footer{
         margin-bottom: 100px;
     }
 
-    main{
-        width: 98%;
-    }
-
-    main h2{
-        font-size: 35px;
-        color: #87BFC7;
-    }
-
-    .faq{
-        margin-top: 70px;
-        margin-left: 5%;
-        margin-right: 5%;
-    }
-    .faq img {
-        width: 300px;
-        height: 300px;
-    }
-    
-    .contato{
-        margin-left: 5%;
-        margin-right: 5%;
-        display: flex;
-    }
-    
-    .contato h2{
-        font-size: 33px;
-    }
-    .contato img {
-        width: 280px;
-        height: 280px;
-    }
-    
-    .apoio-tecnico{
-        margin-left: 5%;
-        margin-right: 5%;
-    }
-    
-    .apoio-tecnico img {
-        margin-left: 0;
-        width: 250px;
-        height: 250px;
-    }
-    
-    .feedback{
-        margin-left: 5%;
-        margin-right: 5%;
-    }
-    
-    .feedback img {
-        margin-right: 20px;
-        width: 200px;
-        height: 200px
-    }
 }
-
 
 @media (max-width: 480px) {
     html, body, .content, .box-content, .container-row {
@@ -544,13 +436,70 @@ footer{
     nav {
         display: none;
     }
+
+    .banner{
+        display: none;
+    }
+
+    .banner-text{
+        display: none;
+    }
+
+    header .banner-mobile{
+        background-image: linear-gradient(150.24deg, rgba(0, 0, 0, 0.558) 10%, rgba(37, 37, 37, 0.541) 95%), url('images/banner2.jpg');
+        max-width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+    
+    header{
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+    }
+
+    
+    .banner-mobile{
+        display: flex;
+        justify-content: center;
+    }
+
+    .banner-text-mobile{
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .banner-mobile .banner-text-mobile{
+        text-align: center;
+        padding: 0 90px;
+    }
+    
+    .banner-mobile .banner-text-mobile h1{
+        font-size: 60px;
+        color: white;
+    }
+    
+    .banner-mobile .banner-text-mobile h2{
+        font-size: 18px;
+        color: white;
+    }
+    
+    .banner-mobile{
+        padding: 100px 0;
+    }
+    
+
     .mobile-nav{
         display: flex;
         align-items: center;
-        background: #F6F6F6;
+        background-color: #F6F6F6;
         height: 9vh;
-        z-index: 9999;
-      }
+        z-index: 999999;
+       
+    }
+
     .nav-list {
         list-style: none;
         display: flex;
@@ -559,7 +508,7 @@ footer{
         right: 0;
         width: 50vw;
         height: 45vh;
-        background: #F6F6F6;
+        background-color: #F6F6F6;
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
@@ -568,6 +517,7 @@ footer{
         box-shadow: 2px 2px 2em rgba(0, 0, 0, 0.3);
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
+        z-index: 999999;
     }
     .mobile-nav img{
         width: 45px;
@@ -615,9 +565,94 @@ footer{
       transform: rotate(45deg) translate(-5px, -7px);
     }
 
-    .content{
+    .featured-events h3{
+        font-size: 30px;
+    }
+
+    .featured-events .container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .featured-events .container .events{
+        justify-content: space-around;
+        justify-items: center;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        width: 320px;
+    }
+    .featured-events .container .event{
+        margin-bottom: 40px;
+    }
+
+    .featured-events h4{
+        font-size: 15px;
+    }
+
+    .featured-events .container .events img{
+        width: 320px;
+    }
+
+    .how-to-become{
+        margin: 0px auto;
+    }
+
+    .how-to-become .container .options{
+        display: flex;
+        flex-direction: column;
+        margin: 0px auto;
+    }
+
+    .how-to-become .container .options h3{
+        margin-top: 30px;
+        color: #87BFC7;
+        padding: 20px 0;
+        font-size: 25px;
+    }
+    
+    .how-to-become .container .options p{
+        padding: 20px 40px;
+        font-size: 18px;
+        padding-bottom: 40px;
+        margin-bottom: 25px;
+    }
+
+
+    .about-us .container{
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 80px;
         width: 100%;
-        padding: 15px;
+        margin: 0 auto;
+        padding-bottom: 75px;
+    }
+    .about-us .about-us-text h3{
+        padding-bottom: 30px;
+        font-size: 40px;
+        color: #87BFC7;
+        text-align: center;
+    }
+    
+    .about-us .about-us-text p{
+        font-size: 18px;
+        line-height: 1.5em;
+        color: #666666;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .about-us .container {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+    }
+
+    .about-us .about-us-text,
+    .about-us .about-us-image{
+    width: 100%;
+    padding: 0 15px;
     }
 
     .footer {

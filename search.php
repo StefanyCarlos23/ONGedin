@@ -244,10 +244,10 @@ if ($resultEvents !== false) {
 </head>
 <body>
     <header>
-        <div class="container">
+        <div class="nav-container">
             <nav class="nav">
                 <a href="home.php">
-                    <img src="images/ongedin-logo.png" alt="ongedin-logo">
+                    <img src="images/ongedin-logo-2.png" alt="ongedin-logo">
                 </a>
                 <ul class="ul">
                     <ul class="ul-text">
@@ -255,16 +255,30 @@ if ($resultEvents !== false) {
                         <a href="search.php">Pesquisar</a>
                         <a href="help.php">Suporte</a>
                     </ul>
-                    <a href="notification.php">
-                        <img src="images/notificação.png" alt="ongedin-logo">
-                    </a>
                     <a href="profile.php">
                         <img src="images/perfil.png" alt="ongedin-logo">
                     </a>
                 </ul>
             </nav>
         </div>
+        <nav class="mobile-nav">
+            <a href="home.php">
+                <img src="images/ongedin-logo-2.png" alt="ongedin-logo">
+            </a>
+            <div class="mobile-menu">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+            <ul class="nav-list">
+                <li><a href="home.php">Início</a>
+                <li><a href="search.php">Pesquisar</a></li>
+                <li><a href="help.php">Suporte</a></li>
+                <li><a href="profile.php">Perfil</a></li>
+            </ul>
+            </nav>
     </header>
+
     <section class="search-bar">
         <div class="search">
             <a class="back-btn" href="home.php">Voltar</a>

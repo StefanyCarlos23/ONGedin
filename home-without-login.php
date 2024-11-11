@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ONGedin | Início</title>
-    <link href="home.css" rel="stylesheet">
+    <link href="homes.css" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -47,8 +47,8 @@
                 <li><a href="profile.html">Perfil</a></li>
             </ul>
             </nav>
-            <section class="banner">
-                <div class="banner-text">
+            <section class="banner-mobile">
+                <div class="banner-text-mobile">
                     <h1>ONGedin</h1>
                     <h2>Conectando quem transforma o mundo</h2>
                 </div>
@@ -111,8 +111,7 @@
                         Acreditamos que, ao unir forças, podemos aumentar o impacto social e contribuir para um mundo mais justo e solidário,
                         oferecendo um espaço onde pessoas e instituições trabalham juntas por causas que fazem a diferença, transformanado intenções em ações e fazendo a diferença.</p>
                     <h4>Informações de contato</h4>
-                    <p class="contact">E-mail: ongedin@gmail.com</p>
-                    <p class="contact">Instagram: @ongedin</p>
+                    <p class="contact">E-mail: ongedin@gmail.com <br>Instagram: @ongedin</p>
                 </div>
                 <div class="about-us-image">
                     <img src="images/sobre.jpg" alt="Imagem de Algum Evento">
@@ -177,5 +176,12 @@
     <footer>
         <p>&copy; 2024 - ONGedin - Conectando quem transforma o mundo. Todos os direitos reservados.</p>
     </footer>
+
+    <?php
+        include('connection.php');
+    ?>
+
 </body>
 </html>
+
+<script src="homes.js"> </script>

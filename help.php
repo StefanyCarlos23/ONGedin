@@ -10,23 +10,23 @@
     <header>
         <div class="nav-container">
             <nav class="nav">
-                <a href="home.html">
+                <a href="home.php">
                     <img src="images/ongedin-logo-2.png" alt="ongedin-logo">
                 </a>
                 <ul class="ul">
                     <ul class="ul-text">
-                        <a href="home.html">Início</a>
-                        <a href="search.html">Pesquisar</a>
-                        <a href="help.html">Suporte</a>
+                        <a href="home.php">Início</a>
+                        <a href="search.php">Pesquisar</a>
+                        <a href="help.php">Suporte</a>
                     </ul>
-                    <a href="profile.html">
+                    <a href="profile.php">
                         <img src="images/perfil.png" alt="ongedin-logo">
                     </a>
                 </ul>
             </nav>
         </div>
         <nav class="mobile-nav">
-            <a href="home.html">
+            <a href="home.php">
                 <img src="images/ongedin-logo-2.png" alt="ongedin-logo">
             </a>
             <div class="mobile-menu">
@@ -35,10 +35,10 @@
                 <div class="line3"></div>
             </div>
             <ul class="nav-list">
-                <li><a href="home.html">Início</a>
-                <li><a href="search.html">Pesquisar</a></li>
-                <li><a href="help.html">Suporte</a></li>
-                <li><a href="profile.html">Perfil</a></li>
+                <li><a href="home.php">Início</a>
+                <li><a href="search.php">Pesquisar</a></li>
+                <li><a href="help.php">Suporte</a></li>
+                <li><a href="profile.php">Perfil</a></li>
             </ul>
             </nav>
     </header>
@@ -128,6 +128,3 @@
 </html>
 
 <script src="help.js"> </script>
-
-
-
