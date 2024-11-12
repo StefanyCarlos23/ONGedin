@@ -11,7 +11,7 @@
         <div class="container">
             <nav class="nav">
                 <a href="home.php">
-                    <img src="images/ongedin-logo.png" alt="ongedin-logo">
+                    <img src="images/ongedin-logo-2.png" alt="ongedin-logo">
                 </a>
                 <ul class="ul">
                     <ul class="ul-text">

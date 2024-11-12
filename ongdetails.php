@@ -99,14 +99,14 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ONGedin | Detalhes da ONG</title>
-    <link href="ongdetails.css" rel="stylesheet" >
+    <link href="ongdetails.css" rel="stylesheet">
 </head>
 <body>
     <header>
         <div class="container">
             <nav class="nav">
                 <a href="home.php">
-                    <img src="images/ongedin-logo.png" alt="ongedin-logo">
+                    <img src="images/ongedin-logo-2.png" alt="ongedin-logo">
                 </a>
                 <ul class="ul">
                     <ul class="ul-text">
@@ -191,9 +191,7 @@ $conn->close();
             </div>
         </div>
     </section>
-
-    <script src="ong-details.js"></script>
-
+    <script src="ongdetails.js"></script>
     <footer>
         <p>&copy; 2024 - ONGedin - Conectando quem transforma o mundo. Todos os direitos reservados.</p>
     </footer>
