@@ -9,8 +9,8 @@
 }
 
 body{
-    background-color: #F6F6F6;
     font-family: "Inter", sans-serif;
+    background-color: #F6F6F6;    
 }
 
 nav{
@@ -51,12 +51,6 @@ nav ul .ul-text a:hover::after{
 nav a img{
     width: 90px;
     height: 90px;
-}
-
-nav ul a img{
-    width: 40px;
-    height: 40px;
-    margin: 0 15px;
 }
 
 .search{

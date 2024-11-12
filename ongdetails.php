@@ -100,10 +100,108 @@ $conn->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ONGedin | Detalhes da ONG</title>
     <link href="ongdetails.css" rel="stylesheet">
+    <style>
+        nav ul a img {
+            width: 35px;
+            height: 35px;
+            margin: 0 15px;
+        }
+
+        .events {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 50px 20px;
+            background-color: #fff;
+        }
+
+        .events .container {
+            width: 90%;
+            max-width: 1200px;
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        .event-box {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 15px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .event-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .event-item:hover {
+            transform: translateY(-5px);
+            background-color: #87BFC7;
+            color: white;
+        }
+
+        .event-item h4 {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .event-item p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .event-item .date {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .event-item .description {
+            font-size: 14px;
+            color: #777;
+        }
+
+        /* Estilo para os dias do calendário */
+        .event-box .event-item:nth-child(7n) {
+            background-color: #e3e3e3; /* Lighter background for weekends */
+        }
+
+        /* Responsividade para telas pequenas */
+        @media screen and (max-width: 768px) {
+            .event-box {
+                grid-template-columns: repeat(4, 1fr); /* 4 colunas em telas menores */
+            }
+
+            .event-item {
+                font-size: 14px; /* Menor texto em telas pequenas */
+                padding: 10px;
+            }
+
+            .event-item h4 {
+                font-size: 14px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .event-box {
+                grid-template-columns: repeat(3, 1fr); /* 3 colunas em telas muito pequenas */
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
-        <div class="container">
+        <div class="nav-container">
             <nav class="nav">
                 <a href="home.php">
                     <img src="images/ongedin-logo-2.png" alt="ongedin-logo">
@@ -114,9 +212,6 @@ $conn->close();
                         <a href="search.php">Pesquisar</a>
                         <a href="help.php">Suporte</a>
                     </ul>
-                    <a href="notification.php">
-                        <img src="images/notificação.png" alt="ongedin-logo">
-                    </a>
                     <a href="profile.php">
                         <img src="images/perfil.png" alt="ongedin-logo">
                     </a>
@@ -177,8 +272,8 @@ $conn->close();
                 <?php else: ?>
                     <?php foreach ($eventos as $evento): ?>
                         <div class="event-item">
+                            <div class="date"><?php echo date('d/m', strtotime($evento['data_evento'])); ?></div>
                             <h4><?php echo htmlspecialchars($evento['titulo']); ?></h4>
-                            <p>Data: <?php echo date('d/m/Y', strtotime($evento['data_evento'])); ?></p>
                             <p><?php echo htmlspecialchars($evento['descricao']); ?></p>
                             <p>Local: <?php echo htmlspecialchars($evento['local_rua']) . ', ' . 
                                         htmlspecialchars($evento['local_numero']) . 
