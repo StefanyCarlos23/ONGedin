@@ -55,8 +55,8 @@
                     </div>
                 </section>
 
-            <h1>Dados cadastrais - ONG</h1>
-    
+                <h1>Dados cadastrais - ONG</h1>
+
             <form id="form" name="form" method="POST" action="ong-register-process.php">
                 <div class="full-inputBox">
                     <label for="name"><b>Nome: *</b></label>
