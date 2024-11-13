@@ -31,3 +31,27 @@ function selectSuggestion(value) {
     document.getElementById('suggestions').innerHTML = '';
     document.getElementById('suggestions').style.display = 'none';
 }
+
+function initMap() {
+    const endereco = document.querySelector('.ong-item').dataset.endereco;
+    const geocoder = new google.maps.Geocoder();
+
+    geocoder.geocode({ address: endereco }, (results, status) => {
+        if (status === 'OK') {
+            const map = new google.maps.Map(document.getElementById('map'), {
+                center: results[0].geometry.location,
+                zoom: 16
+            });
+            new google.maps.Marker({
+                position: results[0].geometry.location,
+                map: map
+            });
+        } else {
+            alert("Erro ao encontrar o endereço: " + status);
+        }
+    });
+}
+
+function verMais(idOng) {
+    window.location.href = "/ong/" + idOng;
+}
