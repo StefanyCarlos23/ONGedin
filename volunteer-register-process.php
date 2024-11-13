@@ -62,6 +62,6 @@
         $stmt->close();
         }
     $conn->close();
-    header("Location: home.php");
+    header("Location: home-volunteer.php");
     exit;
 ?>

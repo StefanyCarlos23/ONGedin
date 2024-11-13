@@ -87,6 +87,6 @@
             $stmt->close();
     }
     $conn->close();
-    header("Location: home.php");
+    header("Location: home-ong.php");
     exit;
 ?>

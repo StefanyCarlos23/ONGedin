@@ -246,14 +246,15 @@ if ($resultEvents !== false) {
     <header>
         <div class="nav-container">
             <nav class="nav">
-                <a href="home.php">
+                <a href="home-without-login.php">
                     <img src="images/ongedin-logo-2.png" alt="ongedin-logo">
                 </a>
                 <ul class="ul">
                     <ul class="ul-text">
-                        <a href="home.php">Início</a>
-                        <a href="search.php">Pesquisar</a>
-                        <a href="help.php">Suporte</a>
+                        <a href="home-without-login.php">Início</a>
+                        <a href="search-without-login.php">Pesquisar</a>
+                        <a href="choose-register.php">Cadastrar-se</a>
+                        <a href="help-without-login.php">Suporte</a>
                     </ul>
                     <a href="profile.php">
                         <img src="images/perfil.png" alt="ongedin-logo">
@@ -262,7 +263,7 @@ if ($resultEvents !== false) {
             </nav>
         </div>
         <nav class="mobile-nav">
-            <a href="home.php">
+            <a href="home-without-login.php">
                 <img src="images/ongedin-logo-2.png" alt="ongedin-logo">
             </a>
             <div class="mobile-menu">
@@ -271,9 +272,10 @@ if ($resultEvents !== false) {
                 <div class="line3"></div>
             </div>
             <ul class="nav-list">
-                <li><a href="home.php">Início</a>
-                <li><a href="search.php">Pesquisar</a></li>
-                <li><a href="help.php">Suporte</a></li>
+                <li><a href="home-without-login.php">Início</a>
+                <li><a href="search-without-login.php">Pesquisar</a></li>
+                <li><a href="help-without-login.php">Suporte</a></li>
+                <li><a href="choose-register.php">Cadastrar-se</a></li>
                 <li><a href="profile.php">Perfil</a></li>
             </ul>
             </nav>
@@ -281,7 +283,7 @@ if ($resultEvents !== false) {
 
     <section class="search-bar">
         <div class="search">
-            <a class="back-btn" href="home.php">Voltar</a>
+            <a class="back-btn" href="home-without-login.php">Voltar</a>
             <div class="form">
                 <form action="" method="GET">
                     <div class="search-container">
@@ -449,7 +451,7 @@ if ($resultEvents !== false) {
             <?php foreach ($ongsResults as $ong): ?>
                 <div class="event">
                     <div class="image-1">
-                        <a href="<?= $ong['type'] === 'ong' ? 'ongdetails.php?title=' . urlencode($ong['nome']) : 'event-details.php?title=' . urlencode($ong['titulo']); ?>">
+                        <a href="<?= $ong['type'] === 'ong' ? 'ong-details.php?title=' . urlencode($ong['nome']) : 'event-details.php?title=' . urlencode($ong['titulo']); ?>">
                             <img src="<?= $ong['type'] === 'ong' ? $ong['foto'] : 'images/default-image.png'; ?>" alt="Imagem da <?= htmlspecialchars($ong['type'] === 'ong' ? $ong['nome'] : $ong['titulo']); ?>">
                         </a>
                     </div>
@@ -460,7 +462,7 @@ if ($resultEvents !== false) {
                         <div class="more-details">
                             <p><?= htmlspecialchars($ong['type'] === 'ong' ? $ong['descricao'] : $ong['descricao'] ?? 'Descrição não disponível.'); ?></p>
                             <?php if ($ong['type'] === 'ong'): ?>
-                                <a href="ongdetails.php?title=<?= urlencode($ong['nome']); ?>" class="btn">Ver mais</a>
+                                <a href="ong-details.php?title=<?= urlencode($ong['nome']); ?>" class="btn">Ver mais</a>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -475,7 +477,7 @@ if ($resultEvents !== false) {
                 <?php foreach ($randomOngs as $ong): ?>
                     <div class="event">
                         <div class="image-1">
-                            <a href="ongdetails.php?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>">
+                            <a href="ong-details.php?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>">
                                 <img src="<?= $ong['foto']; ?>" alt="Logo da <?= htmlspecialchars($ong['nome_ong']); ?>">
                             </a>
                         </div>
@@ -485,7 +487,7 @@ if ($resultEvents !== false) {
                             </div>
                             <div class="more-details">
                                 <p><?= htmlspecialchars($ong['descricao']); ?></p>
-                                <a href="ongdetails.php?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>" class="btn">Ver mais</a>
+                                <a href="ong-details.php?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>" class="btn">Ver mais</a>
                             </div>
                         </div>
                     </div>

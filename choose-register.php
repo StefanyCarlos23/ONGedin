@@ -11,14 +11,15 @@
         <section>
             <div class="nav-container">
                 <nav class="nav">
-                    <a href="home.html">
+                    <a href="home-without-login.html">
                         <img src="images/ongedin-logo.png" alt="ongedin-logo">
                     </a>
                     <ul class="ul">
                         <ul class="ul-text">
-                            <a href="home.html">Início</a>
-                            <a href="search.html">Pesquisar</a>
-                            <a href="help.html">Suporte</a>
+                            <a href="home-without-login.php">Início</a>
+                            <a href="search-without-login.php">Pesquisar</a>
+                            <a href="choose-register.php">Cadastrar-se</a>
+                            <a href="help-without-login.php">Suporte</a>
                         </ul>
                         <a href="profile.html">
                             <img src="images/perfil.png" alt="ongedin-logo">
@@ -27,7 +28,7 @@
                 </nav>
             </div>
             <nav class="mobile-nav">
-                <a href="home.html">
+                <a href="home-without-login.html">
                     <img src="images/ongedin-logo-2.png" alt="ongedin-logo">
                 </a>
                 <div class="mobile-menu">
@@ -36,11 +37,10 @@
                     <div class="line3"></div>
                 </div>
                 <ul class="nav-list">
-                    <li><a href="home.html">Início</a>
-                    <li><a href="search.html">Pesquisar</a></li>
-                    <li><a href="help.html">Suporte</a></li>
-                    <li><a href="profile.html">Perfil</a></li>
-                </ul>
+                    <li><a href="home-without-login.php">Início</a>
+                    <li><a href="search-without-login.php">Pesquisar</a></li>
+                    <li><a href="choose-register.php">Cadastrar-se</a></li>
+                    <li><a href="help-without-login.php">Suporte</a></li>
                 </nav>
         </section>
     </header>
@@ -49,28 +49,31 @@
     
                 <section class="btn">
                     <div class="btn-back">
-                        <a class="back-btn" href="home.html">Voltar</a>
+                        <a class="back-btn" href="home-without-login.php">Voltar</a>
                     </div>
                     <div class="btn-login">
                         <h3> Você já tem uma conta?</h3>
-                        <a class="login-btn" href="login.html">Login</a>
+                        <a class="login-btn" href="login.php">Login</a>
                     </div>
                 </section>
 
             <h1> Selecione o tipo da sua conta</h1>
             <section class="options">
                 <div class="choose-option">
-                    <a class="volunteer-register" href="volunteer-register.html"><b>Voluntário/ Doador</b></a>
+                    <a class="volunteer-register" href="volunteer-register.php"><b>Voluntário/ Doador</b></a>
                 </div>
                 <div class="choose-option">
-                    <a class="ong-register" href="ong-register.html"><b>ONG</b></a>
+                    <a class="ong-register" href="ong-register.php"><b>ONG</b></a>
                 </div>
                 <div class="choose-option">
-                    <a class="admSystem-register" href="admSystem-register.html"><b>Administrador do Sistema</b></a>
+                    <a class="admSystem-register" href="admSystem-register.php"><b>Administrador do Sistema</b></a>
                 </div>
             </section>
         </section>
     </section>
+
+    
+    <script src="choose-register.js"> </script>
 
     <footer class="footer">
         <p>&copy; 2024 - ONGedin - Conectando quem transforma o mundo. Todos os direitos reservados.</p>

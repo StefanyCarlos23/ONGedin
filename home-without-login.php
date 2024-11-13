@@ -4,22 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ONGedin | Início</title>
-    <link href="home.css" rel="stylesheet">
+    <link href="homes.css" rel="stylesheet">
 </head>
 <body>
     <header>
         <div class="nav-container">
             <nav class="nav">
-                <a href="home.html">
+                <a href="home-without-login.php">
                     <img src="images/ongedin-logo-2.png" alt="ongedin-logo">
                 </a>
                 <ul class="ul">
                     <ul class="ul-text">
-                        <a href="home.html">Início</a>
-                        <a href="search.html">Pesquisar</a>
-                        <a href="help.html">Suporte</a>
+                        <a href="home-without-login.php">Início</a>
+                        <a href="search-without-login.php">Pesquisar</a>
+                        <a href="choose-register.php">Cadastrar-se</a>
+                        <a href="help-without-login.php">Suporte</a>
                     </ul>
-                    <a href="profile.html">
+                    <a href="profile.php">
                         <img src="images/perfil.png" alt="ongedin-logo">
                     </a>
                 </ul>
@@ -32,7 +33,7 @@
             </section>
         </div>
         <nav class="mobile-nav">
-            <a href="home.html">
+            <a href="home-without-login.php">
                 <img src="images/ongedin-logo-2.png" alt="ongedin-logo">
             </a>
             <div class="mobile-menu">
@@ -41,14 +42,15 @@
                 <div class="line3"></div>
             </div>
             <ul class="nav-list">
-                <li><a href="home.html">Início</a>
-                <li><a href="search.html">Pesquisar</a></li>
-                <li><a href="help.html">Suporte</a></li>
-                <li><a href="profile.html">Perfil</a></li>
+                <li><a href="home-without-login.php">Início</a>
+                <li><a href="search-without-login.html">Pesquisar</a></li>
+                <li><a href="choose-register.php">Cadastrar-se</a></li>
+                <li><a href="help-without-login.html">Suporte</a></li>
+                <li><a href="profile.php">Perfil</a></li>
             </ul>
             </nav>
-            <section class="banner">
-                <div class="banner-text">
+            <section class="banner-mobile">
+                <div class="banner-text-mobile">
                     <h1>ONGedin</h1>
                     <h2>Conectando quem transforma o mundo</h2>
                 </div>
@@ -90,7 +92,7 @@
                             Depois, preencha seu perfil com suas habilidades, interesses e disponibilidade.
                             Em seguida, explore as ONGs cadastradas, buscando aquelas que estão alinhadas com suas causas.
                             Ao encontrar um evento de seu interesse, realize a inscrição.</p>
-                        <a href="search.html" class="btn">Pesquisar ONGs e eventos</a>
+                        <a href="search-without-login.php" class="btn">Pesquisar ONGs e eventos</a>
                     </div>
                     <div class="column">
                         <h3>Como ser um doador?</h3>
@@ -98,7 +100,7 @@
                             Explore as ONGs disponíveis e escolha aquela que deseja apoiar.
                             Clique na opção "Doações", presente no menu de navegação, e informe os detalhes.
                             Revise as informações e pronto, você realizou uma doação!</p>
-                        <a href="donor.html" class="btn">Realizar doação</a>
+                        <a href="donations.php" class="btn">Realizar doação</a>
                     </div>
                 </div>
             </div>
@@ -111,8 +113,7 @@
                         Acreditamos que, ao unir forças, podemos aumentar o impacto social e contribuir para um mundo mais justo e solidário,
                         oferecendo um espaço onde pessoas e instituições trabalham juntas por causas que fazem a diferença, transformanado intenções em ações e fazendo a diferença.</p>
                     <h4>Informações de contato</h4>
-                    <p class="contact">E-mail: ongedin@gmail.com</p>
-                    <p class="contact">Instagram: @ongedin</p>
+                    <p class="contact">E-mail: ongedin@gmail.com <br>Instagram: @ongedin</p>
                 </div>
                 <div class="about-us-image">
                     <img src="images/sobre.jpg" alt="Imagem de Algum Evento">
@@ -177,5 +178,12 @@
     <footer>
         <p>&copy; 2024 - ONGedin - Conectando quem transforma o mundo. Todos os direitos reservados.</p>
     </footer>
+
+    <?php
+        include('connection.php');
+    ?>
+
 </body>
 </html>
+
+<script src="homes.js"> </script>

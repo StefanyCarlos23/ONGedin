@@ -67,7 +67,9 @@ function errorAlert(message, index) {
         text: message,
         icon: 'error',
         confirmButtonText: 'Entendido' ,
-        confirmButtonColor:'#399aa8'
+        confirmButtonColor:'#399aa8',
+        timer: 7000,
+        timerProgressBar: true
     }).then((result) => {
         if (result.isConfirmed) {
             campos[index].focus()

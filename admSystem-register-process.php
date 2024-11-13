@@ -47,6 +47,6 @@
     }
 
     $conn->close();
-    header("Location: home.php");
+    header("Location: home-adm.php");
     exit;
 ?>

@@ -1,3 +1,16 @@
+successAlert('Bem-vindo(a)! A sua sessão foi iniciada com sucesso');
+
+function successAlert(message) {
+    Swal.fire({
+        title: 'Parabéns!',
+        text: message,
+        icon: 'success',
+        confirmButtonText: 'Entendido',
+        confirmButtonColor: '#399aa8',
+        timer: 5000,
+        timerProgressBar: true,
+    })
+}
 
 // ----- MENU MOBILE ----- //
 const activeClass = "active";
@@ -31,22 +44,3 @@ function initMobileNavbar(mobileMenuSelector, navListSelector, navLinksSelector)
 }
 
 initMobileNavbar(".mobile-menu", ".nav-list", ".nav-list li");
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  if (typeof errorMessage !== 'undefined' && errorMessage) {
-      Swal.fire({
-          title: 'Erro!',
-          text: errorMessage,
-          icon: 'error',
-          confirmButtonText: 'Entendido',
-          confirmButtonColor:'#399aa8',
-          timer: 7000,
-          timerProgressBar: true
-      });
-  }
-});
-
-
-
-
