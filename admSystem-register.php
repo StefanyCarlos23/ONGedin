@@ -68,6 +68,7 @@
                 <div class="inputBox">
                     <label for="text"><b>E-mail: *</b></label>
                     <input type="text" id="email" name="email" class="inputUser required" placeholder="Insira seu e-mail" oninput="emailValidate()">
+
                     <span class="span-required">Insira um e-mail válido!</span>
                 </div>
 

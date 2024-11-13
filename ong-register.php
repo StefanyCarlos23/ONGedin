@@ -10,18 +10,15 @@
     <header>
         <div class="nav-container">
             <nav class="nav">
-                <a href="home.php">
+                <a href="home-without-login.php">
                     <img src="images/ongedin-logo-2.png" alt="ongedin-logo">
                 </a>
                 <ul class="ul">
                     <ul class="ul-text">
-                        <a href="home.php">Início</a>
-                        <a href="search.php">Pesquisar</a>
-                        <a href="help.php">Suporte</a>
+                        <a href="home-without-login.php">Início</a>
+                        <a href="search-without-login.php">Pesquisar</a>
+                        <a href="help-without-login.php">Suporte</a>
                     </ul>
-                    <a href="profile.php">
-                        <img src="images/perfil.png" alt="ongedin-logo">
-                    </a>
                 </ul>
             </nav>
         </div>
@@ -35,10 +32,9 @@
                 <div class="line3"></div>
             </div>
             <ul class="nav-list">
-                <li><a href="home.php">Início</a></li>
-                <li><a href="search.php">Pesquisar</a></li>
-                <li><a href="help.php">Suporte</a></li>
-                <li><a href="profile.php">Perfil</a></li>
+                <li><a href="home-without-login.php">Início</a></li>
+                <li><a href="search-without-login.php">Pesquisar</a></li>
+                <li><a href="help-without-login.php">Suporte</a></li>
             </ul>
             </nav>
     </header>

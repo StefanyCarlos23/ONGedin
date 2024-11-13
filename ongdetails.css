@@ -11,7 +11,9 @@
 body{
     background-color: #F6F6F6;
     font-family: "Inter", sans-serif;
+
 }
+
 
 nav{
     background-color: #F6F6F6;
@@ -21,6 +23,7 @@ nav{
     padding-right: 35px;
     padding-left: 20px;
     border-bottom: 3px solid #87BFC7;
+
 }
 
 nav ul{

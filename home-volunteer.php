@@ -17,7 +17,7 @@
                     <ul class="ul-text">
                         <a href="home-volunteer.php">Início</a>
                         <a href="search-volunteer.php">Pesquisar</a>
-                        <a href="donations.php">Doações</a>
+                        <a href="donations-volunteer.php">Doações</a>
                         <a href="help-volunteer.php">Suporte</a>
                     </ul>
                     <a href="profile-volunteer.php">
@@ -45,7 +45,7 @@
                 <li><a href="home-volunteer.php">Início</a>
                 <li><a href="search-volunteer.php">Pesquisar</a></li>
                 <li><a href="help-volunteer.php">Suporte</a></li>
-                <li><a href="donations.php">Doações</a></li>
+                <li><a href="donations-volunteer.php">Doações</a></li>
                 <li><a href="profile-volunteer.php">Perfil</a></li>
             </ul>
             </nav>
@@ -93,6 +93,7 @@
                             Em seguida, explore as ONGs cadastradas, buscando aquelas que estão alinhadas com suas causas.
                             Ao encontrar um evento de seu interesse, realize a inscrição.</p>
                         <a href="search-volunteer.php" class="btn">Pesquisar ONGs e eventos</a>
+
                     </div>
                     <div class="column">
                         <h3>Como ser um doador?</h3>
@@ -101,6 +102,7 @@
                             Clique na opção "Doações", presente no menu de navegação, e informe os detalhes.
                             Revise as informações e pronto, você realizou uma doação!</p>
                         <a href="donations.php" class="btn">Realizar doação</a>
+
                     </div>
                 </div>
             </div>
@@ -187,7 +189,3 @@
 
     <script src="homes.js"></script>
 
-</body>
-</html>
-
-<script src="homes.js"> </script>

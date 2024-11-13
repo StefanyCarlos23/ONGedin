@@ -71,6 +71,7 @@ if (isset($_SESSION['error_message'])) {
                     </section>
                     
                     <form id="form" name="form" action="login-process.php" method="POST">
+
                         <div class="inputBox">
                             <h1 class="form-title">Login</h1>
                             <div class="inputBox-1">
@@ -80,6 +81,7 @@ if (isset($_SESSION['error_message'])) {
                             <br>
                             <div class="inputBox-1">
                                 <input type="password" name="password" id="password" class="inputUser" required>
+
                                 <label for="password" class="labelInput">Senha:</label>
                             </div>
                             <br>

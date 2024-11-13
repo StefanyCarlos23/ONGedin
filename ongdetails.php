@@ -70,6 +70,27 @@ if ($nome_ong) {
         $stmtOng->execute();
         $ongDetails = $stmtOng->get_result()->fetch_assoc();
         
+
+        $area_atuacao = $ongDetails['area_atuacao'];
+
+        $stmtOngs = $conn->prepare("
+            SELECT u.id_usuario, u.nome, p.foto, ao.endereco_rua, ao.endereco_numero, 
+                   ao.endereco_complemento, ao.endereco_bairro, ao.endereco_cidade
+            FROM usuario u
+            JOIN administrador_ong ao ON u.id_usuario = ao.id_admin_ong
+            JOIN perfil p ON p.id_perfil = ao.id_admin_ong
+            WHERE ao.area_atuacao = ? AND u.funcao = 'A' AND ao.id_admin_ong != ?
+            ORDER BY RAND() 
+            LIMIT 3
+        ");
+        $stmtOngs->bind_param('si', $area_atuacao, $id_ong);
+        $stmtOngs->execute();
+        $ongsSimilares = $stmtOngs->get_result()->fetch_all(MYSQLI_ASSOC);
+
+        if ($ongsSimilares === null) {
+            $ongsSimilares = [];
+        }
+
         $stmtEventos = $conn->prepare("
             SELECT e.titulo, e.descricao, 
                    e.local_rua, e.local_numero, e.local_complemento, 
@@ -83,10 +104,12 @@ if ($nome_ong) {
         $eventos = $stmtEventos->get_result()->fetch_all(MYSQLI_ASSOC);
     } else {
         $ongDetails = [];
+        $ongsSimilares = [];
         $eventos = [];
     }
 } else {
     $ongDetails = [];
+    $ongsSimilares = [];
     $eventos = [];
 }
 
@@ -107,6 +130,227 @@ $conn->close();
             <nav class="nav">
                 <a href="home.php">
                     <img src="images/ongedin-logo.png" alt="ongedin-logo">
+    <link href="ongdetails.css" rel="stylesheet">
+    <style>
+        nav{
+            background-color: #F6F6F6;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-right: 35px;
+            padding-left: 20px;
+            border-bottom: 3px solid #87BFC7;
+        }
+
+        nav ul a img {
+            width: 35px;
+            height: 35px;
+            margin: 0 15px;
+        }
+
+        .ong-details .container{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            margin: 30px auto;
+            margin-top: 50px;
+            width: 80%;
+        }
+
+        .ong-details .container .image{
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: rgb(255, 255, 255);
+            flex: 1;
+            border-radius: 25px;
+            box-shadow: 2px 2px 0.8em rgba(47, 47, 47, 0.3);
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .ong-text{
+            color: #666666;
+            flex: 2;
+            font-size: 16px;
+            padding-left: 80px;
+        }
+
+        .ong-details .container .ong-text h3 {
+            margin-bottom: 20px;
+            color: #87BFC7;
+            font-size: 40px;
+        }
+
+        .ong-details .container .ong-text p {
+            line-height: 1.5em;
+        }
+
+        .events {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-bottom: 80px;
+        }
+
+        .events .container {
+            width: 90%;
+            max-width: 1200px;
+            text-align: center;
+        }
+
+        .events .container h3 {
+            margin-bottom: 40px;
+            color: #87BFC7;
+            font-size: 30px;
+            margin-top: 20px
+        }
+
+        .event-box {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 15px;
+            text-align: center;
+            margin-top: 30px;
+            background-color: #e0e0e0;
+            border-radius: 25px;
+            padding: 30px;
+        }
+
+        .event-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .event-item:hover {
+            transform: translateY(-5px);
+            background-color: #87BFC7;
+            color: white;
+        }
+
+        .event-item .date {
+            color: #666666;
+        }
+
+        .event-item h4 {
+            font-size: 16px;
+            font-weight: bold;
+            color: #666666;
+        }
+
+        .event-item p {
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .event-item .date {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .event-item .description {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .event-box .event-item:nth-child(7n) {
+            background-color: #e3e3e3;
+        }
+
+        .ong-section {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .ong-left {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .ong-section .ong-left .title {
+            font-size: 20px;
+            color: #666666;
+        }
+
+        .ong-item {
+            display: flex;
+            flex-direction: row;
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            justify-content: space-between;
+            align-items: center;
+            min-width: 300px;
+        }
+
+        .ong-nome {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            text-align: center;
+            margin-left: 20px;
+        }
+
+        .ong-nome p {
+            color: #666666;
+            font-size: 16px;
+        }
+
+        .ong-logo {
+            width: 100px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .ver-mais {
+            padding: 8px 16px;
+            font-size: 14px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .ver-mais:hover {
+            background-color: #0056b3;
+        }
+
+        .map-right {
+            width: 65%;
+            height: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <nav class="nav">
+                <a href="home.php">
+                    <img src="images/ongedin-logo-2.png" alt="ongedin-logo">
                 </a>
                 <ul class="ul">
                     <ul class="ul-text">
@@ -124,7 +368,7 @@ $conn->close();
             </nav>
         </div>
     </header>
-    
+
     <section class="search-bar">
         <div class="search">
             <a class="back-btn" href="home.php">Voltar</a>
@@ -162,12 +406,34 @@ $conn->close();
                          "Data de Fundação: " . htmlspecialchars($ongDetails['data_fundacao'] ?? 'N/A') . "<br>" . 
                          "Descrição: " . htmlspecialchars($ongDetails['descricao'] ?? 'N/A') . "<br>" . 
                          "Endereço: " . htmlspecialchars(trim($enderecoCompleto)) ?: 'Endereço não disponível';
+
+                    echo "<strong>Área de Atuação: </strong>" . htmlspecialchars($ongDetails['area_atuacao'] ?? 'N/A') . "<br>" . 
+                         "<strong>Data de Fundação: </strong>" . htmlspecialchars($ongDetails['data_fundacao'] ?? 'N/A') . "<br>" . 
+                         "<strong>Descrição: </strong>" . htmlspecialchars($ongDetails['descricao'] ?? 'N/A') . "<br>" . 
+                         "<strong>Endereço: </strong>" . htmlspecialchars(trim($enderecoCompleto)) ?: 'Endereço não disponível';
                     ?>
                 </p>
             </div>
         </div>
     </section>
 
+    <section class="ong-section">
+        <div class="ong-left">
+            <h3 class="title">ONGs Semelhantes</h3>
+            <?php foreach ($ongsSimilares as $index => $ong): ?>
+                <div class="ong-item" id="ong<?= $index + 1 ?>" data-endereco="<?= $ong['endereco_rua'] . ', ' . $ong['endereco_numero'] . ', ' . $ong['endereco_complemento'] . ', ' . $ong['endereco_bairro'] . ', ' . $ong['endereco_cidade'] ?>">
+                    <img src="<?= $ong['foto'] ?>" alt="Logo <?= $ong['nome'] ?>" class="ong-logo">
+                    <div class="ong-nome">
+                        <p><?= $ong['nome'] ?></p>
+                        <button class="ver-mais" onclick="verMais(<?= $ong['id_usuario'] ?>)">Ver mais</button>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <div class="map-right">
+            <div id="map"></div>
+        </div>
+    </section>
     <section class="events">
         <div class="container">
             <h3>Próximos Eventos dessa ONG</h3>
@@ -185,6 +451,9 @@ $conn->close();
                                         (!empty($evento['local_complemento']) ? ' - ' . htmlspecialchars($evento['local_complemento']) : ''); ?></p>
                             <p><?php echo htmlspecialchars($evento['local_bairro']) . ', ' . 
                                         htmlspecialchars($evento['local_cidade']); ?></p>
+                            <div class="date"><?php echo date('d/m', strtotime($evento['data_evento'])); ?></div>
+                            <h4><?php echo htmlspecialchars($evento['titulo']); ?></h4>
+                            <a href="eventdetails.php?titulo=<?php echo urlencode($evento['titulo']); ?>" class="btn-ver-mais">Ver Mais</a>
                         </div>
                     <?php endforeach; ?>
                 <?php endif; ?>
@@ -194,6 +463,7 @@ $conn->close();
 
     <script src="ong-details.js"></script>
 
+    <script src="ongdetails.js"></script>
     <footer>
         <p>&copy; 2024 - ONGedin - Conectando quem transforma o mundo. Todos os direitos reservados.</p>
     </footer>

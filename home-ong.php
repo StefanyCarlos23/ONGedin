@@ -11,6 +11,7 @@
         <div class="nav-container">
             <nav class="nav">
                 <a href="home-ong.php">
+
                     <img src="images/ongedin-logo-2.png" alt="ongedin-logo">
                 </a>
                 <ul class="ul">
@@ -97,6 +98,7 @@
                             Em seguida, explore as ONGs cadastradas, buscando aquelas que estão alinhadas com suas causas.
                             Ao encontrar um evento de seu interesse, realize a inscrição.</p>
                         <a href="search-ong.php" class="btn">Pesquisar ONGs e eventos</a>
+
                     </div>
                     <div class="column">
                         <h3>Como ser um doador?</h3>
@@ -105,6 +107,7 @@
                             Clique na opção "Doações", presente no menu de navegação, e informe os detalhes.
                             Revise as informações e pronto, você realizou uma doação!</p>
                         <a href="donations.php" class="btn">Realizar doação</a>
+
                     </div>
                 </div>
             </div>
@@ -193,4 +196,3 @@
 
 </body>
 </html>
-
