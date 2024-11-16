@@ -1,6 +1,34 @@
 <?php
 include('connection.php');
 
+function geocodeAddress($address) {
+    $url = "https://nominatim.openstreetmap.org/search?format=json&q=" . urlencode($address);
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        'User-Agent: LocalApp/1.0 (localhost)'
+    ));
+    
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    if (!$response) {
+        return null;
+    }
+
+    $json = json_decode($response);
+
+    if (isset($json[0])) {
+        $lat = $json[0]->lat;
+        $lng = $json[0]->lon;
+        return ['lat' => $lat, 'lng' => $lng];
+    } else {
+        return null;
+    }
+}
+
 function getSuggestions($conn, $term) {
     $results = [];
     
@@ -70,6 +98,11 @@ if ($nome_ong) {
         $stmtOng->execute();
         $ongDetails = $stmtOng->get_result()->fetch_assoc();
         
+        $enderecoCompleto = $ongDetails['endereco_rua'] . ', ' . $ongDetails['endereco_numero'] . ' ' . 
+                            $ongDetails['endereco_complemento'] . ', ' . $ongDetails['endereco_bairro'] . ', ' . 
+                            $ongDetails['endereco_cidade'];
+
+        $coordenadas = geocodeAddress($enderecoCompleto);
 
         $area_atuacao = $ongDetails['area_atuacao'];
 
@@ -122,7 +155,8 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ONGedin | Detalhes da ONG</title>
-    <link href="ongdetails.css" rel="stylesheet" >
+    <link href="ongdetails.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
     <style>
         nav{
@@ -325,16 +359,12 @@ $conn->close();
             background-color: #0056b3;
         }
 
-        .map-right {
-            width: 65%;
-            height: 300px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
         #map {
             width: 100%;
-            height: 100%;
+            height: 400px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
     </style>
 <body>
@@ -421,9 +451,7 @@ $conn->close();
                 <p>Nenhuma ONG encontrada.</p>
             <?php endif; ?>
         </div>
-        <div class="map-right">
-            <div id="map"></div>
-        </div>
+        <div id="map" style="width: 100%; height: 400px;"></div>
     </section>
     <section class="events">
         <div class="container">
@@ -444,6 +472,7 @@ $conn->close();
         </div>
     </section>
     <script src="ongdetails.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <footer>
         <p>&copy; 2024 - ONGedin - Conectando quem transforma o mundo. Todos os direitos reservados.</p>
     </footer>
