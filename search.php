@@ -667,7 +667,7 @@ if ($resultEvents !== false) {
                                 <p>Organizado por: <?= htmlspecialchars($event['nome_ong']); ?></p>
                             </div>
                             <div class="more-details">
-                                <a href="event-details.php?title=<?= urlencode($event['titulo']); ?>" class="btn">Ver mais</a>
+                                <a href="event-details.php?titulo=<?= urlencode($event['titulo']); ?>" class="btn">Ver mais</a>
                             </div>
                         </div>
                     <?php endforeach; ?>
