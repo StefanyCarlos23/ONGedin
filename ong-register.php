@@ -68,8 +68,8 @@
 
                 <div class="container-row">
                     <div class="mid-inputBox">
-                        <label for="text" class="required" ><b>Área de Atuação: *</b></label>
-                        <select class="mid-inputUser" name="area-activity" >
+                        <label for="text" ><b>Área de Atuação: *</b></label>
+                        <select class="mid-inputUser required" name="area-activity" >
                             <option value="">Selecione uma área de atuação</option>
                             <option value="meio ambiente" <?php echo (isset($_POST['area-activity']) && $_POST['area-activity'] === 'meio ambiente') ? 'selected' : ''; ?>>Meio Ambiente</option>
                             <option value="desenvolvimento economico" <?php echo (isset($_POST['area-activity']) && $_POST['area-activity'] === 'desenvolvimento economico') ? 'selected' : ''; ?>>Desenvolvimento Econômico</option>

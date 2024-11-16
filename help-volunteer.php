@@ -16,8 +16,8 @@
                 <ul class="ul">
                     <ul class="ul-text">
                         <a href="home-volunteer.php">Início</a>
-                        <a href="search-volunteer.php">Pesquisar</a> HEAD
-                        <a href="donations.php">Doações</a>
+                        <a href="search-volunteer.php">Pesquisar</a>
+                        <a href="donations-volunteer.php">Doações</a>
                         <a href="help-volunteer.php">Suporte</a>
                     </ul>
                     <a href="profile.php">
@@ -38,7 +38,7 @@
             <ul class="nav-list">
                 <li><a href="home-volunteer.php">Início</a>
                 <li><a href="search-volunteer.php">Pesquisar</a></li>
-                <li><a href="donations.php">Doações</a></li>
+                <li><a href="donations-volunteer.php">Doações</a></li>
                 <li><a href="help-volunteer.php">Suporte</a></li>
                 <li><a href="profile-volunteer.php">Perfil</a></li>
             </ul>
@@ -62,7 +62,7 @@
                     </ul>
     
                     <br><h3>Onde posso encontrar informações sobre os eventos?</h3><br>
-                    <p>Para encontrar mais informações, você pode visitar nossa seção de <b><a href="search.html">eventos</a></b>, nela você irá conhecer nossas iniciativas atuais e passadas.</p>
+                    <p>Para encontrar mais informações, você pode visitar nossa seção de <b><a href="search-volunteer.php">eventos</a></b>, nela você irá conhecer nossas iniciativas atuais e passadas.</p>
     
                 </div>
     

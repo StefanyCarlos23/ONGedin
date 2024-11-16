@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONGedin | Detalhes da ONG</title>
+    <link href="ong-details.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="nav">
+                <a href="home.html">
+                    <img src="images/ongedin-logo.png" alt="ongedin-logo">
+                </a>
+                <ul class="ul">
+                    <ul class="ul-text">
+                        <a href="home.html">Início</a>
+                        <a href="search.html">Pesquisar</a>
+                        <a href="donations.html">Doações</a>
+                        <a href="help.html">Suporte</a>
+                    </ul>
+                    <a href="notification.html">
+                        <img src="images/notificação.png" alt="ongedin-logo">
+                    </a>
+                    <a href="profile.html">
+                        <img src="images/perfil.png" alt="ongedin-logo">
+                    </a>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section class="search-bar">
+        <div class="search">
+            <a class="back-btn" href="search.html">Voltar</a>
+            <input class="search-text" type="text" id="search-input" placeholder="Insira o nome da ONG ou título do evento" oninput="showSuggestions(this.value)">
+            <div id="suggestions" class="suggestions"></div>
+            <a class="search-btn" href="search.html">Buscar</a>
+        </div>
+    </section>
+    <section class="ong-details">
+        <div class="container">
+            <div class="image">
+                <img src="" alt="Logo da ONG">
+            </div>
+            <div class="ong-text">
+                <h3>Pequeno Cotolengo</h3>
+                <p>A ONG Pequeno Cotolengo é uma instituição voltada para o acolhimento de crianças e jovens com deficiência, oferecendo um ambiente seguro e acolhedor. Com foco na inclusão social, a organização proporciona atividades educativas, terapias e momentos de lazer, promovendo o desenvolvimento integral dos atendidos. Além disso, a ONG busca sensibilizar a sociedade sobre a importância dos direitos das pessoas com deficiência, contribuindo para uma cultura de respeito e igualdade.</p>
+            </div>
+        </div>
+    </section>
+    <section class="events">
+        <div class="container">
+            <h3>Próximos Eventos</h3>
+            <div class="event-box">
+                <?php foreach ($eventos as $evento): ?>
+                    <div class="event-item">
+                        <h4><?php echo htmlspecialchars($evento['titulo']); ?></h4>
+                        <p>Data: <?php echo htmlspecialchars($evento['data_evento']); ?></p>
+                        <p><?php echo htmlspecialchars($evento['descricao']); ?></p>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </section>
+    <script src="ong-details.js"></script>
+    <footer>
+        <p>&copy; 2024 - ONGedin - Conectando quem transforma o mundo. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

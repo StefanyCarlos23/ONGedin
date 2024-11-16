@@ -92,7 +92,7 @@
                             Depois, preencha seu perfil com suas habilidades, interesses e disponibilidade.
                             Em seguida, explore as ONGs cadastradas, buscando aquelas que estão alinhadas com suas causas.
                             Ao encontrar um evento de seu interesse, realize a inscrição.</p>
-                        <a href="search-without-login.php" class="btn">Pesquisar ONGs e eventos</a>
+                        <a href="login.php" class="btn">Realizar Login</a>
                     </div>
                     <div class="column">
                         <h3>Como ser um doador?</h3>
@@ -100,7 +100,7 @@
                             Explore as ONGs disponíveis e escolha aquela que deseja apoiar.
                             Clique na opção "Doações", presente no menu de navegação, e informe os detalhes.
                             Revise as informações e pronto, você realizou uma doação!</p>
-                        <a href="donations.php" class="btn">Realizar doação</a>
+                        <a href="login.php" class="btn">Realizar Login</a>
                     </div>
                 </div>
             </div>

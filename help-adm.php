@@ -64,7 +64,7 @@
                     </ul>
     
                     <br><h3>Onde posso encontrar informações sobre os eventos?</h3><br>
-                    <p>Para encontrar mais informações, você pode visitar nossa seção de <b><a href="search.html">eventos</a></b>, nela você irá conhecer nossas iniciativas atuais e passadas.</p>
+                    <p>Para encontrar mais informações, você pode visitar nossa seção de <b><a href="search-adm.php">eventos</a></b>, nela você irá conhecer nossas iniciativas atuais e passadas.</p>
     
                 </div>
     

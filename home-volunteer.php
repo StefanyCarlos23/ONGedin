@@ -101,7 +101,7 @@
                             Explore as ONGs disponíveis e escolha aquela que deseja apoiar.
                             Clique na opção "Doações", presente no menu de navegação, e informe os detalhes.
                             Revise as informações e pronto, você realizou uma doação!</p>
-                        <a href="donations.php" class="btn">Realizar doação</a>
+                        <a href="donations-volunteer.php" class="btn">Realizar doação</a>
 
                     </div>
                 </div>

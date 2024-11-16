@@ -1,4 +1,3 @@
-
 // ----- MENU MOBILE ----- //
 const activeClass = "active";
 

@@ -103,7 +103,7 @@
                             Clique na opção "Doações", presente no menu de navegação, e informe os detalhes.
                             Revise as informações e pronto, você realizou uma doação!</p>
 
-                        <a href="donations.php" class="btn">Realizar doação</a>
+                        <a href="choose-register.php" class="btn">Crie uma conta como Doador</a>
                     </div>
                 </div>
             </div>

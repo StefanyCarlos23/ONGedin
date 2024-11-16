@@ -84,18 +84,23 @@ main {
 }
 
 main h2 {
-    font-size: 40px;
+    margin-top: 30px;
+    font-size: 38px;
     color: #87BFC7;
+    margin-bottom: 20px;
 }
 
 main h3 {
     font-size: 20px;
     color: #555;
+    margin-bottom: 17px;
+
 }
 
 main p {
     font-size: 19px;
     color: #666666;
+    margin-bottom: 60px;
 }
 
 form {
@@ -107,33 +112,56 @@ form {
 form label {
     font-size: 16px;
     color: #333;
+    padding-left: 0.8rem;
 }
 
-form input, form select, form textarea, form button {
+form input, form select, form textarea {
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 16px;
+    margin-top: 0.5rem;
 }
 
 form input, form select, form textarea {
     width: 100%;
 }
 
+select {
+    color: #8A8A8A;
+}
+select:focus {
+    color: #000000;
+}
+select option:checked {
+    color: #46A799;
+}
+select option {
+    color: #8A8A8A;
+}
+
 #valor, #metodo {
     margin-bottom: 1.5rem;
 }
 
-form button {
-    background-color: #87BFC7;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    padding: 14px;
+/* --- DONATION BUTTON --- */
+.btn-donation{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
-form button:hover {
-    background-color: #60a3ae;
+.donation-btn{
+    background-color:#46A799;
+    border-radius: 20px;
+    width: 50%;
+    font-size: 1rem;
+    color: #ffffff;
+    border: #1B565F solid 1px;
+    margin-top: 2rem;
+    margin-bottom: 2.5rem;
+}
+.donation-btn:hover{
+    background-color:#337c71;;
 }
 
 .campo-doacao {
@@ -151,6 +179,13 @@ footer {
     padding: 30px 0;
 }
 
+.span-required{
+    display: none;
+    font-size: 12px;
+    color:#e63636;
+    margin: 3px 0 0 1px;
+}
+
 @media (max-width: 1280px) {
     .content {
         width: 100%;
@@ -164,27 +199,21 @@ footer {
 }
 
 @media (max-width: 768px) {
-    html, body, .content, .box-content {
-        overflow-x: hidden;
-    }
-
-    nav a img {
+    nav a img{
         width: 60px;
         height: 60px;
     }
-
     nav ul {
         flex-direction: row;
         align-items: center;
     }
-
     nav ul .ul-text a {
         font-size: 14px;
         margin: 0 10px;
     }
 
-    .content {
-        width: 100%;
+    .box-content {
+        width: 95%;
         padding: 15px;
     }
 
@@ -199,30 +228,85 @@ footer {
 }
 
 @media (max-width: 480px) {
-    html, body, .content, .box-content, .container-row {
+    body{
         overflow-x: hidden;
     }
-
     nav {
         display: none;
     }
-
-    .mobile-nav {
+    .mobile-nav{
         display: flex;
         align-items: center;
         background: #F6F6F6;
         height: 9vh;
         z-index: 9999;
+      }
+    .nav-list {
+        list-style: none;
+        display: flex;
+        position: absolute;
+        top: 8vh;
+        right: 0;
+        width: 50vw;
+        height: 45vh;
+        background: #F6F6F6;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in;
+        box-shadow: 2px 2px 2em rgba(0, 0, 0, 0.3);
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
     }
-
-    .mobile-nav img {
+    .mobile-nav img{
         width: 45px;
         height: 45px;
     }
-
-    .content {
-        width: 100%;
-        padding: 15px;
+    .nav-list li {
+        margin-left:0;
+        opacity: 0;
+        color: #000;
+    }
+    .mobile-menu {
+        cursor: pointer;
+        display: block;
+    }
+    .nav-list a{
+        color: #000;
+    }
+    .mobile-menu div {
+        width: 27px;
+        height: 2px;
+        background: #0c4b4e;
+        margin: 8px;
+        transition: 0.3s;
+    }
+    .nav-list.active {
+      transform: translateX(0);
+    }
+    @keyframes navLinkFade {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    .mobile-menu.active .line1 {
+      transform: rotate(-45deg) translate(-8px, 8px);
+    }
+    .mobile-menu.active .line2 {
+      opacity: 0;
+    }
+    .mobile-menu.active .line3 {
+      transform: rotate(45deg) translate(-5px, -7px);
+    }
+    .box-content{
+        margin-top: 2.5rem;
+        margin-bottom: 2.5rem;
     }
 
     footer {
