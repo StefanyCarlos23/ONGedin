@@ -127,10 +127,11 @@ if ($nome_ong) {
         $stmtEventos = $conn->prepare("
             SELECT e.titulo, e.descricao, 
                    e.local_rua, e.local_numero, e.local_complemento, 
-                   e.local_bairro, e.local_cidade, aoc.data_evento 
+                   e.local_bairro, e.local_cidade, aoc.data_evento, aoc.horario_evento
             FROM evento e 
             INNER JOIN admin_ong_cadastra_evento aoc ON e.id_evento = aoc.id_evento 
             WHERE aoc.id_admin_ong = ?
+            ORDER BY aoc.data_evento ASC
         ");
         $stmtEventos->bind_param('i', $id_ong);
         $stmtEventos->execute();
@@ -287,6 +288,12 @@ $conn->close();
             font-size: 16px;
             font-weight: bold;
             color: #666666;
+            margin-bottom: 10px;
+        }
+
+        .event-item p {
+            font-size: 16px;
+            color: #666666;
             margin-bottom: 20px;
         }
 
@@ -415,6 +422,14 @@ $conn->close();
             width: 100%;
             height: 100%;
         }
+
+        .ong-section .none, 
+        .events .none {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 16px;
+            color: #666;
+        }
     </style>
 <body>
     <header>
@@ -497,7 +512,7 @@ $conn->close();
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
-                <p>Nenhuma ONG encontrada.</p>
+                <p class="none">Nenhuma ONG encontrada.</p>
             <?php endif; ?>
         </div>
         <div class="mapBox">
@@ -509,7 +524,7 @@ $conn->close();
             <h3>Próximos Eventos dessa ONG</h3>
             <div class="event-box">
                 <?php if (empty($eventos)): ?>
-                    <p>Nenhum evento disponível</p>
+                    <p class="none">Nenhum evento disponível.</p>
                 <?php else: ?>
                     <?php
                     $maxEvents = 6;
@@ -520,6 +535,7 @@ $conn->close();
                         <div class="event-item">
                             <div class="date"><?php echo date('d/m/y', strtotime($evento['data_evento'])); ?></div>
                             <h4><?php echo htmlspecialchars($evento['titulo']); ?></h4>
+                            <p><strong>Horário:</strong> <?php echo date('H\hi', strtotime($evento['horario_evento'])); ?></p>
                             <a href="eventdetails.php?titulo=<?php echo urlencode($evento['titulo']); ?>" class="btn-ver-mais">Ver Mais</a>
                         </div>
                     <?php
