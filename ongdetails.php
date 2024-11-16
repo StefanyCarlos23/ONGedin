@@ -124,13 +124,6 @@ $conn->close();
     <title>ONGedin | Detalhes da ONG</title>
     <link href="ongdetails.css" rel="stylesheet" >
 </head>
-<body>
-    <header>
-        <div class="container">
-            <nav class="nav">
-                <a href="home.php">
-                    <img src="images/ongedin-logo.png" alt="ongedin-logo">
-    <link href="ongdetails.css" rel="stylesheet">
     <style>
         nav{
             background-color: #F6F6F6;
@@ -344,7 +337,6 @@ $conn->close();
             height: 100%;
         }
     </style>
-</head>
 <body>
     <header>
         <div class="nav-container">
@@ -402,11 +394,6 @@ $conn->close();
                         ', ' . ($ongDetails['endereco_bairro'] ?? '') . 
                         ', ' . ($ongDetails['endereco_cidade'] ?? '');
 
-                    echo "Área de Atuação: " . htmlspecialchars($ongDetails['area_atuacao'] ?? 'N/A') . "<br>" . 
-                         "Data de Fundação: " . htmlspecialchars($ongDetails['data_fundacao'] ?? 'N/A') . "<br>" . 
-                         "Descrição: " . htmlspecialchars($ongDetails['descricao'] ?? 'N/A') . "<br>" . 
-                         "Endereço: " . htmlspecialchars(trim($enderecoCompleto)) ?: 'Endereço não disponível';
-
                     echo "<strong>Área de Atuação: </strong>" . htmlspecialchars($ongDetails['area_atuacao'] ?? 'N/A') . "<br>" . 
                          "<strong>Data de Fundação: </strong>" . htmlspecialchars($ongDetails['data_fundacao'] ?? 'N/A') . "<br>" . 
                          "<strong>Descrição: </strong>" . htmlspecialchars($ongDetails['descricao'] ?? 'N/A') . "<br>" . 
@@ -416,7 +403,6 @@ $conn->close();
             </div>
         </div>
     </section>
-
     <section class="ong-section">
         <div class="ong-left">
             <h3 class="title">ONGs Semelhantes</h3>
@@ -443,14 +429,6 @@ $conn->close();
                 <?php else: ?>
                     <?php foreach ($eventos as $evento): ?>
                         <div class="event-item">
-                            <h4><?php echo htmlspecialchars($evento['titulo']); ?></h4>
-                            <p>Data: <?php echo date('d/m/Y', strtotime($evento['data_evento'])); ?></p>
-                            <p><?php echo htmlspecialchars($evento['descricao']); ?></p>
-                            <p>Local: <?php echo htmlspecialchars($evento['local_rua']) . ', ' . 
-                                        htmlspecialchars($evento['local_numero']) . 
-                                        (!empty($evento['local_complemento']) ? ' - ' . htmlspecialchars($evento['local_complemento']) : ''); ?></p>
-                            <p><?php echo htmlspecialchars($evento['local_bairro']) . ', ' . 
-                                        htmlspecialchars($evento['local_cidade']); ?></p>
                             <div class="date"><?php echo date('d/m', strtotime($evento['data_evento'])); ?></div>
                             <h4><?php echo htmlspecialchars($evento['titulo']); ?></h4>
                             <a href="eventdetails.php?titulo=<?php echo urlencode($evento['titulo']); ?>" class="btn-ver-mais">Ver Mais</a>
