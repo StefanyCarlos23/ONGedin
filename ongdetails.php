@@ -175,7 +175,17 @@ $conn->close();
             margin: 0 15px;
         }
 
-        .ong-details .container{
+        .search-bar .search .search-btn:active{
+            color: #666666;
+            background-color: #4d909a;
+        }
+
+        .search-bar .search .search-btn:hover {
+            background-color: #4d909a;
+            transition: 0.4s;
+        }
+
+        .ong-details .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -183,9 +193,10 @@ $conn->close();
             margin: 30px auto;
             margin-top: 50px;
             width: 80%;
+            flex-wrap: wrap;
         }
 
-        .ong-details .container .image{
+        .ong-details .container .image {
             position: relative;
             display: flex;
             justify-content: center;
@@ -228,24 +239,25 @@ $conn->close();
             width: 90%;
             max-width: 1200px;
             text-align: center;
+            margin-top: 20px;
         }
 
         .events .container h3 {
             margin-bottom: 40px;
             color: #87BFC7;
             font-size: 30px;
-            margin-top: 20px
         }
 
         .event-box {
             display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
             text-align: center;
             margin-top: 30px;
             background-color: #e0e0e0;
             border-radius: 25px;
             padding: 30px;
+            justify-content: center;
         }
 
         .event-item {
@@ -255,6 +267,7 @@ $conn->close();
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
             cursor: pointer;
+            text-align: center;
         }
 
         .event-item:hover {
@@ -264,48 +277,70 @@ $conn->close();
         }
 
         .event-item .date {
+            font-size: 16px;
+            font-weight: bold;
             color: #666666;
+            margin-bottom: 10px;
         }
 
         .event-item h4 {
             font-size: 16px;
             font-weight: bold;
             color: #666666;
+            margin-bottom: 20px;
         }
 
-        .event-item p {
-            font-size: 14px;
+        .event-item .btn-ver-mais {
+            margin: 10px auto;
+            padding: 10px 15px;
+            background-color: #87BFC7;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: fit-content;
+        }
+
+        .event-item .btn-ver-mais:hover {
+            background-color: #4d909a;
+            transition: 0.4s;
+        }
+
+        .event-item .btn-ver-mais:active {
             color: #666666;
+            background-color: #4d909a;
         }
 
-        .event-item .date {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
+        .event-box .event-item:nth-child(odd) {
+            background-color: #f3f3f3;
         }
 
-        .event-item .description {
-            font-size: 14px;
-            color: #777;
-        }
-
-        .event-box .event-item:nth-child(7n) {
-            background-color: #e3e3e3;
+        .event-box .event-item:nth-child(even) {
+            background-color: #f9f9f9;
         }
 
         .ong-section {
             display: flex;
             justify-content: space-between;
-            gap: 20px;
+            align-items: center;
+            margin: 0 auto;
+            margin-bottom: 80px;
+            width: 80%;
         }
 
         .ong-left {
             display: flex;
             flex-direction: column;
-            gap: 15px;
             align-items: center;
             justify-content: center;
             height: 100%;
+            flex: 1;
         }
 
         .ong-section .ong-left .title {
@@ -327,44 +362,58 @@ $conn->close();
 
         .ong-nome {
             display: flex;
-            flex-direction: row;
             align-items: center;
+            justify-content: space-between;
             text-align: center;
             margin-left: 20px;
+            white-space: nowrap;
         }
 
         .ong-nome p {
             color: #666666;
             font-size: 16px;
+            margin-right: 10px;
         }
 
         .ong-logo {
             width: 100px;
             height: auto;
-            margin-right: 10px;
         }
 
         .ver-mais {
-            padding: 8px 16px;
-            font-size: 14px;
-            background-color: #007bff;
+            padding: 10px 15px;
+            background-color: #b9b9b9;
             color: white;
             border: none;
-            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 10px;
+            transition: color 0.1s;
             cursor: pointer;
             margin-left: 10px;
         }
 
         .ver-mais:hover {
-            background-color: #0056b3;
+            background-color: #909090;
+            transition: 0.4s;
         }
 
-        #map {
-            width: 100%;
+        .ver-mais:active {
+            color: #666666;
+            background-color: #909090;
+        }
+
+        .mapBox {
+            position: relative;
             height: 400px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            flex: 2;
+            margin-left: 50px;
+            border: 3px solid #87BFC7;
+        }
+
+        .mapBox iframe {
+            width: 100%;
+            height: 100%;
         }
     </style>
 <body>
@@ -451,7 +500,9 @@ $conn->close();
                 <p>Nenhuma ONG encontrada.</p>
             <?php endif; ?>
         </div>
-        <div id="map" style="width: 100%; height: 400px;"></div>
+        <div class="mapBox">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14412.719885890214!2d-49.28112569942132!3d-25.432245990962745!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spt-BR!2sbr!4v1731777822777!5m2!1spt-BR!2sbr" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
     </section>
     <section class="events">
         <div class="container">
@@ -460,19 +511,26 @@ $conn->close();
                 <?php if (empty($eventos)): ?>
                     <p>Nenhum evento disponível</p>
                 <?php else: ?>
-                    <?php foreach ($eventos as $evento): ?>
+                    <?php
+                    $maxEvents = 6;
+                    $eventCount = 0;
+                    foreach ($eventos as $evento): 
+                        if ($eventCount >= $maxEvents) break;
+                    ?>
                         <div class="event-item">
-                            <div class="date"><?php echo date('d/m', strtotime($evento['data_evento'])); ?></div>
+                            <div class="date"><?php echo date('d/m/y', strtotime($evento['data_evento'])); ?></div>
                             <h4><?php echo htmlspecialchars($evento['titulo']); ?></h4>
                             <a href="eventdetails.php?titulo=<?php echo urlencode($evento['titulo']); ?>" class="btn-ver-mais">Ver Mais</a>
                         </div>
-                    <?php endforeach; ?>
+                    <?php
+                        $eventCount++;
+                    endforeach;
+                    ?>
                 <?php endif; ?>
             </div>
         </div>
     </section>
     <script src="ongdetails.js"></script>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <footer>
         <p>&copy; 2024 - ONGedin - Conectando quem transforma o mundo. Todos os direitos reservados.</p>
     </footer>

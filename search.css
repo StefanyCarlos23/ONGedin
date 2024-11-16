@@ -149,6 +149,7 @@ button{
 .search-bar .search .search-filter-btn{
     padding: 10px 15px;
     background-color: #b9b9b9;
+    border: 1px solid #b9b9b9;
     color: white;
     text-decoration: none;
     font-size: 18px;
@@ -156,10 +157,24 @@ button{
     transition: color 0.1s;
 }
 
-.search-bar .search button:active{
-    color: #666666;
+.search-bar .search .search-btn:hover {
     background-color: #4d909a;
     transition: 0.4s;
+}
+
+.search-bar .search .search-btn:active{
+    color: #666666;
+    background-color: #4d909a;
+}
+
+.search-bar .search .clean:hover{
+    background-color: #909090;
+    transition: 0.4s;
+}
+
+.search-bar .search .clean:active{
+    color: #666666;
+    background-color: #909090;
 }
 
 .search-bar .search .back-btn:active,
@@ -216,6 +231,9 @@ button{
     margin-bottom: 10px;
     text-align: center;
 }
+
+.clean
+button
 
 .highlight-2{
     margin-top: 15px;

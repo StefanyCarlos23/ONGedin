@@ -246,6 +246,26 @@ if ($resultEvents !== false) {
         nav{
             border-bottom: 3px solid #87BFC7;
         }
+
+        .search-bar .search .search-btn:hover {
+            background-color: #4d909a;
+            transition: 0.4s;
+        }
+
+        .search-bar .search .search-btn:active{
+            color: #666666;
+            background-color: #4d909a;
+        }
+
+        .search-bar .search .clean:hover{
+            background-color: #909090;
+            transition: 0.4s;
+        }
+
+        .search-bar .search .clean:active{
+            color: #666666;
+            background-color: #909090;
+        }
     </style>
 <body>
     <header>

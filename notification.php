@@ -10,7 +10,7 @@
     <header>
         <div class="container">
             <nav class="nav">
-                <a href="home.html">
+                <a href="home.php">
                     <img src="images/ongedin-logo.png" alt="ongedin-logo">
                 </a>
                 <ul class="ul">
