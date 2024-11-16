@@ -406,15 +406,20 @@ $conn->close();
     <section class="ong-section">
         <div class="ong-left">
             <h3 class="title">ONGs Semelhantes</h3>
-            <?php foreach ($ongsSimilares as $index => $ong): ?>
-                <div class="ong-item" id="ong<?= $index + 1 ?>" data-endereco="<?= $ong['endereco_rua'] . ', ' . $ong['endereco_numero'] . ', ' . $ong['endereco_complemento'] . ', ' . $ong['endereco_bairro'] . ', ' . $ong['endereco_cidade'] ?>">
-                    <img src="<?= $ong['foto'] ?>" alt="Logo <?= $ong['nome'] ?>" class="ong-logo">
-                    <div class="ong-nome">
-                        <p><?= $ong['nome'] ?></p>
-                        <button class="ver-mais" onclick="verMais(<?= $ong['id_usuario'] ?>)">Ver mais</button>
+            <?php if (!empty($ongsSimilares)): ?>
+                <?php foreach ($ongsSimilares as $index => $ong): ?>
+                    <div class="ong-item" id="ong<?= $index + 1 ?>" 
+                        data-endereco="<?= $ong['endereco_rua'] . ', ' . $ong['endereco_numero'] . ', ' . $ong['endereco_complemento'] . ', ' . $ong['endereco_bairro'] . ', ' . $ong['endereco_cidade'] ?>">
+                        <img src="<?= $ong['foto'] ?>" alt="Logo <?= $ong['nome'] ?>" class="ong-logo">
+                        <div class="ong-nome">
+                            <p><?= $ong['nome'] ?></p>
+                            <button class="ver-mais" onclick="verMais(<?= $ong['id_usuario'] ?>)">Ver mais</button>
+                        </div>
                     </div>
-                </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>Nenhuma ONG encontrada.</p>
+            <?php endif; ?>
         </div>
         <div class="map-right">
             <div id="map"></div>
@@ -438,9 +443,6 @@ $conn->close();
             </div>
         </div>
     </section>
-
-    <script src="ong-details.js"></script>
-
     <script src="ongdetails.js"></script>
     <footer>
         <p>&copy; 2024 - ONGedin - Conectando quem transforma o mundo. Todos os direitos reservados.</p>
