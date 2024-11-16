@@ -444,9 +444,6 @@ $conn->close();
                         <a href="search.php">Pesquisar</a>
                         <a href="help.php">Suporte</a>
                     </ul>
-                    <a href="notification.php">
-                        <img src="images/notificação.png" alt="ongedin-logo">
-                    </a>
                     <a href="profile.php">
                         <img src="images/perfil.png" alt="ongedin-logo">
                     </a>
