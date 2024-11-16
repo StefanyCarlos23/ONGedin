@@ -507,7 +507,7 @@ $conn->close();
                         <img src="<?= $ong['foto'] ?>" alt="Logo <?= $ong['nome'] ?>" class="ong-logo">
                         <div class="ong-nome">
                             <p><?= $ong['nome'] ?></p>
-                            <button class="ver-mais" onclick="verMais(<?= $ong['id_usuario'] ?>)">Ver mais</button>
+                            <a href="ongdetails.php?title=<?= urlencode($ong['nome']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>" class="ver-mais">Ver mais</a>
                         </div>
                     </div>
                 <?php endforeach; ?>
