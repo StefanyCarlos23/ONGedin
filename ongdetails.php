@@ -488,7 +488,7 @@ $conn->close();
                     echo "<strong>Área de Atuação: </strong>" . htmlspecialchars($ongDetails['area_atuacao'] ?? 'N/A') . "<br>" . 
                          "<strong>Data de Fundação: </strong>" . htmlspecialchars($ongDetails['data_fundacao'] ?? 'N/A') . "<br>" . 
                          "<strong>Descrição: </strong>" . htmlspecialchars($ongDetails['descricao'] ?? 'N/A') . "<br>" . 
-                         "<strong>Endereço: </strong>" . htmlspecialchars(trim($enderecoCompleto)) ?: 'Endereço não disponível';
+                         "<strong>Endereço da sede: </strong>" . htmlspecialchars(trim($enderecoCompleto)) ?: 'Endereço não disponível';
                     ?>
                 </p>
             </div>

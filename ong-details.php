@@ -444,9 +444,6 @@ $conn->close();
                         <a href="search.php">Pesquisar</a>
                         <a href="help.php">Suporte</a>
                     </ul>
-                    <a href="notification.php">
-                        <img src="images/notificação.png" alt="ongedin-logo">
-                    </a>
                     <a href="profile.php">
                         <img src="images/perfil.png" alt="ongedin-logo">
                     </a>
@@ -459,7 +456,7 @@ $conn->close();
         <div class="search">
             <a class="back-btn" href="home.php">Voltar</a>
             <div class="form">
-                <form action="" method="GET">
+                <form action="search.php" method="GET">
                     <div class="search-container">
                         <input class="search-text" type="text" id="search-input" name="searchTerm" placeholder="Insira o nome da ONG ou título do evento" oninput="showSuggestions(this.value)" value="<?php echo isset($_GET['searchTerm']) ? htmlspecialchars($_GET['searchTerm']) : ''; ?>">
                         <div id="suggestions" class="suggestions"></div>
@@ -491,7 +488,7 @@ $conn->close();
                     echo "<strong>Área de Atuação: </strong>" . htmlspecialchars($ongDetails['area_atuacao'] ?? 'N/A') . "<br>" . 
                          "<strong>Data de Fundação: </strong>" . htmlspecialchars($ongDetails['data_fundacao'] ?? 'N/A') . "<br>" . 
                          "<strong>Descrição: </strong>" . htmlspecialchars($ongDetails['descricao'] ?? 'N/A') . "<br>" . 
-                         "<strong>Endereço: </strong>" . htmlspecialchars(trim($enderecoCompleto)) ?: 'Endereço não disponível';
+                         "<strong>Endereço da sede: </strong>" . htmlspecialchars(trim($enderecoCompleto)) ?: 'Endereço não disponível';
                     ?>
                 </p>
             </div>
@@ -507,7 +504,7 @@ $conn->close();
                         <img src="<?= $ong['foto'] ?>" alt="Logo <?= $ong['nome'] ?>" class="ong-logo">
                         <div class="ong-nome">
                             <p><?= $ong['nome'] ?></p>
-                            <button class="ver-mais" onclick="verMais(<?= $ong['id_usuario'] ?>)">Ver mais</button>
+                            <a href="ongdetails.php?title=<?= urlencode($ong['nome']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>" class="ver-mais">Ver mais</a>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -536,7 +533,7 @@ $conn->close();
                             <div class="date"><?php echo date('d/m/y', strtotime($evento['data_evento'])); ?></div>
                             <h4><?php echo htmlspecialchars($evento['titulo']); ?></h4>
                             <p><strong>Horário:</strong> <?php echo date('H\hi', strtotime($evento['horario_evento'])); ?></p>
-                            <a href="eventdetails.php?titulo=<?php echo urlencode($evento['titulo']); ?>" class="btn-ver-mais">Ver Mais</a>
+                            <a href="event-details.php?titulo=<?php echo urlencode($evento['titulo']); ?>" class="btn-ver-mais">Ver Mais</a>
                         </div>
                     <?php
                         $eventCount++;
