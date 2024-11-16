@@ -242,6 +242,11 @@ if ($resultEvents !== false) {
     <title>ONGedin | Pesquisar</title>
     <link href="search.css" rel="stylesheet">
 </head>
+    <style>
+        nav{
+            border-bottom: 3px solid #87BFC7;
+        }
+    </style>
 <body>
     <header>
         <div class="nav-container">

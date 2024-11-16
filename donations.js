@@ -114,17 +114,6 @@ function isNum(num) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
 function mostrarCamposEspecificos() {
     const tipoDoacao = document.getElementById('tipo-doacao').value;
     const doacaoDinheiro = document.getElementById('doacao-dinheiro');
@@ -145,7 +134,6 @@ function mostrarCamposEspecificos() {
 }
 
 window.onload = mostrarCamposEspecificos;
-
 
 // ----- MENU MOBILE ----- //
 const activeClass = "active";

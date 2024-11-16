@@ -17,7 +17,7 @@
                     <ul class="ul-text">
                         <a href="home-volunteer.php">Início</a>
                         <a href="search-volunteer.php">Pesquisar</a>
-                        <a href="donations-volunteer.php">Doações</a>
+                        <a href="donations.php">Doações</a>
                         <a href="help-volunteer.php">Suporte</a>
                     </ul>
                     <a href="profile-volunteer.php">
@@ -45,7 +45,7 @@
                 <li><a href="home-volunteer.php">Início</a>
                 <li><a href="search-volunteer.php">Pesquisar</a></li>
                 <li><a href="help-volunteer.php">Suporte</a></li>
-                <li><a href="donations-volunteer.php">Doações</a></li>
+                <li><a href="donations.php">Doações</a></li>
                 <li><a href="profile-volunteer.php">Perfil</a></li>
             </ul>
             </nav>
