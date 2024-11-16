@@ -32,7 +32,6 @@ function initMobileNavbar(mobileMenuSelector, navListSelector, navLinksSelector)
 
 initMobileNavbar(".mobile-menu", ".nav-list", ".nav-list li");
 
-
 document.addEventListener('DOMContentLoaded', function() {
   if (typeof errorMessage !== 'undefined' && errorMessage) {
       Swal.fire({
