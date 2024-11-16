@@ -208,6 +208,7 @@ function getSuggestions($conn, $term) {
 
     .search-bar .search .search-btn:active{
         color: #666666;
+        background-color: #4d909a;
     }
 
     .search-bar .search .search-btn:hover {
