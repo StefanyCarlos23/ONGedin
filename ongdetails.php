@@ -533,7 +533,7 @@ $conn->close();
                             <div class="date"><?php echo date('d/m/y', strtotime($evento['data_evento'])); ?></div>
                             <h4><?php echo htmlspecialchars($evento['titulo']); ?></h4>
                             <p><strong>Horário:</strong> <?php echo date('H\hi', strtotime($evento['horario_evento'])); ?></p>
-                            <a href="eventdetails.php?titulo=<?php echo urlencode($evento['titulo']); ?>" class="btn-ver-mais">Ver Mais</a>
+                            <a href="event-details.php?titulo=<?php echo urlencode($evento['titulo']); ?>" class="btn-ver-mais">Ver Mais</a>
                         </div>
                     <?php
                         $eventCount++;

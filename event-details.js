@@ -1,5 +1,6 @@
 let isLoggedIn = false;
 let isSubscribed = false;
+let debounceTimer;
 
 function inscreverEvento() {
     if (!isLoggedIn) {
@@ -29,8 +30,6 @@ function ativarNotificacoes() {
     btnNotificacoes.style.backgroundColor = "#1bce00";
     btnNotificacoes.disabled = true;
 }
-
-let debounceTimer;
 
 function showSuggestions(term) {
     clearTimeout(debounceTimer);
@@ -66,6 +65,7 @@ function showSuggestions(term) {
                 });
 
                 suggestionsContainer.style.display = 'block';
+                suggestionsContainer.classList.add('show'); 
             })
             .catch(error => console.error('Erro ao buscar sugestões:', error));
     }, 300);
@@ -74,3 +74,9 @@ function showSuggestions(term) {
 document.getElementById('search-input').addEventListener('input', function() {
     showSuggestions(this.value);
 });
+
+function selectSuggestion(value) {
+    document.getElementById('search-input').value = value;
+    document.getElementById('suggestions').innerHTML = '';
+    document.getElementById('suggestions').style.display = 'none';
+}
