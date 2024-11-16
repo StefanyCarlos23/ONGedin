@@ -2,7 +2,7 @@ let isLoggedIn = false;
 let isSubscribed = false;
 let debounceTimer;
 
-function inscreverEvento() {
+function subscribeEvent() {
     if (!isLoggedIn) {
         alert("Você precisa estar logado para se inscrever no evento.");
         return;
@@ -12,11 +12,11 @@ function inscreverEvento() {
         isSubscribed = true;
         document.getElementById("inscrever-btn").innerText = "Inscrito";
         document.getElementById("inscrever-btn").style.backgroundColor = "#b9b9b9";
-        mostrarBotaoNotificacoes();
+        showNotificationButton();
     }
 }
 
-function mostrarBotaoNotificacoes() {
+function showNotificationButton() {
     const btnNotificacoes = document.createElement("button");
     btnNotificacoes.innerText = "Ativar Notificações";
     btnNotificacoes.id = "notificacoes-btn";
@@ -25,7 +25,7 @@ function mostrarBotaoNotificacoes() {
     document.querySelector(".image-btn").appendChild(btnNotificacoes);
 }
 
-function ativarNotificacoes() {
+function activateNotifications() {
     const btnNotificacoes = document.getElementById("notificacoes-btn");
     btnNotificacoes.style.backgroundColor = "#1bce00";
     btnNotificacoes.disabled = true;
