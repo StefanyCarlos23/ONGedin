@@ -244,18 +244,17 @@ function getSuggestions($conn, $term) {
         color: #666666;
     }
 
-    .event-details .event-text h3,
-    .event-details .event-text p{
-        text-align: left;
-    }
-
     .event-details .event-text h3{
-        font-size: 30px;
+        text-align: center;
+        color: #87BFC7;
+        font-size: 40px;
+        margin: 0 auto;
     }
 
     .event-details .event-text p{
         margin-top: 20px;
         line-height: 1.5em;
+        text-align: left;
     }
 
     .event-details .event-button .btn{
@@ -335,8 +334,40 @@ function getSuggestions($conn, $term) {
     <section class="event-details">
         <div class="container">
             <div class="event-text">
-                <h3>Título do Evento</h3>
-                <p>Descrição do Evento</p>
+                <?php
+                if (isset($_GET['titulo'])) {
+                    $titulo = $_GET['titulo'];
+                    $queryEvent = $conn->prepare("
+                        SELECT e.titulo, e.descricao, e.local_rua, e.local_numero, e.local_complemento, e.local_bairro, 
+                            e.local_cidade, e.local_estado, e.local_pais, 
+                            ae.data_evento, ae.horario_evento, ao.area_atuacao, ao.endereco_rua, ao.endereco_bairro, ao.endereco_cidade
+                        FROM evento e
+                        JOIN admin_ong_cadastra_evento ae ON e.id_evento = ae.id_evento
+                        JOIN administrador_ong ao ON ae.id_admin_ong = ao.id_admin_ong
+                        WHERE e.titulo = ?");
+                    $queryEvent->bind_param('s', $titulo);
+                    $queryEvent->execute();
+                    $resultEvent = $queryEvent->get_result();
+                    
+                    if ($row = $resultEvent->fetch_assoc()) {
+                        echo "<h3>" . htmlspecialchars($row['titulo']) . "</h3>";
+                        echo "<p><strong>Data:</strong> " . htmlspecialchars($row['data_evento']) . "</p>";
+                        echo "<p><strong>Horário:</strong>" . htmlspecialchars($row['horario_evento']) . "</p>";
+                        echo "<p><strong>Descrição:</strong>" . nl2br(htmlspecialchars($row['descricao'])) . "</p>";
+                        echo "<p><strong>Local:</strong>" . htmlspecialchars($row['local_rua']) . ", " . htmlspecialchars($row['local_numero']);
+                        if ($row['local_complemento']) {
+                            echo " - " . htmlspecialchars($row['local_complemento']);
+                        }
+                        echo htmlspecialchars($row['local_bairro']) . ", " . htmlspecialchars($row['local_cidade']) . " - " . htmlspecialchars($row['local_estado']) . ", " . htmlspecialchars($row['local_pais']) . "</p>";
+
+                        echo "<p><strong>ONG responsável:</strong> " . htmlspecialchars($row['area_atuacao']) . "</p>";
+                    } else {
+                        echo "<p>Evento não encontrado.</p>";
+                    }
+                } else {
+                    echo "<p>Detalhes do evento não disponíveis.</p>";
+                }
+                ?>
             </div>
             <div class="event-button">
                 <button class="btn" id="subscribe-btn" onclick="subscribeEvent()">Inscrever-se</button>
