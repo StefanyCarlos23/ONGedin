@@ -84,6 +84,8 @@
                             <option value="direitos das minorias" <?php echo (isset($_POST['area-activity']) && $_POST['area-activity'] === 'direitos das minorias') ? 'selected' : ''; ?>>Direitos das Minorias</option>
                             <option value="assistencia social" <?php echo (isset($_POST['area-activity']) && $_POST['area-activity'] === 'assistencia social') ? 'selected' : ''; ?>>Assistência Social</option>
                         </select>
+                        <span class="span-required"></span>
+
                     </div>
 
                     <div class="mid-inputBox">

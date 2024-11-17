@@ -7,6 +7,7 @@
     <link href="homes.css" rel="stylesheet">
 </head>
 <body>
+
     <header>
         <div class="nav-container">
             <nav class="nav">
@@ -18,8 +19,7 @@
                     <ul class="ul-text">
                         <a href="home-ong.php">Início</a>
                         <a href="search-ong.php">Pesquisar</a>
-                        <a href="donations-ong.php">Doações</a>
-                        <a href="manage_event.php">Gerenciamento de Eventos</a>
+                        <a href="event-management.php">Gerenciamento de Eventos</a>
                         <a href="report.php">Relatório</a>
                         <a href="help-ong.php">Suporte</a>
                     </ul>
@@ -47,8 +47,7 @@
             <ul class="nav-list">
                 <li><a href="home-ong.php">Início</a>
                 <li><a href="search-ong.php">Pesquisar</a></li>
-                <li><a href="donations-ong.php">Doações</a></li>
-                <li><a href="manage_event.php">Gerenciamento <BR> de Eventos</a></li>
+                <li><a href="event-management.php">Gerenciamento <BR> de Eventos</a></li>
                 <li><a href="report.php">Relatório</a></li>
                 <li><a href="help-ong.php">Suporte</a></li>
                 <li><a href="profile-ong.php">Perfil</a></li>
@@ -186,11 +185,6 @@
         <p>&copy; 2024 - ONGedin - Conectando quem transforma o mundo. Todos os direitos reservados.</p>
     </footer>
 
-    <?php
-        include('connection.php');
-    ?>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="homes.js"></script>
 

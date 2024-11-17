@@ -17,11 +17,6 @@ function btnRegisterOnClick(event) {
     } else if (!isEmail(campos[1].value)) {
         emailValidate();
         hasError = true;
-    }else if (campos[10].value === "") {
-        errorAlert('Preenchimento obrigatório: Número', 2);
-        hasError = true;
-    } else if (!isNum(parseInt(campos[2].value))) {
-        numValidate();
     }
 
     if (hasError) {
@@ -84,17 +79,6 @@ function emailValidate() {
     }
 }
 
-function numValidate() {
-    if (campos[2].value === "") {
-        removeError(2)
-    } else if (!isNum(campos[2].value)) {
-        setError(2)
-    } else{
-        removeError(2)
-    }
-}
-
-
 // ----- REGEX ----- ///
 // Function to check if the input contains numbers
 function inputWithoutNumbers(name) {
@@ -107,12 +91,6 @@ function isEmail(email) {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
     return re.test(email)
 }
-
-// Function to check if is positive numbers
-function isNum(num) {
-    return !isNaN(num) && num > 0
-}
-
 
 function mostrarCamposEspecificos() {
     const tipoDoacao = document.getElementById('tipo-doacao').value;
@@ -167,3 +145,25 @@ function initMobileNavbar(mobileMenuSelector, navListSelector, navLinksSelector)
 }
 
 initMobileNavbar(".mobile-menu", ".nav-list", ".nav-list li");
+
+function getUrlParameter(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const alertType = getUrlParameter('alert');
+    const alertMessage = getUrlParameter('message');
+
+    if (alertType && alertMessage) {
+        Swal.fire({
+            icon: alertType,
+            title: alertType === 'success' ? 'Sucesso!' : 'Erro!',
+            text: decodeURIComponent(alertMessage),
+            confirmButtonText: 'Entendido',
+            confirmButtonColor:'#399aa8',
+            timer: 7000,
+            timerProgressBar: true
+        });
+    }
+});

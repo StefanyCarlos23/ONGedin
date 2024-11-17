@@ -13,8 +13,24 @@
         $password = $_POST['password'] ?? '';
         $confirmPass = $_POST['confirm-pass'] ?? '';
 
-        $birthDate = date("Y-m-d", strtotime(str_replace('/', '-', $birthDate)));
-
+        if (!empty($birthDate)) {
+            if (preg_match('/^(\d{2})\/(\d{2})\/(\d{4})$/', $birthDate, $matches)) {
+                $day = $matches[1];
+                $month = $matches[2];
+                $year = $matches[3];
+    
+                if (checkdate($month, $day, $year)) {
+                    $birthDate = "$year-$month-$day";
+                } else {
+                    die("Erro: Data inválida.");
+                }
+            } else {
+                die("Erro: Formato de data inválido. Use DD/MM/YYYY.");
+            }
+        } else {
+            die("Erro: Data do evento não foi fornecida.");
+        }
+        
         $stmt = $conn->prepare("INSERT INTO usuario (nome, funcao, senha, data_cadastro) VALUES (?, ?, ?, NOW())");
 
         if (!$stmt) {
