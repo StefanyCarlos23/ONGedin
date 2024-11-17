@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONGedin | Detalhes da ONG</title>
+    <link href="generate-report.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="nav">
+                <a href="home.html">
+                    <img src="images/ongedin-logo.png" alt="ongedin-logo">
+                </a>
+                <ul class="ul">
+                    <ul class="ul-text">
+                        <a href="home.html">Início</a>
+                        <a href="search.html">Pesquisar</a>
+                        <a href="event-management.html">Gerenciamento de Eventos</a>
+                        <a href="help.html">Suporte</a>
+                    </ul>
+                    <a href="notification.html">
+                        <img src="images/notificação.png" alt="ongedin-logo">
+                    </a>
+                    <a href="profile.html">
+                        <img src="images/perfil.png" alt="ongedin-logo">
+                    </a>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <h1>Relatórios dos Eventos</h1>
+        <section class="report-details">
+            <h2>Detalhes do relatório</h2>
+            <form action="#" method="post">
+                <!-- Data do evento -->
+                <div class="date-filter">
+                    <label for="start-date">Selecione a data do evento (opcional):</label>
+                    <input type="date" id="start-date" name="start-date"> até 
+                    <input type="date" id="end-date" name="end-date">
+                </div>
+    
+                <!-- Localização do evento -->
+                <div class="location-filter">
+                    <label for="location">Informe a localização do evento (opcional):</label>
+                    <input type="text" id="location" name="location" placeholder="Rua, número, complemento, bairro, cidade, país">
+                </div>
+    
+                <!-- Seleção do evento -->
+                <div class="event-selection">
+                    <label for="event-list">Escolha o evento que deseja gerar um relatório:</label>
+                    <select id="event-list" name="event-list" size="4">
+                        <option>Feira de Adoção de Animais</option>
+                        <option>Campanha de Vacinação Animal</option>
+                        <option>Palestra sobre Cuidados com Animais</option>
+                        <option>Campanha de Doação de Ração</option>
+                    </select>
+                </div>
+    
+                <!-- Campos do relatório -->
+                <div class="fields-selection">
+                    <label>Selecione os campos que devem estar presentes no relatório:</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="fields" value="event-name"> Nome do evento</label>
+                        <label><input type="checkbox" name="fields" value="event-date"> Data do evento</label>
+                        <label><input type="checkbox" name="fields" value="location"> Local do evento</label>
+                        <label><input type="checkbox" name="fields" value="participants"> Número de participantes</label>
+                        <label><input type="checkbox" name="fields" value="feedback"> Número de feedbacks</label>
+                        <label><input type="checkbox" name="fields" value="average-rating"> Avaliação média</label>
+                        <label><input type="checkbox" name="fields" value="organization"> ONG responsável</label>
+                        <label><input type="checkbox" name="fields" value="report-date"> Data de emissão do relatório</label>
+                    </div>
+                </div>
+    
+                <!-- Formato do arquivo -->
+                <div class="file-format">
+                    <label>Escolha o formato do arquivo:</label>
+                    <label><input type="radio" name="file-format" value="pdf"> PDF</label>
+                    <label><input type="radio" name="file-format" value="excel"> Excel</label>
+                </div>
+    
+                <!-- Botões -->
+                <div class="buttons">
+                    <button type="reset" class="btn-reset">Limpar filtros</button>
+                    <button type="submit" class="btn-submit">Finalizar</button>
+                </div>
+                <p class="note">Após finalizar, o download do relatório será realizado automaticamente</p>
+            </form>
+        </section>
+    </main>
+    <script src="generate-report.js"></script>
+</body>

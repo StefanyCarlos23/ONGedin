@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Perfis</title>
+    <link rel="stylesheet" href="profile-management.css">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <nav class="nav">
+                <a href="home.html">
+                    <img src="images/ongedin-logo-2.png" alt="ongedin-logo">
+                </a>
+                <ul class="ul">
+                    <ul class="ul-text">
+                        <a href="home.html">Início</a>
+                        <a href="search.html">Pesquisar</a>
+                        <a href="help.html">Suporte</a>
+                        <a href="events.html">Eventos</a>
+                    </ul>
+                    <a href="profile.html">
+                        <img src="images/perfil.png" alt="ongedin-logo">
+                    </a>
+                </ul>
+            </nav>
+    </header>
+
+    <main>
+        <h1>Gerenciamento de Perfis</h1>
+        <div class="search-section">
+            <input type="text" placeholder="Insira o nome do usuário">
+            <button>Buscar</button>
+        </div>
+
+        <section class="dashboard">
+            <div class="card validation">
+                <h3>Validação de comprovantes da semana</h3>
+                <p>Comprovantes validados: <strong>24</strong></p>
+                <p>Comprovantes a validar: <strong>16</strong></p>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 60%;"></div>
+                </div>
+                <p>Total de comprovantes validados no mês: <strong>58</strong></p>
+            </div>
+
+            <div class="card distribution">
+                <h3>Distribuição dos contribuintes</h3>
+                <canvas id="contribuinteChart"></canvas>
+            </div>
+
+            <div class="card stats">
+                <h3>ONGs cadastradas no último mês</h3>
+                <p><strong>27 ONGs</strong></p>
+                <p>53% a mais do que no último mês</p>
+                <button>Visualizar perfis</button>
+            </div>
+
+            <div class="card stats">
+                <h3>Usuários cadastrados na última semana</h3>
+                <p><strong>33 usuários</strong></p>
+                <p>27% a mais do que na última semana</p>
+                <button>Visualizar perfis</button>
+            </div>
+
+            <div class="card sponsor">
+                <h3>Maior patrocinador</h3>
+                <img src="sponsor-logo.png" alt="Logo do patrocinador">
+                <p>Quantidade de doações: <strong>5</strong></p>
+                <p>ONGs beneficiadas: <strong>16</strong></p>
+                <p>Valor total: <strong>R$150.000,00</strong></p>
+            </div>
+
+            <div class="card volunteer">
+                <h3>Usuário com mais horas como voluntário</h3>
+                <p><strong>Genoveva Mendes</strong></p>
+                <p>Quantidade de horas: <strong>37 horas</strong></p>
+            </div>
+
+            <div class="card donor">
+                <h3>Maior doador</h3>
+                <p><strong>José Bernardino</strong></p>
+                <p>Quantidade de doações: <strong>11</strong></p>
+                <p>ONGs beneficiadas: <strong>6</strong></p>
+                <p>Valor total: <strong>R$48.923,19</strong></p>
+            </div>
+        </section>
+    </main>
+
+    <script src="profile-management.js"></script>
+</body>
+</html>

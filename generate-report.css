@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    outline: none;
+}
+
+body{
+    background-color: #F6F6F6;
+    font-family: "Inter", sans-serif;
+}
+
+nav{
+    background-color: #F6F6F6;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 35px;
+    padding-left: 20px;
+    border-bottom: 3px solid #87BFC7;
+}
+
+nav ul{
+    display: flex;
+    align-items: center;
+}
+
+nav ul .ul-text a{
+    color: rgb(0, 0, 0);
+    margin: 0 20px;
+    font-size: 18px;
+    display: block;
+}
+
+nav ul .ul-text a:not(.btn)::after{
+    content: "";
+    background-color: rgb(0, 0, 0);
+    height: 2px;
+    width: 0;
+    display: block;
+    margin: 0 auto;
+    transition: 0.3s;
+}
+
+nav ul .ul-text a:hover::after{
+    width: 100%;
+}
+
+nav a img{
+    width: 90px;
+    height: 90px;
+}
+
+nav ul a img{
+    width: 40px;
+    height: 40px;
+    margin: 0 15px;
+}
+
+
+/* Conteúdo principal */
+main {
+    margin: 7rem auto 2rem; /* Adiciona margem para não sobrepor o cabeçalho */
+    padding: 2rem;
+    max-width: 1100px; /* Reduz a largura máxima para centralizar melhor */
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Títulos */
+h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #444;
+}
+
+/* Formulário */
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Divide em duas colunas */
+    gap: 2rem;
+    padding: 0 2rem; /* Adiciona espaçamento interno simétrico */
+}
+
+/* Labels e inputs */
+label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #555;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+    width: 90%; /* Reduz a largura dos inputs para criar espaço extra */
+    max-width: 300px; /* Limita a largura máxima */
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    margin: 0 auto; /* Centraliza os inputs dentro do espaço disponível */
+}
+
+/* Caixa de seleção */
+.event-selection select {
+    height: 120px;
+    overflow-y: auto;
+}
+
+/* Grupo de checkboxes */
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Duas colunas */
+    gap: 1rem;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.2);
+}
+
+/* Escolha de formato */
+.file-format {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Ajuste dos inputs radio */
+input[type="radio"] {
+    transform: scale(1.2);
+    margin: 5px 10px; /* Ajusta margem vertical e horizontal */
+    position: relative;
+}
+
+/* Para mover com translate */
+input[type="radio"] {
+    transform: scale(1.2) translate(5px, -3px); /* Move horizontalmente e verticalmente */
+}
+
+/* Contêiner dos botões */
+.buttons {
+    position: absolute; /* Posicionamento absoluto em relação ao container pai */
+    bottom: 60px; /* Distância ajustada do canto inferior */
+    right: 500px; /* Distância do canto direito */
+    display: flex;
+    gap: 1rem; /* Espaçamento entre os botões */
+}
+
+/* Botões */
+button {
+    padding: .8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.btn-reset {
+    background-color: #ccc;
+    color: #333;
+}
+
+.btn-submit {
+    background-color: #4caf94;
+    color: #fff;
+}
+
+/* Nota */
+.note {
+    position: absolute; /* Posicionamento absoluto */
+    bottom: 30px; /* Colocado abaixo dos botões */
+    right: 390px; /* Alinhado ao lado direito */
+    text-align: left; /* Alinha o texto à esquerda */
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    form {
+        grid-template-columns: 1fr; /* Uma coluna em telas menores */
+        padding: 0 1rem; /* Ajusta o espaçamento interno em telas pequenas */
+    }
+
+    .buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+.error {
+    margin-top: 5px;
+    display: block;
+}
