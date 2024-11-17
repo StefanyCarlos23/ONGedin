@@ -3,10 +3,18 @@ const campos = document.querySelectorAll('.required')
 const spans = document.querySelectorAll('.span-required')
 const ratingRadios = document.getElementsByName('rating')
 
+const urlParams = new URLSearchParams(window.location.search);
+const eventId = urlParams.get('id_evento');
+
+if (eventId) {
+    document.getElementById('back-btn').href = `event-details-volunteer.php?id_evento=${eventId}`;
+} else {
+    document.getElementById('back-btn').href = 'event-details-volunteer.php';
+}
+
 function btnRegisterOnClick(event) {
     let hasError = false;
 
-    // Verificar se a avaliação foi selecionada
     let ratingSelected = false;
     for (let i = 0; i < ratingRadios.length; i++) {
         if (ratingRadios[i].checked) {
