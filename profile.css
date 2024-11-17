@@ -68,24 +68,24 @@ header {
 .profile-container {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centraliza verticalmente */
-    align-items: center; /* Centraliza horizontalmente */
-    margin: 2rem auto; /* Espaço entre a box e nav/footer */
+    justify-content: center;
+    align-items: center; 
+    margin: 2rem auto;
     padding: 2rem;
     background-color: #fff;
-    width: 80%; /* Largura da box ajustada */
-    max-width: 1200px; /* Tamanho máximo */
+    width: 80%;
+    max-width: 1200px;
     border-radius: 25px;
     box-shadow: 3px 3px 2em rgba(0, 0, 0, 0.3);
-    overflow-y: auto; /* Permite rolagem caso o conteúdo ultrapasse a altura */
+    overflow-y: auto;
 }
 
 .profile-header {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centraliza horizontalmente a imagem e informações */
-    text-align: center; /* Alinha o texto de nome e botão */
-    gap: 1rem; /* Espaço maior entre imagem e informações */
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
     width: 100%;
     border-bottom: 1px solid #ddd;
     padding-bottom: 2rem;
@@ -102,7 +102,7 @@ header {
 
 .profile-info h1 {
     margin: 0;
-    font-size: 2rem; /* Nome maior */
+    font-size: 2rem;
     color: #87BFC7;
 }
 
@@ -122,13 +122,13 @@ header {
 
 .event-history {
     width: 100%;
-    margin-top: 3rem; /* Espaço maior entre seções */
-    text-align: center; /* Centraliza o título e a lista */
+    margin-top: 3rem;
+    text-align: center;
 }
 
 .event-history h2 {
     font-size: 1.8rem;
-    margin-bottom: 2rem; /* Mais espaço abaixo do título */
+    margin-bottom: 2rem;
     color: #87BFC7;
 }
 
@@ -136,15 +136,15 @@ header {
     list-style: none;
     padding: 0;
     margin: 0;
-    display: inline-block; /* Garante que a lista de eventos fique centralizada */
+    display: inline-block;
 }
 
 .event-list li {
     margin-bottom: 2rem;
     padding: 2rem;
     background-color: #f6f6f6;
-    border-left: 6px solid #87BFC7; /* Borda mais grossa */
-    border-radius: 8px; /* Bordas mais arredondadas */
+    border-left: 6px solid #87BFC7;
+    border-radius: 8px;
     font-size: 1rem;
     color: #666;
 }
@@ -163,4 +163,22 @@ footer {
 footer p {
     color: #666666;
     font-size: 14px;
+}
+
+.logout-section {
+    margin-top: 2rem;
+}
+
+.logout-section button {
+    padding: 0.7rem 1.5rem;
+    background-color: #FF4C4C;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.logout-section button:hover {
+    background-color: #FF2D2D;
 }

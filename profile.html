@@ -58,6 +58,10 @@
                 </li>
             </ul>
         </section>
+
+        <section class="logout-section">
+            <button onclick="logout()">Sair</button>
+        </section>
     </main>
 
     <footer>
@@ -80,6 +84,10 @@
             if (newName) {
                 document.getElementById('user-name').textContent = newName;
             }
+        }
+
+        function logout() {
+            window.location.href = 'login.html';
         }
     </script>
 </body>
