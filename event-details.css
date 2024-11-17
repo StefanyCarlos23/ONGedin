@@ -204,7 +204,7 @@ button{
     text-align: center;
 }
 
-.event-left p {
+.event-left .ong {
     margin-bottom: 15px;
     font-size: 18px;
     color: #666666;
@@ -220,7 +220,7 @@ button{
     flex: 1;
     border-radius: 25px;
     box-shadow: 2px 2px 0.8em rgba(47, 47, 47, 0.3);
-    height: 200px;
+    height: 250px;
     overflow: hidden;
     margin-top: 20px;
 }
@@ -237,7 +237,7 @@ button{
     padding-left: 50px;
 }
 
-.event-right h3 {
+.event-right .nome-ong {
     margin-bottom: 20px;
     color: #87BFC7;
     font-size: 28px;
@@ -279,6 +279,170 @@ button{
 .event-details .event-button .btn:active {
     color: #666666;
     background-color: #4d909a;
+}
+
+.more {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    margin-bottom: 80px;
+    width: 84%;
+}
+
+.more .event-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    flex: 1;
+}
+
+.more .event-left .title{
+    font-size: 20px;
+    color: #666666;
+}
+
+.more .event-left .none {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+}
+
+.event-item {
+    display: flex;
+    flex-direction: row;
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 300px;
+}
+
+.event-nome {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    margin-left: 20px;
+    white-space: nowrap;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.event-nome p {
+    color: #666666;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.ver-mais {
+    padding: 10px 15px;
+    background-color: #b9b9b9;
+    color: white;
+    border: none;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 10px;
+    transition: color 0.1s;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.ver-mais:hover {
+    background-color: #909090;
+    transition: 0.4s;
+}
+
+.ver-mais:active {
+    color: #666666;
+    background-color: #909090;
+}
+
+.more .event-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    flex: 2;
+    color: #666666;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.more .event-right h3 {
+    font-weight: bold;
+    text-align: center;
+    color: #87BFC7;
+    font-size: 28px;
+}
+
+.rating-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    gap: 20px;
+    width: 100%;
+    padding: 20px;
+}
+
+.rating {
+    width: 100%;
+}
+
+.rating label {
+    display: block;
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.rating select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+    color: #333;
+    appearance: none;
+    cursor: pointer;
+}
+
+textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    resize: none;
+    min-height: 100px;
+}
+
+.more .btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.more .btn:hover {
+    background-color: #45a049;
 }
 
 footer{

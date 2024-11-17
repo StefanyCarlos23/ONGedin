@@ -169,6 +169,41 @@ $eventosSimilares = [];
 while ($evento = $result_similares->fetch_assoc()) {
     $eventosSimilares[] = $evento;
 }
+
+$titulo_evento = $_GET['titulo'];
+
+$sqlEvento = "SELECT id_evento FROM evento WHERE titulo = ?";
+$stmtEvento = $conn->prepare($sqlEvento);
+$stmtEvento->bind_param("s", $titulo_evento);
+$stmtEvento->execute();
+$resultEvento = $stmtEvento->get_result();
+$id_evento = "";
+
+if ($resultEvento->num_rows > 0) {
+    $rowEvento = $resultEvento->fetch_assoc();
+    $id_evento = $rowEvento['id_evento'];
+} else {
+    echo "Evento não encontrado.";
+    exit;
+}
+
+$sqlFeedbacks = "SELECT u.nome AS usuario, a.data_avaliacao AS data, a.nota, a.comentario
+                FROM avaliacao a
+                JOIN voluntario v ON a.id_voluntario = v.id_voluntario
+                JOIN usuario u ON u.id_usuario = a.id_voluntario
+                WHERE a.id_evento = ?";
+$stmtFeedbacks = $conn->prepare($sqlFeedbacks);
+$stmtFeedbacks->bind_param("i", $id_evento);
+$stmtFeedbacks->execute();
+$resultFeedbacks = $stmtFeedbacks->get_result();
+
+$feedbacks = [];
+while ($rowFeedback = $resultFeedbacks->fetch_assoc()) {
+    $feedbacks[] = $rowFeedback;
+}
+
+$stmtEvento->close();
+$stmtFeedbacks->close();
 ?>
 
 <!DOCTYPE html>
@@ -733,24 +768,25 @@ while ($evento = $result_similares->fetch_assoc()) {
         </div>
 
         <div class="event-right">
-            <h3>Deixe sua Avaliação</h3>
-            <form action="submit-feedback.php" method="POST">
-                <div class="rating-container">
-                    <div class="rating">
-                        <label for="rating">Nota:</label>
-                        <select name="rating" id="rating">
-                            <option value="">Escolha uma nota</option>
-                            <option value="1">1 - Muito ruim</option>
-                            <option value="2">2 - Ruim</option>
-                            <option value="3">3 - Regular</option>
-                            <option value="4">4 - Bom</option>
-                            <option value="5">5 - Excelente</option>
-                        </select>
-                    </div>
-                    <textarea name="feedback" rows="4" placeholder="Escreva seu comentário aqui..."></textarea>
-                    <button type="submit" class="btn">Enviar Avaliação</button>
-                </div>
-            </form>
+            <h3>Feedbacks</h3>
+            <div class="feedback-container">
+                <?php if (!empty($feedbacks)): ?>
+                    <?php foreach ($feedbacks as $feedback): ?>
+                        <div class="feedback-item">
+                            <p><strong>Nome do Usuário:</strong> <?= htmlspecialchars($feedback['nome']) ?></p>
+                            <p><strong>Data da avaliação:</strong> <?= htmlspecialchars(date('d/m/Y', strtotime($feedback['data']))) ?></p>
+                            <p><strong>Nota:</strong> <?= htmlspecialchars($feedback['nota']) ?></p>
+                            <p><strong>Comentário:</strong> <?= nl2br(htmlspecialchars($feedback['comentario'])) ?></p>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p class="none">Nenhum feedback disponível.</p>
+                <?php endif; ?>
+            </div>
+
+            <div class="feedback-button-container">
+                <button class="btn-feedback" id="feedback-btn" onclick="submitFeedback()">Realizar Feedback</button>
+            </div>
         </div>
     </section>
     <script src="event-details.js"></script>

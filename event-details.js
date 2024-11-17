@@ -31,6 +31,28 @@ function activateNotifications() {
     btnNotificacoes.disabled = true;
 }
 
+function submitFeedback() {
+    if (!isLoggedIn) {
+        alert("Você precisa estar logado para realizar o feedback.");
+        return;
+    }
+
+    if (!isSubscribed) {
+        alert("Você precisa estar inscrito no evento para realizar o feedback.");
+        return;
+    }
+
+    const eventIdElement = document.getElementById('id_evento');
+    const eventId = eventIdElement ? eventIdElement.value : null;
+
+    if (!eventId) {
+        alert("Erro ao localizar o ID do evento.");
+        return;
+    }
+
+    window.location.href = `feedback-form.php?id_evento=${eventId}`;
+}
+
 function showSuggestions(term) {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {
