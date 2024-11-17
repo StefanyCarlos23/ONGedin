@@ -1,5 +1,38 @@
 <?php
+session_start();
 include('connection.php');
+
+$usuarioLogado = isset($_SESSION['id_usuario']) ? $_SESSION['id_usuario'] : null;
+$inscritoNoEvento = false;
+
+if ($usuarioLogado) {
+    $sqlInscricao = "SELECT * FROM inscricao_evento WHERE id_usuario = ? AND id_evento = ?";
+    $stmtInscricao = $conn->prepare($sqlInscricao);
+    $stmtInscricao->bind_param("ii", $usuarioLogado, $eventoId);
+    $stmtInscricao->execute();
+    $resultInscricao = $stmtInscricao->get_result();
+    if ($resultInscricao->num_rows > 0) {
+        $inscritoNoEvento = true;
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['feedback'])) {
+    $feedback = htmlspecialchars($_POST['feedback']);
+    $usuarioId = $_SESSION['id_usuario'];
+    $eventoId = $_GET['id_evento'];
+
+    $sql = "INSERT INTO feedbacks (id_usuario, id_evento, feedback) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('iis', $usuarioId, $eventoId, $feedback);
+
+    if ($stmt->execute()) {
+        echo "Feedback enviado com sucesso!";
+        header('Location: event-details.php?titulo=' . urlencode($eventoId));
+        exit;
+    } else {
+        echo "Erro ao enviar o feedback. Tente novamente.";
+    }
+}
 
 function getSuggestions($conn, $term) {
     $results = [];
@@ -369,7 +402,7 @@ while ($evento = $result_similares->fetch_assoc()) {
         flex: 1;
         border-radius: 25px;
         box-shadow: 2px 2px 0.8em rgba(47, 47, 47, 0.3);
-        height: 200px;
+        height: 250px;
         overflow: hidden;
         margin-top: 20px;
     }
@@ -386,7 +419,7 @@ while ($evento = $result_similares->fetch_assoc()) {
         padding-left: 50px;
     }
 
-    .event-right h3 {
+    .event-right .nome-ong {
         margin-bottom: 20px;
         color: #87BFC7;
         font-size: 28px;
@@ -436,7 +469,7 @@ while ($evento = $result_similares->fetch_assoc()) {
         align-items: center;
         margin: 0 auto;
         margin-bottom: 80px;
-        width: 80%;
+        width: 84%;
     }
 
     .more .event-left {
@@ -512,6 +545,88 @@ while ($evento = $result_similares->fetch_assoc()) {
         background-color: #909090;
     }
 
+    .more .event-right {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        flex: 2;
+        color: #666666;
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .more .event-right h3 {
+        font-weight: bold;
+        text-align: center;
+        color: #87BFC7;
+        font-size: 28px;
+    }
+
+    .rating-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        gap: 20px;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .rating {
+        width: 100%;
+    }
+
+    .rating label {
+        display: block;
+        font-size: 18px;
+        color: #555;
+        margin-bottom: 10px;
+    }
+
+    .rating select {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background-color: #fff;
+        color: #333;
+        appearance: none;
+        cursor: pointer;
+    }
+
+    textarea {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        resize: none;
+        min-height: 100px;
+    }
+
+    .more .btn {
+        width: 100%;
+        padding: 12px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #4CAF50;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .more .btn:hover {
+        background-color: #45a049;
+    }
+
     footer{
         border-top: 3px solid #87BFC7;
         background-color: #F6F6F6;
@@ -574,7 +689,7 @@ while ($evento = $result_similares->fetch_assoc()) {
                         </div>
                     </div>
                     <div class="event-right">
-                        <h3><?php echo htmlspecialchars($eventDetails['titulo']); ?></h3>
+                        <h3 class="nome-ong"><?php echo htmlspecialchars($eventDetails['titulo']); ?></h3>
                         <div class="event-details-list">
                             <p><strong>Data:</strong> <?php echo $dataEvento->format('d/m/Y'); ?></p>
                             <p><strong>Horário:</strong> <?php echo $horario->format('H\hi'); ?></p>
@@ -615,6 +730,26 @@ while ($evento = $result_similares->fetch_assoc()) {
             <?php else: ?>
                 <p class="none">Nenhum evento encontrado.</p>
             <?php endif; ?>
+        </div>
+
+        <div class="event-right">
+            <h3>Deixe sua Avaliação</h3>
+            <form action="submit-feedback.php" method="POST">
+                <div class="rating-container">
+                    <div class="rating">
+                        <label for="rating">Nota:</label>
+                        <select name="rating" id="rating">
+                            <option value="1">1 - Muito ruim</option>
+                            <option value="2">2 - Ruim</option>
+                            <option value="3">3 - Regular</option>
+                            <option value="4">4 - Bom</option>
+                            <option value="5">5 - Excelente</option>
+                        </select>
+                    </div>
+                    <textarea name="feedback" rows="4" placeholder="Escreva seu comentário aqui..."></textarea>
+                    <button type="submit" class="btn">Enviar Avaliação</button>
+                </div>
+            </form>
         </div>
     </section>
     <script src="event-details.js"></script>
