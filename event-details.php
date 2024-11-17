@@ -86,6 +86,56 @@ if ($eventDetails) {
     $fotoOng = $ongDetails['foto'];
     $nomeOng = htmlspecialchars($ongDetails['nome_ong']);
 }
+
+$nomeEvento = $_GET['titulo'];
+
+$sql_evento = "SELECT id_evento FROM evento WHERE titulo = ?";
+$stmt_evento = $conn->prepare($sql_evento);
+$stmt_evento->bind_param("s", $nomeEvento);
+$stmt_evento->execute();
+$result_evento = $stmt_evento->get_result();
+
+if ($result_evento->num_rows > 0) {
+    $row = $result_evento->fetch_assoc();
+    $eventoId = $row['id_evento'];
+} else {
+    echo "Erro: Evento não encontrado!";
+    exit;
+}
+
+$sql_ong = "SELECT ong.area_atuacao 
+            FROM administrador_ong ong
+            JOIN admin_ong_cadastra_evento aoce ON aoce.id_admin_ong = ong.id_admin_ong
+            JOIN evento e ON e.id_evento = aoce.id_evento
+            WHERE e.id_evento = ?";
+$stmt = $conn->prepare($sql_ong);
+$stmt->bind_param("i", $eventoId);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$areaAtuacao = '';
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $areaAtuacao = $row['area_atuacao'];
+} else {
+    echo "Evento não encontrado!";
+    exit;
+}
+
+$sql_eventos_similares = "SELECT e.id_evento, e.titulo 
+                          FROM evento e
+                          JOIN admin_ong_cadastra_evento aoce ON aoce.id_evento = e.id_evento
+                          JOIN administrador_ong ong ON ong.id_admin_ong = aoce.id_admin_ong
+                          WHERE ong.area_atuacao = ? AND e.id_evento != ?";
+$stmt_similares = $conn->prepare($sql_eventos_similares);
+$stmt_similares->bind_param("si", $areaAtuacao, $eventoId);
+$stmt_similares->execute();
+$result_similares = $stmt_similares->get_result();
+
+$eventosSimilares = [];
+while ($evento = $result_similares->fetch_assoc()) {
+    $eventosSimilares[] = $evento;
+}
 ?>
 
 <!DOCTYPE html>
@@ -465,6 +515,23 @@ if ($eventDetails) {
                 </div>
             <?php else: ?>
                 <p>Evento não encontrado.</p>
+            <?php endif; ?>
+        </div>
+    </section>
+    <section class="more">
+        <div class="event-left">
+            <h3 class="title">Eventos Parecidos</h3>
+            <?php if (!empty($eventosSimilares)): ?>
+                <?php foreach ($eventosSimilares as $index => $evento): ?>
+                    <div class="event-item" id="evento<?= $index + 1 ?>">
+                        <div class="event-nome">
+                            <p><?= $evento['titulo'] ?></p>
+                            <a href="event-details.php?titulo=<?= urlencode($evento['titulo']); ?>" class="ver-mais">Ver mais</a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p class="none">Nenhum evento encontrado.</p>
             <?php endif; ?>
         </div>
     </section>
