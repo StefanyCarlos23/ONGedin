@@ -2,11 +2,13 @@
 include('connection.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $id_evento = $_GET['id_evento'] ?? null;
+
+    $id_voluntario = 7;
+
     $rating = $_POST['rating'];
     $description = $_POST['description'] ?? null;
-    $id_voluntario = $_SESSION['id_voluntario'];
-    $id_evento = $_POST['id_evento'];
-
 
     $stmt = $conn->prepare(
         "INSERT INTO avaliacao (id_voluntario, id_evento, nota, comentario, data_avaliacao) 
