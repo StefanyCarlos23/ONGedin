@@ -191,7 +191,8 @@ $sqlFeedbacks = "SELECT u.nome AS usuario, a.data_avaliacao AS data, a.nota, a.c
                 FROM avaliacao a
                 JOIN voluntario v ON a.id_voluntario = v.id_voluntario
                 JOIN usuario u ON u.id_usuario = a.id_voluntario
-                WHERE a.id_evento = ?";
+                WHERE a.id_evento = ?
+                ORDER BY RAND() LIMIT 3";
 $stmtFeedbacks = $conn->prepare($sqlFeedbacks);
 $stmtFeedbacks->bind_param("i", $id_evento);
 $stmtFeedbacks->execute();
@@ -202,6 +203,7 @@ while ($rowFeedback = $resultFeedbacks->fetch_assoc()) {
     $feedbacks[] = $rowFeedback;
 }
 
+shuffle($feedbacks);
 $stmtEvento->close();
 $stmtFeedbacks->close();
 ?>
