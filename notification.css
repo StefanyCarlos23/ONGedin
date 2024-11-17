@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
-/* Reset Básico */
 * {
     margin: 0;
     padding: 0;
@@ -15,7 +14,6 @@ body {
     color: #333;
 }
 
-/* Estilo do Cabeçalho */
 nav {
     background-color: #ffffff;
     display: flex;
@@ -40,7 +38,7 @@ nav ul .ul-text a {
 
 nav ul .ul-text a:not(.btn)::after {
     content: "";
-    background-color: #87BFC7; /* Cor primária */
+    background-color: #87BFC7;
     height: 2px;
     width: 0;
     display: block;
@@ -63,7 +61,6 @@ nav ul a img {
     margin: 0 15px;
 }
 
-/* Estilo da seção de Banner */
 header {
     background-position: center;
     background-size: cover;
@@ -73,7 +70,7 @@ header {
 .banner {
     padding: 80px 0;
     text-align: center;
-    background-color: #87BFC7; /* Tom ciano */
+    background-color: #87BFC7;
 }
 
 .banner .banner-text {
@@ -93,15 +90,13 @@ header {
     margin-top: 10px;
 }
 
-/* Estilo das Seções do Conteúdo */
 main {
     padding: 40px 0;
     background-color: #ffffff;
 }
 
-/* Títulos */
 h2 {
-    color: #87BFC7; /* Cor primária */
+    color: #87BFC7;
     margin: 30px 0;
     text-align: center;
     font-size: 32px;
@@ -117,7 +112,7 @@ h3 {
 
 p, ul {
     margin-bottom: 15px;
-    text-align: center; /* Centraliza texto */
+    text-align: center;
 }
 
 ul {
@@ -126,7 +121,6 @@ ul {
     margin-top: 10px;
 }
 
-/* Estilo do Rodapé */
 footer {
     border-top: 3px solid #87BFC7;
     background-color: #F6F6F6;
@@ -143,7 +137,6 @@ footer p {
     font-size: 14px;
 }
 
-/* Seções Específicas */
 #faq, #contato, #redes-sociais, #apoio-tecnico, #feedback {
     background-color: white;
     border-radius: 10px;
@@ -165,10 +158,9 @@ footer p {
     margin: 10px 0;
 }
 
-/* Estilo das Notificações */
 .notifications {
     padding: 20px;
-    background-color: #f4f7fb; /* Cor de fundo mais suave */
+    background-color: #f4f7fb;
 }
 
 .notifications h2 {
@@ -217,7 +209,7 @@ footer p {
 .clear-notifications {
     margin-top: 20px;
     padding: 12px 25px;
-    background-color: #87BFC7; /* Cor do botão */
+    background-color: #87BFC7;
     color: white;
     border: none;
     border-radius: 5px;
@@ -230,7 +222,6 @@ footer p {
     background-color: #87BFC7;
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
     .banner .banner-text h1 {
         font-size: 50px;
