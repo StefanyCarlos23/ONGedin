@@ -1,0 +1,166 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    outline: none;
+}
+
+body {
+    background-color: #87BFC7;
+    font-family: "Inter", sans-serif;
+    color: #333;
+}
+
+nav {
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    display: flex;
+    align-items: center;
+}
+
+nav ul .ul-text a {
+    color: #333;
+    margin: 0 20px;
+    font-size: 18px;
+    font-weight: 500;
+    position: relative;
+}
+
+nav ul .ul-text a:not(.btn)::after {
+    content: "";
+    background-color: #87BFC7;
+    height: 2px;
+    width: 0;
+    display: block;
+    margin: 0 auto;
+    transition: 0.3s;
+}
+
+nav ul .ul-text a:hover::after {
+    width: 100%;
+}
+
+nav a img {
+    width: 90px;
+    height: 90px;
+}
+
+nav ul a img {
+    width: 40px;
+    height: 40px;
+    margin: 0 15px;
+}
+
+header {
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center; /* Centraliza horizontalmente */
+    margin: 2rem auto; /* Espaço entre a box e nav/footer */
+    padding: 2rem;
+    background-color: #fff;
+    width: 80%; /* Largura da box ajustada */
+    max-width: 1200px; /* Tamanho máximo */
+    border-radius: 25px;
+    box-shadow: 3px 3px 2em rgba(0, 0, 0, 0.3);
+    overflow-y: auto; /* Permite rolagem caso o conteúdo ultrapasse a altura */
+}
+
+.profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza horizontalmente a imagem e informações */
+    text-align: center; /* Alinha o texto de nome e botão */
+    gap: 1rem; /* Espaço maior entre imagem e informações */
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 2rem;
+}
+
+.profile-picture img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #87BFC7;
+    cursor: pointer;
+}
+
+.profile-info h1 {
+    margin: 0;
+    font-size: 2rem; /* Nome maior */
+    color: #87BFC7;
+}
+
+.profile-info button {
+    margin-top: 1rem;
+    padding: 0.7rem 1.5rem;
+    background-color: #87BFC7;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.profile-info button:hover {
+    background-color: #87BFC7;
+}
+
+.event-history {
+    width: 100%;
+    margin-top: 3rem; /* Espaço maior entre seções */
+    text-align: center; /* Centraliza o título e a lista */
+}
+
+.event-history h2 {
+    font-size: 1.8rem;
+    margin-bottom: 2rem; /* Mais espaço abaixo do título */
+    color: #87BFC7;
+}
+
+.event-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: inline-block; /* Garante que a lista de eventos fique centralizada */
+}
+
+.event-list li {
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background-color: #f6f6f6;
+    border-left: 6px solid #87BFC7; /* Borda mais grossa */
+    border-radius: 8px; /* Bordas mais arredondadas */
+    font-size: 1rem;
+    color: #666;
+}
+
+footer {
+    border-top: 3px solid #87BFC7;
+    background-color: #F6F6F6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90px;
+    text-align: center;
+    padding: 20px 0;
+}
+
+footer p {
+    color: #666666;
+    font-size: 14px;
+}
