@@ -798,6 +798,7 @@ $stmtFeedbacks->close();
                 <?php endif; ?>
             </div>
             <div class="feedback-button-container">
+                <input type="hidden" id="id_evento" value="<?= $eventoId ?>">
                 <button class="btn-feedback" id="feedback-btn" onclick="submitFeedback()">Realizar Feedback</button>
             </div>
         </div>

@@ -52,7 +52,7 @@
         
                 <section class="btn">
                     <div class="btn-back">
-                        <a class="back-btn" href="event-details.php">Voltar</a>
+                        <a class="back-btn" href="event-details-volunteer.php">Voltar</a>
                     </div>
                 </section>
 
@@ -111,4 +111,3 @@
     </footer>
 </body>
 </html>
-

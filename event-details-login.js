@@ -10,8 +10,8 @@ function subscribeEvent() {
         
     if (!isSubscribed) {
         isSubscribed = true;
-        document.getElementById("inscrever-btn").innerText = "Inscrito";
-        document.getElementById("inscrever-btn").style.backgroundColor = "#b9b9b9";
+        document.getElementById("subscribe-btn").innerText = "Inscrito";
+        document.getElementById("subscribe-btn").style.backgroundColor = "#b9b9b9";
         showNotificationButton();
     }
 }
@@ -21,7 +21,7 @@ function showNotificationButton() {
     btnNotificacoes.innerText = "Ativar Notificações";
     btnNotificacoes.id = "notificacoes-btn";
     btnNotificacoes.style.marginLeft = "10px";
-    btnNotificacoes.onclick = ativarNotificacoes;
+    btnNotificacoes.onclick = activateNotifications;
     document.querySelector(".image-btn").appendChild(btnNotificacoes);
 }
 
@@ -50,7 +50,7 @@ function submitFeedback() {
         return;
     }
 
-    window.location.href = `feedback-form.php?id_evento=${eventId}`;
+    window.location.href = `form-feedback.php?id_evento=${eventId}`;
 }
 
 function showSuggestions(term) {
