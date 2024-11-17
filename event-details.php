@@ -585,14 +585,13 @@ $stmtFeedbacks->close();
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 100%;
         flex: 2;
         color: #666666;
-        background-color: #f9f9f9;
         padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         text-align: center;
+        max-width: 700px;
+        margin-left: 100px;
+        margin-right: 60px;  
     }
 
     .more .event-right h3 {
@@ -602,64 +601,47 @@ $stmtFeedbacks->close();
         font-size: 28px;
     }
 
-    .rating-container {
+    .feedback-container {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: space-around;
         gap: 20px;
         width: 100%;
-        padding: 20px;
     }
 
-    .rating {
-        width: 100%;
-    }
-
-    .rating label {
-        display: block;
-        font-size: 18px;
-        color: #555;
-        margin-bottom: 10px;
-    }
-
-    .rating select {
-        width: 100%;
-        padding: 12px;
-        font-size: 16px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
+    .feedback-item {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
         background-color: #fff;
-        color: #333;
-        appearance: none;
-        cursor: pointer;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        margin: 20px 0;
     }
 
-    textarea {
-        width: 100%;
-        padding: 12px;
+    .part1 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .part2 {
+        display: block;
+        gap: 15px;
+        justify-content: flex-start;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .part2 p {
+        padding: 5px 0;
+    }
+
+    .more .event-right .none {
+        margin: 40px 0;
         font-size: 16px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        resize: none;
-        min-height: 100px;
-    }
-
-    .more .btn {
-        width: 100%;
-        padding: 12px;
-        font-size: 18px;
-        font-weight: bold;
-        color: #fff;
-        background-color: #4CAF50;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    .more .btn:hover {
-        background-color: #45a049;
+        color: #666;
     }
 
     footer{
@@ -768,22 +750,27 @@ $stmtFeedbacks->close();
         </div>
 
         <div class="event-right">
-            <h3>Feedbacks</h3>
+            <h3>Faça a sua avaliação!</h3>
             <div class="feedback-container">
                 <?php if (!empty($feedbacks)): ?>
                     <?php foreach ($feedbacks as $feedback): ?>
                         <div class="feedback-item">
-                            <p><strong>Nome do Usuário:</strong> <?= htmlspecialchars($feedback['nome']) ?></p>
-                            <p><strong>Data da avaliação:</strong> <?= htmlspecialchars(date('d/m/Y', strtotime($feedback['data']))) ?></p>
-                            <p><strong>Nota:</strong> <?= htmlspecialchars($feedback['nota']) ?></p>
-                            <p><strong>Comentário:</strong> <?= nl2br(htmlspecialchars($feedback['comentario'])) ?></p>
+                            <div class="part1">
+                                <p><strong>Nome do Usuário:</strong> <?= htmlspecialchars($feedback['usuario']) ?></p>
+                                <p><strong>Data da avaliação:</strong> <?= htmlspecialchars(date('d/m/Y', strtotime($feedback['data']))) ?></p>
+                            </div>
+                            <div class="part2">
+                                <p><strong>Nota:</strong> <?= htmlspecialchars($feedback['nota']) ?></p>
+                                <div class="comentario-container">
+                                    <p><strong>Comentário:</strong> <?= nl2br(htmlspecialchars($feedback['comentario'])) ?></p>
+                                </div>
+                            </div>
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <p class="none">Nenhum feedback disponível.</p>
+                    <p class="none">Nenhuma avaliação disponível.</p>
                 <?php endif; ?>
             </div>
-
             <div class="feedback-button-container">
                 <button class="btn-feedback" id="feedback-btn" onclick="submitFeedback()">Realizar Feedback</button>
             </div>
