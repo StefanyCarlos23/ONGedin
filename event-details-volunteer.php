@@ -683,17 +683,16 @@ $stmtFeedbacks->close();
     <header>
         <div class="nav-container">
             <nav class="nav">
-                <a href="home-without-login.php">
+                <a href="home-volunteer.php">
                     <img src="images/ongedin-logo-2.png" alt="ongedin-logo">
                 </a>
                 <ul class="ul">
                     <ul class="ul-text">
-                        <a href="home-without-login.php">Início</a>
-                        <a href="search-without-login.php">Pesquisar</a>
-                        <a href="choose-register.php">Cadastrar-se</a>
-                        <a href="help-without-login.php">Suporte</a>
+                        <a href="home-volunteer.php">Início</a>
+                        <a href="search-volunteer.php">Pesquisar</a>
+                        <a href="help-volunteer.php">Suporte</a>
                     </ul>
-                    <a href="login.php">
+                    <a href="profile-volunteer.php">
                         <img src="images/perfil.png" alt="ongedin-logo">
                     </a>
                 </ul>
@@ -703,9 +702,9 @@ $stmtFeedbacks->close();
 
     <section class="search-bar">
         <div class="search">
-            <a class="back-btn" href="home-without-login.php">Voltar</a>
+            <a class="back-btn" href="home-volunteer.php">Voltar</a>
             <div class="form">
-                <form action="search-without-login.php" method="GET">
+                <form action="search-volunteer.php" method="GET">
                     <div class="search-container">
                         <input class="search-text" type="text" id="search-input" name="searchTerm" placeholder="Insira o nome da ONG ou título do evento" oninput="showSuggestions(this.value)" value="<?php echo isset($_GET['searchTerm']) ? htmlspecialchars($_GET['searchTerm']) : ''; ?>">
                         <div id="suggestions" class="suggestions"></div>
@@ -766,7 +765,7 @@ $stmtFeedbacks->close();
                     <div class="event-item" id="evento<?= $index + 1 ?>">
                         <div class="event-nome">
                             <p><?= $evento['titulo'] ?></p>
-                            <a href="event-details.php?titulo=<?= urlencode($evento['titulo']); ?>" class="ver-mais">Ver mais</a>
+                            <a href="event-details-volunteer.php?titulo=<?= urlencode($evento['titulo']); ?>" class="ver-mais">Ver mais</a>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -802,7 +801,7 @@ $stmtFeedbacks->close();
             </div>
         </div>
     </section>
-    <script src="event-details.js"></script>
+    <script src="event-details-login.js"></script>
     <footer>
         <p>&copy; 2024 - ONGedin - Conectando quem transforma o mundo. Todos os direitos reservados.</p>
     </footer>
