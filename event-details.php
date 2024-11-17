@@ -646,6 +646,29 @@ $stmtFeedbacks->close();
         color: #666;
     }
 
+    .btn-feedback {
+        display: block;
+        padding: 10px 15px;
+        background-color: #87BFC7;
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        border-radius: 10px;
+        transition: color 0.1s;
+        border: 1px solid #87BFC7;
+        cursor: pointer;
+    }
+
+    .btn-feedback:active{
+        color: #666666;
+        background-color: #4d909a;
+    }
+
+    .btn-feedback:hover {
+        background-color: #4d909a;
+        transition: 0.4s;
+    }
+
     footer{
         border-top: 3px solid #87BFC7;
         background-color: #F6F6F6;
