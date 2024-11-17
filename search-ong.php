@@ -480,7 +480,7 @@ if ($resultEvents !== false) {
             <?php foreach ($ongsResults as $ong): ?>
                 <div class="event">
                     <div class="image-1">
-                        <a href="<?= $ong['type'] === 'ong' ? 'ong-details.php?title=' . urlencode($ong['nome']) : 'event-details.php?title=' . urlencode($ong['titulo']); ?>">
+                        <a href="<?= $ong['type'] === 'ong' ? 'ongdetails.php?title=' . urlencode($ong['nome']) : 'event-details.php?title=' . urlencode($ong['titulo']); ?>">
                             <img src="<?= $ong['type'] === 'ong' ? $ong['foto'] : 'images/default-image.png'; ?>" alt="Imagem da <?= htmlspecialchars($ong['type'] === 'ong' ? $ong['nome'] : $ong['titulo']); ?>">
                         </a>
                     </div>
@@ -491,7 +491,7 @@ if ($resultEvents !== false) {
                         <div class="more-details">
                             <p><?= htmlspecialchars($ong['type'] === 'ong' ? $ong['descricao'] : $ong['descricao'] ?? 'Descrição não disponível.'); ?></p>
                             <?php if ($ong['type'] === 'ong'): ?>
-                                <a href="ong-details.php?title=<?= urlencode($ong['nome']); ?>" class="btn">Ver mais</a>
+                                <a href="ongdetails.php?title=<?= urlencode($ong['nome']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>" class="btn">Ver mais</a>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -506,7 +506,7 @@ if ($resultEvents !== false) {
                 <?php foreach ($randomOngs as $ong): ?>
                     <div class="event">
                         <div class="image-1">
-                            <a href="ong-details.php?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>">
+                            <a href="ongdetails.php?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>">
                                 <img src="<?= $ong['foto']; ?>" alt="Logo da <?= htmlspecialchars($ong['nome_ong']); ?>">
                             </a>
                         </div>
@@ -516,7 +516,7 @@ if ($resultEvents !== false) {
                             </div>
                             <div class="more-details">
                                 <p><?= htmlspecialchars($ong['descricao']); ?></p>
-                                <a href="ong-details.php?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>" class="btn">Ver mais</a>
+                                <a href="ongdetails.php?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>" class="btn">Ver mais</a>
                             </div>
                         </div>
                     </div>
@@ -609,7 +609,7 @@ if ($resultEvents !== false) {
                             <p><?= isset($event['nome_ong']) ? 'Organizado por: ' . htmlspecialchars($event['nome_ong']) : ''; ?></p>
                         </div>
                         <div class="more-details">
-                            <a href="event-details.php?title=<?= urlencode($event['titulo']); ?>" class="btn">Ver mais</a>
+                            <a href="event-details.php?titulo=<?= urlencode($event['titulo']); ?>" class="btn">Ver mais</a>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -648,7 +648,7 @@ if ($resultEvents !== false) {
                                         <p>Organizado por: <?= htmlspecialchars($row['nome_ong']); ?></p>
                                     </div>
                                     <div class="more-details">
-                                        <a href="event-details.php?title=<?= urlencode($row['titulo']); ?>" class="btn">Ver mais</a>
+                                        <a href="event-details.php?titulo=<?= urlencode($event['titulo']); ?>" class="btn">Ver mais</a>
                                     </div>
                                 </div>
                                 <?php
