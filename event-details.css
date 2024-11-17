@@ -180,7 +180,8 @@ button{
 
 .event-details{
     display: flex;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
     width: 80%;
     margin: 30px auto;
     margin-bottom: 70px;
@@ -202,12 +203,34 @@ button{
     color: #87BFC7;
     font-size: 40px;
     margin: 0 auto;
+    margin-top: 10px;
+}
+
+.more-details {
+    margin-top: 40px;
+    padding-top: 20px;
+    padding-bottom: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.detail-item {
+    font-size: 16px;
+    line-height: 1.5em;
 }
 
 .event-details .event-text p{
-    margin-top: 20px;
     line-height: 1.5em;
     text-align: left;
+}
+
+.event-button {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
 }
 
 .event-details .event-button .btn{

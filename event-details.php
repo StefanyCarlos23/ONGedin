@@ -34,6 +34,30 @@ function getSuggestions($conn, $term) {
 
     return $results;
 }
+
+$eventDetails = null;
+
+function getEventDetails($conn, $titulo) {
+    $queryEvent = $conn->prepare("
+        SELECT e.titulo, e.descricao, e.local_rua, e.local_numero, e.local_complemento, e.local_bairro, 
+            e.local_cidade, e.local_estado, e.local_pais, 
+            ae.data_evento, ae.horario_evento, ao.area_atuacao, ao.endereco_rua, ao.endereco_bairro, ao.endereco_cidade,
+            u.nome
+        FROM evento e
+        JOIN admin_ong_cadastra_evento ae ON e.id_evento = ae.id_evento
+        JOIN administrador_ong ao ON ae.id_admin_ong = ao.id_admin_ong
+        JOIN usuario u ON u.id_usuario = ao.id_admin_ong
+        WHERE e.titulo = ?");
+    $queryEvent->bind_param('s', $titulo);
+    $queryEvent->execute();
+    return $queryEvent->get_result()->fetch_assoc();
+}
+
+if (isset($_GET['titulo'])) {
+    $eventDetails = getEventDetails($conn, $_GET['titulo']);
+}
+
+$horario = new DateTime($eventDetails['horario_evento']);
 ?>
 
 <!DOCTYPE html>
@@ -227,7 +251,8 @@ function getSuggestions($conn, $term) {
 
     .event-details{
         display: flex;
-        align-items: flex-start;
+        justify-content: center;
+        align-items: center;
         width: 80%;
         margin: 30px auto;
         margin-bottom: 70px;
@@ -249,12 +274,34 @@ function getSuggestions($conn, $term) {
         color: #87BFC7;
         font-size: 40px;
         margin: 0 auto;
+        margin-top: 10px;
+    }
+
+    .more-details {
+        margin-top: 40px;
+        padding-top: 20px;
+        padding-bottom: 40px;
+        padding-left: 40px;
+        padding-right: 40px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .detail-item {
+        font-size: 16px;
+        line-height: 1.5em;
     }
 
     .event-details .event-text p{
-        margin-top: 20px;
         line-height: 1.5em;
         text-align: left;
+    }
+
+    .event-button {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
     }
 
     .event-details .event-button .btn{
@@ -334,43 +381,43 @@ function getSuggestions($conn, $term) {
     <section class="event-details">
         <div class="container">
             <div class="event-text">
-                <?php
-                if (isset($_GET['titulo'])) {
-                    $titulo = $_GET['titulo'];
-                    $queryEvent = $conn->prepare("
-                        SELECT e.titulo, e.descricao, e.local_rua, e.local_numero, e.local_complemento, e.local_bairro, 
-                            e.local_cidade, e.local_estado, e.local_pais, 
-                            ae.data_evento, ae.horario_evento, ao.area_atuacao, ao.endereco_rua, ao.endereco_bairro, ao.endereco_cidade
-                        FROM evento e
-                        JOIN admin_ong_cadastra_evento ae ON e.id_evento = ae.id_evento
-                        JOIN administrador_ong ao ON ae.id_admin_ong = ao.id_admin_ong
-                        WHERE e.titulo = ?");
-                    $queryEvent->bind_param('s', $titulo);
-                    $queryEvent->execute();
-                    $resultEvent = $queryEvent->get_result();
-                    
-                    if ($row = $resultEvent->fetch_assoc()) {
-                        echo "<h3>" . htmlspecialchars($row['titulo']) . "</h3>";
-                        echo "<p><strong>Data:</strong> " . htmlspecialchars($row['data_evento']) . "</p>";
-                        echo "<p><strong>Horário:</strong>" . htmlspecialchars($row['horario_evento']) . "</p>";
-                        echo "<p><strong>Descrição:</strong>" . nl2br(htmlspecialchars($row['descricao'])) . "</p>";
-                        echo "<p><strong>Local:</strong>" . htmlspecialchars($row['local_rua']) . ", " . htmlspecialchars($row['local_numero']);
-                        if ($row['local_complemento']) {
-                            echo " - " . htmlspecialchars($row['local_complemento']);
-                        }
-                        echo htmlspecialchars($row['local_bairro']) . ", " . htmlspecialchars($row['local_cidade']) . " - " . htmlspecialchars($row['local_estado']) . ", " . htmlspecialchars($row['local_pais']) . "</p>";
-
-                        echo "<p><strong>ONG responsável:</strong> " . htmlspecialchars($row['area_atuacao']) . "</p>";
-                    } else {
-                        echo "<p>Evento não encontrado.</p>";
-                    }
-                } else {
-                    echo "<p>Detalhes do evento não disponíveis.</p>";
-                }
-                ?>
-            </div>
-            <div class="event-button">
-                <button class="btn" id="subscribe-btn" onclick="subscribeEvent()">Inscrever-se</button>
+                <?php if ($eventDetails): ?>
+                    <h3><?php echo htmlspecialchars($eventDetails['titulo']); ?></h3>
+                    <div class="more-details">
+                        <div class="detail-item">
+                            <p><strong>Data:</strong> <?php echo htmlspecialchars($eventDetails['data_evento']); ?></p>
+                        </div>
+                        <div class="detail-item">
+                            <p><strong>Horário:</strong> <?php echo $horario->format('H\hi'); ?></p>
+                        </div>
+                        <div class="detail-item">
+                            <p><strong>ONG responsável:</strong> <?php echo htmlspecialchars($eventDetails['nome']); ?></p>
+                        </div>
+                        <div class="detail-item">
+                            <p><strong>Descrição:</strong> <?php echo nl2br(htmlspecialchars($eventDetails['descricao'])); ?></p>
+                        </div>
+                        <div class="detail-item">
+                            <p><strong>Local:</strong>
+                                <?php 
+                                    echo htmlspecialchars($eventDetails['local_rua']) . ", " . 
+                                        htmlspecialchars($eventDetails['local_numero']);
+                                    if ($eventDetails['local_complemento']) {
+                                        echo " - " . htmlspecialchars($eventDetails['local_complemento']);
+                                    }
+                                    echo ", " . htmlspecialchars($eventDetails['local_bairro']) . ", " . 
+                                        htmlspecialchars($eventDetails['local_cidade']) . " - " . 
+                                        htmlspecialchars($eventDetails['local_estado']) . ", " . 
+                                        htmlspecialchars($eventDetails['local_pais']);
+                                ?>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="event-button">
+                        <button class="btn" id="subscribe-btn" onclick="subscribeEvent()">Inscrever-se</button>
+                    </div>
+                <?php else: ?>
+                    <p>Evento não encontrado.</p>
+                <?php endif; ?>
             </div>
         </div>
     </section>
