@@ -739,6 +739,7 @@ while ($evento = $result_similares->fetch_assoc()) {
                     <div class="rating">
                         <label for="rating">Nota:</label>
                         <select name="rating" id="rating">
+                            <option value="">Escolha uma nota</option>
                             <option value="1">1 - Muito ruim</option>
                             <option value="2">2 - Ruim</option>
                             <option value="3">3 - Regular</option>
