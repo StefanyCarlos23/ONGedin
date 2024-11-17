@@ -70,7 +70,7 @@ nav ul a img {
     justify-content: center;
     align-items: center;
     min-height: 90vh;
-    padding: 40px 20px; /* Aumentando o padding-top para dar mais espaço no topo */
+    padding: 40px 20px;
 }
 
 main {

@@ -97,7 +97,6 @@ function btnRegisterOnClick(event) {
     if (hasError) {
         event.preventDefault();
     } else {
-
         form.submit();
         document.getElementById('submit').disabled = true;
     }

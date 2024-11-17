@@ -2,61 +2,73 @@ const form = document.getElementById('form')
 const campos = document.querySelectorAll('.required')
 const spans = document.querySelectorAll('.span-required')
 
-function btnRegisterOnClick(event){
+function btnRegisterOnClick(event) {
     let hasError = false;
 
     if (campos[0].value === "") {
-        errorAlert('Preenchimento obrigatório: Nome', 0)
+        errorAlert('Preenchimento obrigatório: Nome', 0);
         hasError = true;
-    } else if (!inputWithoutNumbers(campos[0].value)){
-        inputWithoutNumbersValidate()
+    } else if (!inputWithoutNumbers(campos[0].value)) {
+        inputWithoutNumbersValidate(0);
         hasError = true;
     } else if (campos[1].value === "") {
-        errorAlert('Preenchimento obrigatório: CPF', 1)
+        errorAlert('Preenchimento obrigatório: Descrição', 1);
         hasError = true;
-    } else if (!isCPF(campos[1].value)) {
-        cpfValidate()
+    } else if (!maxLength(campos[1].value)) {
+        maxLengthValidate();        
         hasError = true;
     } else if (campos[2].value === "") {
-        errorAlert('Preenchimento obrigatório: Data de Fundação', 2)
+        errorAlert('Preenchimento obrigatório: Data do Evento', 2);
         hasError = true;
     } else if (!isValidDate(campos[2].value)) {
         dateValidate()
         hasError = true;
     } else if (campos[3].value === "") {
-        errorAlert('Preenchimento obrigatório: Telefone', 3)
+        errorAlert('Preenchimento obrigatório: Rua', 3);
         hasError = true;
-    } else if (!isTelephone(campos[3].value)) {
-        telephoneValidate()
+    } else if (!isRoad(campos[3].value)) {
+        roadValidate();
         hasError = true;
     } else if (campos[4].value === "") {
-        errorAlert('Preenchimento obrigatório: E-mail', 4)
+        errorAlert('Preenchimento obrigatório: Número', 4);
         hasError = true;
-    } else if (!isEmail(campos[4].value)) {
-        emailValidate()
+    } else if (!isNum(parseInt(campos[4].value))) {
+        numValidate();
         hasError = true;
     } else if (campos[5].value === "") {
-        errorAlert('Preenchimento obrigatório: Senha', 5)
+        errorAlert('Preenchimento obrigatório: Bairro', 5);
         hasError = true;
-    } else if (!validPassword(campos[5].value)) {
-        passwordValidate()
+    } else if (!inputWithoutNumbers(campos[5].value)) {
+        inputWithoutNumbersValidate(5);
         hasError = true;
     } else if (campos[6].value === "") {
-        errorAlert('Preenchimento obrigatório: Confirme sua senha', 7)
+        errorAlert('Preenchimento obrigatório: Cidade', 6);
         hasError = true;
-    } else if (campos[5].value !== campos[6].value){
-        confirmPasswordValidate()
+    } else if (!inputWithoutNumbers(campos[6].value)) {
+        inputWithoutNumbersValidate(6);
+        hasError = true;
+    } else if (campos[7].value === "") {
+        errorAlert('Preenchimento obrigatório: Estado', 7);
+        hasError = true;
+    } else if (!inputWithoutNumbers(campos[7].value)) {
+        inputWithoutNumbersValidate(7);
+        hasError = true;
+    } else if (campos[8].value === "") {
+        errorAlert('Preenchimento obrigatório: País', 8);
+        hasError = true;
+    } else if (!inputWithoutNumbers(campos[8].value)) {
+        inputWithoutNumbersValidate(8);
         hasError = true;
     }
 
     if (hasError) {
         event.preventDefault();
     } else {
+
         form.submit();
         document.getElementById('submit').disabled = true;
     }
 }
-
 
 // Function creates a red border on the input where the condition is not met
 function setError(index) {
@@ -88,24 +100,24 @@ function errorAlert(message, index) {
     })
 }
 
-// ----- FUNCTIONS TO VALIDATE THE INPUTS ----- ///
-function inputWithoutNumbersValidate() {
-    if (campos[0].value === "") {
-        removeError(0)
-    } else if (!inputWithoutNumbers(campos[0].value)) {
-        setError(0)
+// ----- FUNCTIONS TO VALIDATE THE INPUTS ----- //
+function inputWithoutNumbersValidate(index) {
+    if (campos[index].value === "") {
+        removeError(index)
+    } else if (!inputWithoutNumbers(campos[index].value)) {
+        setError(index)
     } else {
-        removeError(0)
+        removeError(index)
     }
 }
 
-function cpfValidate(){
+function maxLengthValidate() {
     if (campos[1].value === "") {
-        removeError(1)
-    } else if (!isCPF(campos[1].value)) {
-        setError(1)
-    } else{
-        removeError(1)
+        removeError(1);
+    } else if (!maxLength(campos[1].value)) {
+        setError(1);
+    } else {
+        removeError(1);
     }
 }
 
@@ -119,57 +131,28 @@ function dateValidate() {
     }
 }
 
-function telephoneValidate() {
+
+function roadValidate() {
     if (campos[3].value === "") {
         removeError(3)
-    } else if (!isTelephone(campos[3].value)) {
+    } else if (!isRoad(campos[3].value)) {
         setError(3)
     } else{
         removeError(3)
     }
 }
 
-function emailValidate() {
+function numValidate() {
     if (campos[4].value === "") {
         removeError(4)
-    } else if (!isEmail(campos[4].value)) {
+    } else if (!isNum(campos[4].value)) {
         setError(4)
-    } else {
+    } else{
         removeError(4)
     }
 }
 
-function passwordValidate() {
-    if (campos[5].value === "") {
-        removeError(5)
-    } else if (!validPassword(campos[5].value)) {
-        setError(5)
-    } else{
-        removeError(5)
-    }
-}
-
-function confirmPasswordValidate() {
-    if (campos[6].value === "") {
-        removeError(6)
-    } else if ((campos[5].value !== campos[6].value)) {
-        setError(6)
-    } else{
-        removeError(6)
-    }
-}
-
-// ----- REGEX ----- ///
-// Function to check if the input contains numbers
-function inputWithoutNumbers(name) {
-    const re = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/
-    return re.test(name)
-}
-
-function isCPF(cpf){
-    const re = /^\d{3}\.?\d{3}\.?\d{3}-?\d{2}$/
-    return re.test(cpf) 
-}
+// ----- REGEX ----- //
 
 // Function to check if is a valid date
 function isValidDate(date) {
@@ -195,24 +178,30 @@ function isLeapYear(year) {
     return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
 }
 
-
-function isTelephone(telephone) {
-    const re = /^(\+55\s?)?(55\s?)?\d{2}\s?9?\d{4}-?\d{4}$/
-    return re.test(telephone)
+// Function to check if the input contains numbers
+function inputWithoutNumbers(index) {
+    const re = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/
+    return re.test(index)
 }
 
-// Function to check if is a valid email
-function isEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
-    return re.test(email)
+// Function to check the max length
+function maxLength(input) {
+    const re = /^.{1,1000}$/
+    return re.test(input);
 }
 
-// Function to check if is a valid password
-function validPassword(password) {
-    const re =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&\.])[A-Za-z\d@$!%*?&\.]{8,}$/
-    return re.test(password)
+// Function to check if is a valid road
+function isRoad(road){
+    const re = /^[A-Za-z0-9\s]+$/
+    return re.test(road)
 }
 
+// Function to check if is positive numbers
+function isNum(num) {
+    return !isNaN(num) && num > 0
+}
+
+//----- MENU MOBILE -----//
 const activeClass = "active";
 
 function animateLinks(navLinks) {
@@ -243,5 +232,4 @@ function initMobileNavbar(mobileMenuSelector, navListSelector, navLinksSelector)
   }
 }
 
-// Inicializa o menu mobile
 initMobileNavbar(".mobile-menu", ".nav-list", ".nav-list li");

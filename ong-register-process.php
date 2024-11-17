@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
     include('connection.php');
     echo "Conexão estabelecida.";
 
@@ -22,13 +25,31 @@
         $country = $_POST['country'] ?? '';
         $complement = $_POST['complement'] ?? '';
 
+        if (!empty($fundationDate)) {
+            if (preg_match('/^(\d{2})\/(\d{2})\/(\d{4})$/', $fundationDate, $matches)) {
+                $day = $matches[1];
+                $month = $matches[2];
+                $year = $matches[3];
+    
+                if (checkdate($month, $day, $year)) {
+                    $fundationDate = "$year-$month-$day";
+                } else {
+                    die("Erro: Data inválida.");
+                }
+            } else {
+                die("Erro: Formato de data inválido. Use DD/MM/YYYY.");
+            }
+        } else {
+            die("Erro: Data do evento não foi fornecida.");
+        }
+
         $stmt = $conn->prepare("INSERT INTO usuario (nome, funcao, senha, data_cadastro) VALUES (?, ?, ?, NOW())");
         
         if (!$stmt) {
             die("Erro ao preparar a consulta de usuário: " . $conn->error);
         }
 
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT); // Criptografar a senha
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $funcao = 'O';
         $stmt->bind_param("sss", $name, $funcao, $hashedPassword);
 
@@ -74,6 +95,7 @@
 
             if ($stmt->execute()) {
                 echo ">> ONG CADASTRADA COM SUCESSO <<";
+                $_SESSION['id_admin_ong'] = $conn->insert_id;
             } else {
                 echo "Erro ao cadastrar administrador_ong: " . $stmt->error;
                 exit;

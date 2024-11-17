@@ -2,8 +2,8 @@
 include('connection.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = trim($_POST['name'] ?? '');
-    $email = trim($_POST['email'] ?? '');
+    $name = $_POST['name'] ?? '';
+    $email = $_POST['email'] ?? '';
     $selectONG = $_POST['select-ong'] ?? '';
     $donationType = $_POST['tipo-doacao'] ?? '';
     $value = $_POST['valor'] ?? '';
@@ -11,7 +11,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $amountFood = $_POST['quantidade-alimentos'] ?? '';
     $amountClothing = $_POST['quantidade-roupas'] ?? '';
 
-    $quantidade = $donationType === 'dinheiro' ? $value : ($amountFood ?? $amountClothing);
+    $queryVerificarONG = "SELECT id_admin_ong FROM administrador_ong WHERE id_admin_ong = ?";
+    $stmt = $conn->prepare($queryVerificarONG);
+    $stmt->bind_param("i", $selectONG);
+    $stmt->execute();
+    $stmt->store_result();
+
+    var_dump($selectONG);
+
+
+    if ($stmt->num_rows == 0) {
+        die("Erro: A ONG selecionada não existe.");
+    }
+    $stmt->close();
+
+    if ($donationType === 'dinheiro') {
+        $quantidade = $value;
+    } elseif ($donationType === 'alimentos') {
+        $quantidade = $amountFood;
+    } elseif ($donationType === 'roupas') {
+        $quantidade = $amountClothing;
+    } else {
+        die("Erro: Tipo de doação inválido.");
+    }
 
     if (!$quantidade || $quantidade <= 0) {
         die("Erro: Quantidade inválida para o tipo de doação.");
@@ -30,11 +52,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!$stmt) {
             throw new Exception("Erro ao preparar a consulta de doação: " . $conn->error);
         }
+
         $stmt->bind_param("isiss", $selectONG, $donationType, $quantidade, $statusDoacao, $dataRecebe);
         $stmt->execute();
         $idDoacao = $conn->insert_id;
 
-        $idDoador = null;
+        $idDoador = null;  
         $idVoluntario = null;
 
         $stmt = $conn->prepare(
@@ -50,14 +73,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $conn->commit();
 
         echo "Doação registrada com sucesso!";
-        header("Location: ong-register.php");
+        header("Location: donations-volunteer.php?alert=success&message=Doação registrada com sucesso");
+        exit();
     } catch (Exception $e) {
         $conn->rollback();
+        header("Location: donations-volunteer.php?alert=error&message=" . urlencode($e->getMessage()));
+    exit();
         echo "Erro: " . $e->getMessage();
-        header("Location: search-ong.php");
+
     } finally {
         $stmt->close();
         $conn->close();
     }
 }
+
 ?>
