@@ -59,45 +59,29 @@
             <h1>Feedback do Evento</h1>
     
             <form id="form" name="form" method="POST" action="form-feedback-process.php">
+                <input type="hidden" name="id_evento" value="<?php echo isset($_GET['id_evento']) ? $_GET['id_evento'] : ''; ?>">
 
                 <div class="full-inputBox">
-                <label for="rating"><b>Avaliação do Evento: *</b></label>
-                <div id="rating" class="rating-options">
-                    <label>
-                        <input type="radio" name="rating" value="1" required>
-                        1 - Péssimo
-                    </label><br>
-                    <label>
-                        <input type="radio" name="rating" value="2">
-                        2 - Ruim
-                    </label><br>
-                    <label>
-                        <input type="radio" name="rating" value="3">
-                        3 - Regular
-                    </label><br>
-                    <label>
-                        <input type="radio" name="rating" value="4">
-                        4 - Bom
-                    </label><br>
-                    <label>
-                        <input type="radio" name="rating" value="5">
-                        5 - Excelente
-                    </label>
+                    <label for="rating"><b>Avaliação do Evento: *</b></label>
+                    <div id="rating" class="rating-options">
+                        <label><input type="radio" name="rating" value="1" required>1 - Péssimo</label><br>
+                        <label><input type="radio" name="rating" value="2">2 - Ruim</label><br>
+                        <label><input type="radio" name="rating" value="3">3 - Regular</label><br>
+                        <label><input type="radio" name="rating" value="4">4 - Bom</label><br>
+                        <label><input type="radio" name="rating" value="5">5 - Excelente</label>
+                    </div>
+                    <span class="span-required">Selecione uma avaliação para o evento.</span>
                 </div>
-                <span class="span-required">Selecione uma avaliação para o evento.</span>
-            </div>
 
                 <div class="full-inputBox">
-                    <label for="description"><b>    Deixe um comentário sobre o Evento: (opcional)</b></label>
+                    <label for="description"><b>Deixe um comentário sobre o Evento: (opcional)</b></label>
                     <textarea id="description" name="description" class="required" placeholder="Insira a descrição do evento" oninput="maxLengthValidate()"></textarea>
                     <span class="span-required">A descrição não pode conter mais de 1000 caracteres</span>
                 </div>
 
-
                 <div class="btn-feedback">
-                    <input id='submit' type="submit" value="Enviar Feedback" class="feedback-btn" onclick="btnRegisterOnClick(event)">
+                    <input id='submit' type="submit" value="Enviar Feedback" class="feedback-btn">
                 </div>
-
             </form>
         </section>
     </section>

@@ -3,7 +3,10 @@ include('connection.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $id_evento = $_GET['id_evento'] ?? null;
+    $id_evento = $_POST['id_evento'] ?? null;
+    if ($id_evento === null) {
+        die("Erro: ID do evento não encontrado.");
+    }
 
     $id_voluntario = 7;
 
@@ -22,7 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("iiis", $id_voluntario, $id_evento, $rating, $description);
 
     if ($stmt->execute()) {
-        echo "Feedback enviado com sucesso! Obrigado por compartilhar sua opinião.";
+        header("Location: home-volunteer.php");
+        exit();
     } else {
         echo "Erro: Não foi possível enviar o feedback. Tente novamente mais tarde.";
     }
