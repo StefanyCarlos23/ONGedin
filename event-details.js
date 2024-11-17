@@ -1,7 +1,8 @@
 let isLoggedIn = false;
 let isSubscribed = false;
+let debounceTimer;
 
-function inscreverEvento() {
+function subscribeEvent() {
     if (!isLoggedIn) {
         alert("Você precisa estar logado para se inscrever no evento.");
         return;
@@ -11,11 +12,11 @@ function inscreverEvento() {
         isSubscribed = true;
         document.getElementById("inscrever-btn").innerText = "Inscrito";
         document.getElementById("inscrever-btn").style.backgroundColor = "#b9b9b9";
-        mostrarBotaoNotificacoes();
+        showNotificationButton();
     }
 }
 
-function mostrarBotaoNotificacoes() {
+function showNotificationButton() {
     const btnNotificacoes = document.createElement("button");
     btnNotificacoes.innerText = "Ativar Notificações";
     btnNotificacoes.id = "notificacoes-btn";
@@ -24,13 +25,33 @@ function mostrarBotaoNotificacoes() {
     document.querySelector(".image-btn").appendChild(btnNotificacoes);
 }
 
-function ativarNotificacoes() {
+function activateNotifications() {
     const btnNotificacoes = document.getElementById("notificacoes-btn");
     btnNotificacoes.style.backgroundColor = "#1bce00";
     btnNotificacoes.disabled = true;
 }
 
-let debounceTimer;
+function submitFeedback() {
+    if (!isLoggedIn) {
+        alert("Você precisa estar logado para realizar o feedback.");
+        return;
+    }
+
+    if (!isSubscribed) {
+        alert("Você precisa estar inscrito no evento para realizar o feedback.");
+        return;
+    }
+
+    const eventIdElement = document.getElementById('id_evento');
+    const eventId = eventIdElement ? eventIdElement.value : null;
+
+    if (!eventId) {
+        alert("Erro ao localizar o ID do evento.");
+        return;
+    }
+
+    window.location.href = `feedback-form.php?id_evento=${eventId}`;
+}
 
 function showSuggestions(term) {
     clearTimeout(debounceTimer);
@@ -66,6 +87,7 @@ function showSuggestions(term) {
                 });
 
                 suggestionsContainer.style.display = 'block';
+                suggestionsContainer.classList.add('show'); 
             })
             .catch(error => console.error('Erro ao buscar sugestões:', error));
     }, 300);
@@ -74,3 +96,9 @@ function showSuggestions(term) {
 document.getElementById('search-input').addEventListener('input', function() {
     showSuggestions(this.value);
 });
+
+function selectSuggestion(value) {
+    document.getElementById('search-input').value = value;
+    document.getElementById('suggestions').innerHTML = '';
+    document.getElementById('suggestions').style.display = 'none';
+}

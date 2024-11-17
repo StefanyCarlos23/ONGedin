@@ -156,10 +156,14 @@ button{
     font-size: 18px;
     border-radius: 10px;
     transition: color 0.1s;
+    border: 1px solid #b9b9b9;
 }
 
-.search-bar .search button:active{
+.search-bar .search .search-btn:active{
     color: #666666;
+}
+
+.search-bar .search .search-btn:hover {
     background-color: #4d909a;
     transition: 0.4s;
 }

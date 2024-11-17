@@ -11,8 +11,8 @@
         <section>
             <div class="nav-container">
                 <nav class="nav">
-                    <a href="home-without-login.html">
-                        <img src="images/ongedin-logo.png" alt="ongedin-logo">
+                    <a href="home-without-login.php">
+                        <img src="images/ongedin-logo-2.png" alt="ongedin-logo">
                     </a>
                     <ul class="ul">
                         <ul class="ul-text">
@@ -21,7 +21,7 @@
                             <a href="choose-register.php">Cadastrar-se</a>
                             <a href="help-without-login.php">Suporte</a>
                         </ul>
-                        <a href="profile.html">
+                        <a href="login.php">
                             <img src="images/perfil.png" alt="ongedin-logo">
                         </a>
                     </ul>

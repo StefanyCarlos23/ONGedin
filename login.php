@@ -19,15 +19,16 @@ if (isset($_SESSION['error_message'])) {
         <div class="nav-container">
             <nav class="nav">
                 <a href="home-without-login.php">
-                    <img src="images/ongedin-logo.png" alt="ongedin-logo">
+                    <img src="images/ongedin-logo-2.png" alt="ongedin-logo">
                 </a>
                 <ul class="ul">
                     <ul class="ul-text">
                         <a href="home-without-login.php">Início</a>
                         <a href="search-without-login.php">Pesquisar</a>
+                        <a href="choose-register.php">Cadastrar-se</a>
                         <a href="help-without-login.php">Suporte</a>
                     </ul>
-                    <a href="profile.php">
+                    <a href="login.php">
                         <img src="images/perfil.png" alt="ongedin-logo">
                     </a>
                 </ul>

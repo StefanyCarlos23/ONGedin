@@ -10,20 +10,20 @@
     <header>
         <div class="container">
             <nav class="nav">
-                <a href="home.html">
+                <a href="home.php">
                     <img src="images/ongedin-logo.png" alt="ongedin-logo">
                 </a>
                 <ul class="ul">
                     <ul class="ul-text">
-                        <a href="home.html">Início</a>
-                        <a href="search.html">Pesquisar</a>
-                        <a href="donations.html">Doações</a>
-                        <a href="help.html">Suporte</a>
+                        <a href="home.php">Início</a>
+                        <a href="search.php">Pesquisar</a>
+                        <a href="donations.php">Doações</a>
+                        <a href="help.php">Suporte</a>
                     </ul>
-                    <a href="notification.html">
+                    <a href="notification.php">
                         <img src="images/notificação.png" alt="notificações">
                     </a>
-                    <a href="profile.html">
+                    <a href="profile.php">
                         <img src="images/perfil.png" alt="perfil">
                     </a>
                 </ul>
@@ -60,7 +60,6 @@
     </footer>
 
     <script>
-        // Função para limpar as notificações
         document.querySelector('.clear-notifications').addEventListener('click', function() {
             const notificationList = document.querySelector('.notification-list');
             notificationList.innerHTML = '<p>Não há notificações.</p>';

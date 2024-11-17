@@ -246,6 +246,26 @@ if ($resultEvents !== false) {
         nav{
             border-bottom: 3px solid #87BFC7;
         }
+
+        .search-bar .search .search-btn:hover {
+            background-color: #4d909a;
+            transition: 0.4s;
+        }
+
+        .search-bar .search .search-btn:active{
+            color: #666666;
+            background-color: #4d909a;
+        }
+
+        .search-bar .search .clean:hover{
+            background-color: #909090;
+            transition: 0.4s;
+        }
+
+        .search-bar .search .clean:active{
+            color: #666666;
+            background-color: #909090;
+        }
     </style>
 <body>
     <header>
@@ -258,7 +278,7 @@ if ($resultEvents !== false) {
                     <ul class="ul-text">
                         <a href="home-volunteer.php">Início</a>
                         <a href="search-volunteer.php">Pesquisar</a>
-                        <a href="donations-volunteer.php">Doações</a>
+                        <a href="donations.php">Doações</a>
                         <a href="help-volunteer.php">Suporte</a>
                     </ul>
                     <a href="profile-volunteer.php">
@@ -279,7 +299,7 @@ if ($resultEvents !== false) {
             <ul class="nav-list">
                 <li><a href="home-volunteer.php">Início</a>
                 <li><a href="search-volunteer.php">Pesquisar</a></li>
-                <li><a href="donations-volunteer.php">Doações</a></li>
+                <li><a href="donations.php">Doações</a></li>
                 <li><a href="help-volunteer.php">Suporte</a></li>
                 <li><a href="profile-volunteer.php">Perfil</a></li>
             </ul>
@@ -456,7 +476,7 @@ if ($resultEvents !== false) {
             <?php foreach ($ongsResults as $ong): ?>
                 <div class="event">
                     <div class="image-1">
-                        <a href="<?= $ong['type'] === 'ong' ? 'ong-details.php?title=' . urlencode($ong['nome']) : 'event-details.php?title=' . urlencode($ong['titulo']); ?>">
+                        <a href="<?= $ong['type'] === 'ong' ? 'ongdetails.php?title=' . urlencode($ong['nome']) : 'event-details.php?title=' . urlencode($ong['titulo']); ?>">
                             <img src="<?= $ong['type'] === 'ong' ? $ong['foto'] : 'images/default-image.png'; ?>" alt="Imagem da <?= htmlspecialchars($ong['type'] === 'ong' ? $ong['nome'] : $ong['titulo']); ?>">
                         </a>
                     </div>
@@ -467,7 +487,7 @@ if ($resultEvents !== false) {
                         <div class="more-details">
                             <p><?= htmlspecialchars($ong['type'] === 'ong' ? $ong['descricao'] : $ong['descricao'] ?? 'Descrição não disponível.'); ?></p>
                             <?php if ($ong['type'] === 'ong'): ?>
-                                <a href="ong-details.php?title=<?= urlencode($ong['nome']); ?>" class="btn">Ver mais</a>
+                                <a href="ongdetails.php?title=<?= urlencode($ong['nome']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>" class="btn">Ver mais</a>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -482,7 +502,7 @@ if ($resultEvents !== false) {
                 <?php foreach ($randomOngs as $ong): ?>
                     <div class="event">
                         <div class="image-1">
-                            <a href="ong-details.php?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>">
+                            <a href="ongdetails.php?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>">
                                 <img src="<?= $ong['foto']; ?>" alt="Logo da <?= htmlspecialchars($ong['nome_ong']); ?>">
                             </a>
                         </div>
@@ -492,7 +512,7 @@ if ($resultEvents !== false) {
                             </div>
                             <div class="more-details">
                                 <p><?= htmlspecialchars($ong['descricao']); ?></p>
-                                <a href="ong-details.php?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>" class="btn">Ver mais</a>
+                                <a href="ongdetails.php?title=<?= urlencode($ong['nome_ong']); ?>&imgSrc=<?= urlencode($ong['foto']); ?>" class="btn">Ver mais</a>
                             </div>
                         </div>
                     </div>
@@ -585,7 +605,7 @@ if ($resultEvents !== false) {
                             <p><?= isset($event['nome_ong']) ? 'Organizado por: ' . htmlspecialchars($event['nome_ong']) : ''; ?></p>
                         </div>
                         <div class="more-details">
-                            <a href="event-details.php?title=<?= urlencode($event['titulo']); ?>" class="btn">Ver mais</a>
+                            <a href="event-details.php?titulo=<?= urlencode($event['titulo']); ?>" class="btn">Ver mais</a>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -624,7 +644,7 @@ if ($resultEvents !== false) {
                                         <p>Organizado por: <?= htmlspecialchars($row['nome_ong']); ?></p>
                                     </div>
                                     <div class="more-details">
-                                        <a href="event-details.php?title=<?= urlencode($row['titulo']); ?>" class="btn">Ver mais</a>
+                                        <a href="event-details.php?titulo=<?= urlencode($event['titulo']); ?>" class="btn">Ver mais</a>
                                     </div>
                                 </div>
                                 <?php
@@ -649,7 +669,7 @@ if ($resultEvents !== false) {
                                 <p>Organizado por: <?= htmlspecialchars($event['nome_ong']); ?></p>
                             </div>
                             <div class="more-details">
-                                <a href="event-details.php?title=<?= urlencode($event['titulo']); ?>" class="btn">Ver mais</a>
+                                <a href="event-details.php?titulo=<?= urlencode($event['titulo']); ?>" class="btn">Ver mais</a>
                             </div>
                         </div>
                     <?php endforeach; ?>
