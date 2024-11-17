@@ -11,7 +11,7 @@
         <section>
             <div class="nav-container">
                 <nav class="nav">
-                    <a href="home-without-login.html">
+                    <a href="home-without-login.php">
                         <img src="images/ongedin-logo-2.png" alt="ongedin-logo">
                     </a>
                     <ul class="ul">
