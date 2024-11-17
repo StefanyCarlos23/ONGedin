@@ -25,9 +25,10 @@ if (isset($_SESSION['error_message'])) {
                     <ul class="ul-text">
                         <a href="home-without-login.php">Início</a>
                         <a href="search-without-login.php">Pesquisar</a>
+                        <a href="choose-register.php">Cadastrar-se</a>
                         <a href="help-without-login.php">Suporte</a>
                     </ul>
-                    <a href="profile.php">
+                    <a href="login.php">
                         <img src="images/perfil.png" alt="ongedin-logo">
                     </a>
                 </ul>

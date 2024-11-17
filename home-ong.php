@@ -18,7 +18,6 @@
                     <ul class="ul-text">
                         <a href="home-ong.php">Início</a>
                         <a href="search-ong.php">Pesquisar</a>
-                        <a href="donations-ong.php">Doações</a>
                         <a href="manage_event.php">Gerenciamento de Eventos</a>
                         <a href="report.php">Relatório</a>
                         <a href="help-ong.php">Suporte</a>
