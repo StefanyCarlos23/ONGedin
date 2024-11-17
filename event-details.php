@@ -353,7 +353,7 @@ while ($evento = $result_similares->fetch_assoc()) {
         text-align: center;
     }
 
-    .event-left p {
+    .event-left .ong {
         margin-bottom: 15px;
         font-size: 18px;
         color: #666666;
@@ -430,6 +430,88 @@ while ($evento = $result_similares->fetch_assoc()) {
         background-color: #4d909a;
     }
 
+    .more {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 auto;
+        margin-bottom: 80px;
+        width: 80%;
+    }
+
+    .more .event-left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        flex: 1;
+    }
+
+    .more .event-left .title{
+        font-size: 20px;
+        color: #666666;
+    }
+
+    .more .event-left .none {
+        margin-top: 40px;
+        text-align: center;
+        font-size: 16px;
+        color: #666;
+    }
+
+    .event-item {
+        display: flex;
+        flex-direction: row;
+        background-color: #f4f4f4;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+        justify-content: space-between;
+        align-items: center;
+        min-width: 300px;
+    }
+
+    .event-nome {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        text-align: center;
+        margin-left: 20px;
+        white-space: nowrap;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .event-nome p {
+        color: #666666;
+        font-size: 16px;
+        margin-right: 10px;
+    }
+
+    .ver-mais {
+        padding: 10px 15px;
+        background-color: #b9b9b9;
+        color: white;
+        border: none;
+        text-decoration: none;
+        font-size: 16px;
+        border-radius: 10px;
+        transition: color 0.1s;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
+    .ver-mais:hover {
+        background-color: #909090;
+        transition: 0.4s;
+    }
+
+    .ver-mais:active {
+        color: #666666;
+        background-color: #909090;
+    }
+
     footer{
         border-top: 3px solid #87BFC7;
         background-color: #F6F6F6;
@@ -483,7 +565,7 @@ while ($evento = $result_similares->fetch_assoc()) {
             <?php if ($eventDetails): ?>
                 <div class="event-layout">
                     <div class="event-left">
-                        <p><strong>ONG responsável:</strong> <?php echo htmlspecialchars($eventDetails['nome']); ?></p>
+                        <p class="ong"><strong>ONG responsável:</strong> <?php echo htmlspecialchars($eventDetails['nome']); ?></p>
                         <div class = "image-box">
                             <img class="ong-image" src="<?= $fotoOng; ?>" alt="Logo da <?= $nomeOng; ?>">
                         </div>
