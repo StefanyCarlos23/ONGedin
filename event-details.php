@@ -42,7 +42,7 @@ function getEventDetails($conn, $titulo) {
         SELECT e.titulo, e.descricao, e.local_rua, e.local_numero, e.local_complemento, e.local_bairro, 
             e.local_cidade, e.local_estado, e.local_pais, 
             ae.data_evento, ae.horario_evento, ao.area_atuacao, ao.endereco_rua, ao.endereco_bairro, ao.endereco_cidade,
-            u.nome
+            u.nome, ao.id_admin_ong
         FROM evento e
         JOIN admin_ong_cadastra_evento ae ON e.id_evento = ae.id_evento
         JOIN administrador_ong ao ON ae.id_admin_ong = ao.id_admin_ong
@@ -58,6 +58,34 @@ if (isset($_GET['titulo'])) {
 }
 
 $horario = new DateTime($eventDetails['horario_evento']);
+$dataEvento = DateTime::createFromFormat('Y-m-d', $eventDetails['data_evento']);
+
+function getOngImage($conn, $adminOngId) {
+    $sql = "SELECT p.foto, u.nome AS nome_ong
+            FROM perfil p
+            JOIN usuario u ON p.id_perfil = u.id_usuario
+            JOIN administrador_ong ao ON u.id_usuario = ao.id_admin_ong
+            WHERE ao.id_admin_ong = ?";
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $adminOngId);
+    $stmt->execute();
+    $perfil = $stmt->get_result()->fetch_assoc();
+
+    if (!$perfil || !$perfil['foto']) {
+        $perfil['foto'] = 'caminho/para/imagem/alternativa.jpg';
+    }
+
+    return $perfil;
+}
+
+if ($eventDetails) {
+    $adminOngId = $eventDetails['id_admin_ong'];
+    $ongDetails = getOngImage($conn, $adminOngId);
+
+    $fotoOng = $ongDetails['foto'];
+    $nomeOng = htmlspecialchars($ongDetails['nome_ong']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -249,62 +277,84 @@ $horario = new DateTime($eventDetails['horario_evento']);
         transition: 0.4s;
     }
 
-    .event-details{
+    .event-details {
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
+        margin: 30px auto 70px;
         width: 80%;
-        margin: 30px auto;
-        margin-bottom: 70px;
     }
 
-    .event-details .container{
+    .event-details .container {
         display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
+        flex-direction: column;
+        width: 100%;
     }
 
-    .event-details .event-text{
+    .event-layout {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .event-left {
+        flex: 1;
+        text-align: center;
+    }
+
+    .event-left p {
+        margin-bottom: 15px;
+        font-size: 18px;
         color: #666666;
     }
 
-    .event-details .event-text h3{
+    .event-left .image-box {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         text-align: center;
-        color: #87BFC7;
-        font-size: 40px;
+        background-color: rgb(255, 255, 255);
+        flex: 1;
+        border-radius: 25px;
+        box-shadow: 2px 2px 0.8em rgba(47, 47, 47, 0.3);
+        height: 200px;
+        overflow: hidden;
+        margin-top: 20px;
+    }
+
+    .event-left .image-box img {
+        width: 60%;
+        object-fit: cover;
         margin: 0 auto;
-        margin-top: 10px;
     }
 
-    .more-details {
-        margin-top: 40px;
-        padding-top: 20px;
-        padding-bottom: 40px;
-        padding-left: 40px;
-        padding-right: 40px;
-        background-color: #ffffff;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .detail-item {
-        font-size: 16px;
-        line-height: 1.5em;
-    }
-
-    .event-details .event-text p{
-        line-height: 1.5em;
+    .event-right {
+        flex: 2;
         text-align: left;
+        padding-left: 50px;
+    }
+
+    .event-right h3 {
+        margin-bottom: 20px;
+        color: #87BFC7;
+        font-size: 28px;
+    }
+
+    .event-details-list p {
+        margin-bottom: 15px;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #666666;
     }
 
     .event-button {
-        margin-top: 30px;
         display: flex;
         justify-content: center;
     }
 
-    .event-details .event-button .btn{
+    .event-details .event-button .btn {
         display: flex;
         align-items: center;
         margin-top: 20px;
@@ -320,12 +370,12 @@ $horario = new DateTime($eventDetails['horario_evento']);
         cursor: pointer;
     }
 
-    .event-details .event-button .btn:hover{
+    .event-details .event-button .btn:hover {
         background-color: #4d909a;
         transition: 0.4s;
     }
 
-    .event-details .event-button .btn:active{
+    .event-details .event-button .btn:active {
         color: #666666;
         background-color: #4d909a;
     }
@@ -380,23 +430,23 @@ $horario = new DateTime($eventDetails['horario_evento']);
 
     <section class="event-details">
         <div class="container">
-            <div class="event-text">
-                <?php if ($eventDetails): ?>
-                    <h3><?php echo htmlspecialchars($eventDetails['titulo']); ?></h3>
-                    <div class="more-details">
-                        <div class="detail-item">
-                            <p><strong>Data:</strong> <?php echo htmlspecialchars($eventDetails['data_evento']); ?></p>
+            <?php if ($eventDetails): ?>
+                <div class="event-layout">
+                    <div class="event-left">
+                        <p><strong>ONG responsável:</strong> <?php echo htmlspecialchars($eventDetails['nome']); ?></p>
+                        <div class = "image-box">
+                            <img class="ong-image" src="<?= $fotoOng; ?>" alt="Logo da <?= $nomeOng; ?>">
                         </div>
-                        <div class="detail-item">
+                        <div class="event-button">
+                            <button class="btn" id="subscribe-btn" onclick="subscribeEvent()">Inscrever-se</button>
+                        </div>
+                    </div>
+                    <div class="event-right">
+                        <h3><?php echo htmlspecialchars($eventDetails['titulo']); ?></h3>
+                        <div class="event-details-list">
+                            <p><strong>Data:</strong> <?php echo $dataEvento->format('d/m/Y'); ?></p>
                             <p><strong>Horário:</strong> <?php echo $horario->format('H\hi'); ?></p>
-                        </div>
-                        <div class="detail-item">
-                            <p><strong>ONG responsável:</strong> <?php echo htmlspecialchars($eventDetails['nome']); ?></p>
-                        </div>
-                        <div class="detail-item">
                             <p><strong>Descrição:</strong> <?php echo nl2br(htmlspecialchars($eventDetails['descricao'])); ?></p>
-                        </div>
-                        <div class="detail-item">
                             <p><strong>Local:</strong>
                                 <?php 
                                     echo htmlspecialchars($eventDetails['local_rua']) . ", " . 
@@ -412,13 +462,10 @@ $horario = new DateTime($eventDetails['horario_evento']);
                             </p>
                         </div>
                     </div>
-                    <div class="event-button">
-                        <button class="btn" id="subscribe-btn" onclick="subscribeEvent()">Inscrever-se</button>
-                    </div>
-                <?php else: ?>
-                    <p>Evento não encontrado.</p>
-                <?php endif; ?>
-            </div>
+                </div>
+            <?php else: ?>
+                <p>Evento não encontrado.</p>
+            <?php endif; ?>
         </div>
     </section>
     <script src="event-details.js"></script>
