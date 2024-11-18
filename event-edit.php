@@ -60,15 +60,19 @@ $conn->close();
     <header>
         <div class="nav-container">
             <nav class="nav">
-                <a href="home-without-login.php">
+                <a href="home-ong.php">
                     <img src="images/ongedin-logo-2.png" alt="ongedin-logo">
                 </a>
                 <ul class="ul">
                     <ul class="ul-text">
-                        <a href="home-without-login.php">Início</a>
-                        <a href="search-without-login.php">Pesquisar</a>
-                        <a href="help-without-login.php">Suporte</a>
+                        <a href="home-ong.php">Início</a>
+                        <a href="search-ong.php">Pesquisar</a>
+                        <a href="event-management.php">Gerenciamento de Eventos</a>
+                        <a href="help-ong.php">Suporte</a>
                     </ul>
+                    <a href="profile-ong.php">
+                        <img src="images/perfil.png" alt="ongedin-logo">
+                    </a>
                 </ul>
             </nav>
         </div>
@@ -93,7 +97,7 @@ $conn->close();
         
                 <section class="btn">
                     <div class="btn-back">
-                        <a class="back-btn" href="choose-register.php">Voltar</a>
+                        <a class="back-btn" href="event-management.php">Voltar</a>
                     </div>
                 </section>
 

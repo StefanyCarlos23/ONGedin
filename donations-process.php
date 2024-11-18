@@ -73,11 +73,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $conn->commit();
 
         echo "Doação registrada com sucesso!";
-        header("Location: donations-volunteer.php?alert=success&message=Doação registrada com sucesso");
+        header("Location: home-volunteer.php?alert=success&message=Doação registrada com sucesso");
         exit();
     } catch (Exception $e) {
         $conn->rollback();
-        header("Location: donations-volunteer.php?alert=error&message=" . urlencode($e->getMessage()));
+        header("Location: home-volunteer.php?alert=error&message=" . urlencode($e->getMessage()));
     exit();
         echo "Erro: " . $e->getMessage();
 

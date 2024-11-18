@@ -20,7 +20,6 @@
                         <a href="home-ong.php">Início</a>
                         <a href="search-ong.php">Pesquisar</a>
                         <a href="event-management.php">Gerenciamento de Eventos</a>
-                        <a href="report.php">Relatório</a>
                         <a href="help-ong.php">Suporte</a>
                     </ul>
                     <a href="profile-ong.php">

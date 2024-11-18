@@ -10,16 +10,17 @@
     <header>
         <div class="nav-container">
             <nav class="nav">
-                <a href="home.html">
+                <a href="home-ong.php">
                     <img src="images/ongedin-logo-2.png" alt="ongedin-logo">
                 </a>
                 <ul class="ul">
                     <ul class="ul-text">
-                        <a href="home.html">Início</a>
-                        <a href="search.html">Pesquisar</a>
-                        <a href="help.html">Suporte</a>
+                        <a href="home-ong.php">Início</a>
+                        <a href="search-ong.php">Pesquisar</a>
+                        <a href="event-management.php">Gerenciamento de Eventos</a>
+                        <a href="help-ong.php">Suporte</a>
                     </ul>
-                    <a href="profile.html">
+                    <a href="profile-ong.php">
                         <img src="images/perfil.png" alt="ongedin-logo">
                     </a>
                 </ul>
@@ -40,25 +41,6 @@
                 <button onclick="editName()">Editar Nome</button>
             </div>
         </section>
-
-        <section class="event-history">
-            <h2>Histórico de Eventos</h2>
-            <ul class="event-list">
-                <li>
-                    <strong>Feira de Adoção de Animais</strong>
-                    <p>Data: 12/10/2024</p>
-                </li>
-                <li>
-                    <strong>Campanha de Reflorestamento</strong>
-                    <p>Data: 05/09/2024</p>
-                </li>
-                <li>
-                    <strong>Doação de Alimentos</strong>
-                    <p>Data: 15/08/2024</p>
-                </li>
-            </ul>
-        </section>
-
         <section class="logout-section">
             <button onclick="logout()">Sair</button>
         </section>
@@ -87,7 +69,7 @@
         }
 
         function logout() {
-            window.location.href = 'login.html';
+            window.location.href = 'login.php';
         }
     </script>
 </body>

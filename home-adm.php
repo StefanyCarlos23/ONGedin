@@ -17,9 +17,8 @@
                     <ul class="ul-text">
                         <a href="home-adm.php">Início</a>
                         <a href="search-adm.php">Pesquisar</a>
-                        <a href="manage_profile.php">Gerenciamento de Perfis</a>
-                        <a href="vouchers.php">Comprovantes de Participação</a>
-                        <a href="help-adm.php">Suporte</a></li>
+                        <a href="profile-management.php">Gerenciamento de Perfis</a>
+                        <a href="help-adm.php">Suporte</a>
                     </ul>
                     <a href="profile-adm.php">
                         <img src="images/perfil.png" alt="ongedin-logo">
