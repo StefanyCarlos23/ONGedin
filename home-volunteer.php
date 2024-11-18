@@ -67,7 +67,7 @@
                         <div class="image-wrapper">
                             <img src="images/evento1.jpg" alt="Imagem Primeiro Evento em Destaque">
                             <div class="overlay">
-                                <a href="#" class="btn">Ver detalhes</a>
+                                <a href="search-volunteer.php" class="btn">Ver detalhes</a>
                             </div>
                         </div>
                     </div>
@@ -76,7 +76,7 @@
                         <div class="image-wrapper">
                             <img src="images/evento2.jpg" alt="Imagem Segundo Evento em Destaque">
                             <div class="overlay">
-                                <a href="#" class="btn">Ver detalhes</a>
+                                <a href="search-volunteer.php" class="btn">Ver detalhes</a>
                             </div>
                         </div>
                     </div>
